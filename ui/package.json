@@ -4,9 +4,13 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
+    "build": "prisma generate && next build",
+    "browser": "npx puppeteer browsers install chrome",
     "start": "next start",
     "lint": "next lint"
+  },
+  "prisma": {
+    "seed": "ts-node --compiler-options {\"module\":\"CommonJS\"} prisma/seed.ts"
   },
   "dependencies": {
     "@prisma/adapter-pg": "^5.10.2",
@@ -14,6 +18,7 @@
     "@types/node": "20.11.24",
     "@types/react": "18.2.61",
     "@types/react-dom": "18.2.19",
+    "@vercel/node": "^3.0.21",
     "@vercel/postgres": "^0.7.2",
     "antd": "^5.15.0",
     "autoprefixer": "10.4.18",
@@ -25,6 +30,7 @@
     "pg": "^8.11.3",
     "postcss": "8.4.35",
     "prisma": "^5.10.2",
+    "puppeteer": "^22.4.0",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "tailwindcss": "3.4.1",

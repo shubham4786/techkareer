@@ -4,7 +4,7 @@ const prisma = new PrismaClient();
 
 async function main() {
     const author = await prisma.author.upsert({
-        where: { id: 'd2c0ef68-b42c-46e3-bac2-fd616e263413' },
+        where: { id: '6b041df1-d459-4537-92da-ffcc767a6e50' },
         update: {},
         create: {
             userid: 'itsharshag',

@@ -5,25 +5,33 @@ export default async function Home() {
   
   async function addData (data: FormData) {
     "use server";
-    const url = data.get("url")?.valueOf();
     
     
     try {
+      const url = data.get("url")?.valueOf();
       if(typeof url !== "string" || url === ""){
         throw new Error("Invalid URL.");
       }
       console.log("Start: ", url);
-      const encodedURL = encodeURIComponent(url);
-      const res = await fetch(`https://scraper-2mg4.onrender.com/getContent?url=${encodedURL}`);
+      
+      const res = await fetch('/api/getContent', {
+        method: 'POST',
+        headers: {'Content-Type': "application/json"},
+        body: JSON.stringify({
+          url: url
+        })
+      });
+      
       const response = await res.json();
       console.log(response);
-  
-      if(res.status != 200){
+
+      if(response.status != 200){
         throw new Error("Something went wrong with the OpenAI servers.\nPlease try again.");
       }
+        
   
       console.log("got data from main backend");
-      
+
   
       const commitment = await response.commitment;
       const description = await response.description;
@@ -82,8 +90,8 @@ export default async function Home() {
 
        
     } 
-    catch (error) {      
-      console.log("Error in addData: ", error);   
+    catch (error: any) {      
+      console.log("Error in addData: ", error.message);   
       redirect('/failure');   
     }
 
