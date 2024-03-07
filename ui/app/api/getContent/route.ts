@@ -1,18 +1,22 @@
 
 import puppeteer from 'puppeteer';
 import OpenAI from 'openai';
+import { NextResponse } from 'next/server';
 
 const openai = new OpenAI({ apiKey: "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" });
 
 
 
-export async function POST(req: Request) {
+export async function GET(req: Request) {
   try {
-    const body = await req.json();
+    
+    const url = new URL(req.url);
+    const fullURL: any = url.searchParams.get("url");
+
 
     const browser = await puppeteer.launch();
     const page = await browser.newPage();
-    await page.goto(body.url);
+    await page.goto(decodeURIComponent(fullURL));
 
     const userNameEl = await page.$('div[data-testid="User-Name"]');
     const userName = await page.evaluate((el: HTMLElement | null) => (el ? el.innerText : '-'), userNameEl);
@@ -68,7 +72,7 @@ export async function POST(req: Request) {
 
     await browser.close();
 
-    return new Response(JSON.stringify({
+    return NextResponse.json({
         status: 200,
         commitment: commitment ? commitment : "-",
         description: description ? description : "-",
@@ -83,15 +87,12 @@ export async function POST(req: Request) {
         userName: nextData.userName,
         userDescription: userDesc,
         org: userProf
-    }));
-
-
-
+    });
   } 
   catch (error: any) {
-    return new Response(JSON.stringify({
+    return NextResponse.json({
       status: 500,
       msg: error.message
-    }))
+    })
   }
 }

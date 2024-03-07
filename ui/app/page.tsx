@@ -13,14 +13,8 @@ export default async function Home() {
         throw new Error("Invalid URL.");
       }
       console.log("Start: ", url);
-      
-      const res = await fetch('/api/getContent', {
-        method: 'POST',
-        headers: {'Content-Type': "application/json"},
-        body: JSON.stringify({
-          url: url
-        })
-      });
+      const encodedURL = encodeURIComponent(url);
+      const res = await fetch(`/api/getContent?url=${encodedURL}`)
       
       const response = await res.json();
       console.log(response);
