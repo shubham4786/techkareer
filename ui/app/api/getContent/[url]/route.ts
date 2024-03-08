@@ -6,11 +6,18 @@ const openai = new OpenAI({ apiKey: "sk-2ipmDrHi1YbCM8qZHMAvT3BlbkFJNWzDXISCAvnN
 
 
 
-export async function GET(req: Request) {
+export async function GET(
+  req: Request,
+  { params }: {
+    params: {
+      url: any
+    }
+  }
+) {
   try {
     
-    const link = new URL(req.url);
-    const fullURL: any = link.searchParams.get("url")
+    // const { searchParams } = new URL(req.url);
+    const fullURL: any = params.url
 
     console.log("Got URL");    
 
