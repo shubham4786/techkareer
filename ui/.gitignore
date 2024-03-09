@@ -37,3 +37,19 @@ next-env.d.ts
 
 
 /chrome
+/test-results/
+/playwright-report/
+/blob-report/
+/playwright/.cache/
+/test-results/
+/playwright-report/
+/blob-report/
+/playwright/.cache/
+/test-results/
+/playwright-report/
+/blob-report/
+/playwright/.cache/
+/tests
+/tests-examples
+playwright.*
+/puppeteer-puppeteer-v22.4.1

@@ -1,8 +1,9 @@
-import { JSDOM } from 'jsdom';
 import OpenAI from 'openai';
-import { NextResponse } from 'next/server';
+import cheerio from 'cheerio';
+import puppeteer from 'puppeteer';
+import path from 'path'
 
-const openai = new OpenAI({ apiKey: "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" });
+const openai = new OpenAI({ apiKey: process.env.API_KEY });
 
 
 
@@ -13,36 +14,71 @@ export async function GET(req: Request) {
     const fullURL: any = link.searchParams.get("url")
 
     console.log("Got URL");    
+    const mainURL = decodeURIComponent(fullURL);
+    console.log(mainURL);
 
-    const page1 = await fetch(decodeURIComponent(fullURL));
-    console.log("step 1");    
-    const html1 = await page1.text();
-    console.log("step 2");    
-    const dom1 = new JSDOM(html1);
-    console.log("step 3");    
-    const document1 = dom1.window.document;
-    console.log("step 4");    
+
+    const chromePath = path.resolve(__dirname, '../../../../../chrome/linux-124.0.6343.0/chrome-linux64/chrome');
+
+    console.log(chromePath);
     
-    const userName = document1.querySelector('[data-testid="User-Name"]')?.textContent;
-    console.log("step 5");    
-    const tweetText = document1.querySelector('[data-testid="tweetText"]')?.textContent;
-    console.log("step 6");    
+    const browser = await puppeteer.launch({
+      // executablePath: chromePath,
+      headless: true,
+      args: ['--no-sandbox', '--disable-setuid-sandbox'],
+    });
+    const page = await browser.newPage();
+    await page.goto(mainURL);
+    const data = await page.title();
+
+    const regex = /on X:(.*?)(?=\/ X)/;
+
+    const match = data.match(regex);
+    const tweetContent = match ? match[1].trim() : "-";
+    
+    const regex2 = /^(.*?)(?=\s*on X:)/;
+    const match2 = data.match(regex2);
+    const userName = match2 ? match2[1].trim() : "-";
+    
+    const urlRegex = /https:\/\/([^.]+)\.com\/([^\/]+)\/status/;
+    const match3 = mainURL.match(urlRegex);
+    const userID = match3 ? match3[2] : "-";
+    
     
     const nextData = {
-      userName: userName ? userName.split('\n')[0] : "-",
-      userID: userName ? userName.split('\n')[1].substring(1) : "-",
-      tweetText: tweetText,
-      postedOn: '-',
-    };
+        userName: userName,
+        userID: userID,
+        tweetText: tweetContent,
+        postedOn: "-"
+    }
+    if(nextData.tweetText == "-"){
+        throw new Error("Puppeteer did not work.");
+    }
+
+    await browser.close();
+
+    console.log(nextData);
+
+    const browser2 = await puppeteer.launch({
+        headless: true,
+        args: ['--no-sandbox', '--disable-setuid-sandbox'],
+    });
+    const page2 = await browser2.newPage();
+    await page2.goto(`https://twitter.com/${nextData.userID}`);
+
+    const page2Content = await page2.content();
+    const $ = cheerio.load(page2Content);
+    const userDescriptionDiv = $('div[data-testid="UserDescription"]');
+    const userDesc = userDescriptionDiv.text();
+    const userProfSpan = $('span[data-testid="UserProfessionalCategory"]');
+    const userProf = userProfSpan.text();
+
+    console.log(userDesc);
+    console.log(userProf);
     
-    console.log("step 7");    
-    const page2 = await fetch(`https://twitter.com/${nextData.userID}`);
-    const html2 = await page2.text();
-    const dom2 = new JSDOM(html2);
-    const document2 = dom2.window.document;
+
+    await browser2.close();
     
-    const userDesc = document2.querySelector('[data-testid="UserDescription"]')?.textContent;
-    const userProf = document2.querySelector('[data-testid="UserProfessionalCategory"]')?.textContent;
     
     console.log("Scraped tweet data.");
     
@@ -74,6 +110,8 @@ export async function GET(req: Request) {
     const scrapedData = JSON.parse(responseContent);
     const { commitment, description, deadline, min_pay, max_pay, is_remote, location } = scrapedData;
 
+    console.log(scrapedData); 
+
 
     return Response.json({
         commitment: commitment ? commitment : "-",
@@ -84,7 +122,7 @@ export async function GET(req: Request) {
         is_remote: is_remote ? is_remote : true,
         location: location ? location : "-",
         userID: nextData.userID,
-        tweetContent: tweetText,
+        tweetContent: nextData.tweetText,
         postedOn: "-",
         userName: nextData.userName,
         userDescription: userDesc,

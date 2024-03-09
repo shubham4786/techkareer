@@ -1,8 +1,9 @@
 "use server";
 
+
 import { prisma } from "../lib/prisma";
 
-export default async function add(url: string) {
+export default async function add(url: any) {
     
     try {
         
@@ -10,10 +11,15 @@ export default async function add(url: string) {
           throw new Error("Invalid URL.");
         }
         console.log("Start: ", url);
+
+        const encodedURL = `http://localhost:3000/api/getContent?url=${url}`
+        // const encodedURL = `https://scraper-b8s8.onrender.com/getContent?url=${url}`
+        // const encodedURL = `http://localhost:4000/getContent?url=${url}`
+        // const mainURL = new URL(encodedURL);
         
-        const res = await fetch(`/api/getContent?url=${url}`)
+        const res = await fetch(encodedURL);
         
-        const response = await res.json();
+        const response = await res.json()
         console.log(response);
         if(res.status != 200){
           throw new Error(`API error: ${response.msg}`);
@@ -21,15 +27,13 @@ export default async function add(url: string) {
   
     
         console.log("got data from main backend");
-  
+        // return;
     
         const commitment = await response.commitment;
         const description = await response.description;
         const deadline = await response.deadline;
         let min_pay = await response.min_pay;
-        min_pay = parseInt(min_pay);
         let max_pay = await response.max_pay;
-        max_pay = parseInt(max_pay);
         let is_remote = await response.is_remote;
         if(is_remote != false){
           is_remote = true;
@@ -45,6 +49,8 @@ export default async function add(url: string) {
         if(!description || !userName || !userID){
           throw new Error("Something went wrong while scraping the tweet.");
         }
+
+        // return;
   
         
         await prisma.Tweet.create({
