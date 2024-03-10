@@ -17,7 +17,7 @@ export async function GET(req: Request) {
     
 
     // const browserPath = path.resolve(__dirname, "../../../../../browser/chrome.exe");
-    const browserPath2 = path.resolve("./browser/chrome.exe");
+    // const browserPath2 = path.resolve("./browser/chrome.exe");
     
 
     const localChromePath = process.env.LOCAL_BROWSER_PATH
