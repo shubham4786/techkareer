@@ -11,33 +11,48 @@ export default function Home() {
   const [retry, setRetry] = useState<boolean>(false);
   const [searching, setSearching] = useState<boolean>(false);
 
+  const [count, setCount] = useState<number>(0);
+
 
 
   useEffect(() => {
     setInfo("Some error occured. Please try again.");
     setShowSuccess(true);
     setSearching(false);
+    setCount(p => p+1);
   }, [retry])
   useEffect(() => {
     setInfo("Data added successfully")
     setShowSuccess(true);
     setSearching(false);
+    setCount(0);
   }, [success]);
 
   useEffect(() => {
     setShowSuccess(false);
+    setCount(0);
   }, []) 
 
 
   const handleSubmit = async (e: any) => {
     e.preventDefault();
+    if(url == ""){
+      alert("Please enter a valid URL.");
+      return;
+    }
+
     try {
       const res = await add(encodeURIComponent(url));
+      
+      
       if(res == 200){
         setSuccess(prev => !prev);
+        return;
       }
       else{
-        throw new Error("Please retry.");
+        if(count <= 5){
+          await handleSubmit(e);
+        }
       }
       
     } 
