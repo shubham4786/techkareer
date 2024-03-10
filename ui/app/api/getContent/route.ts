@@ -1,7 +1,6 @@
 import OpenAI from 'openai';
 import cheerio from 'cheerio';
 import puppeteer from 'puppeteer';
-import path from 'path'
 
 const openai = new OpenAI({ apiKey: process.env.API_KEY });
 
@@ -11,21 +10,14 @@ export async function GET(req: Request) {
   try {
     
     const link = new URL(req.url);
-    const fullURL: any = link.searchParams.get("url")
-
-    console.log("Got URL");    
+    const fullURL: any = link.searchParams.get("url");
     const mainURL = decodeURIComponent(fullURL);
-    console.log(mainURL);
 
-
-    const chromePath = path.resolve(__dirname, '../../../../../chrome/linux-124.0.6343.0/chrome-linux64/chrome');
-
-    console.log(chromePath);
+    const localChromePath = process.env.LOCAL_BROWSER_PATH
     
     const browser = await puppeteer.launch({
-      // executablePath: chromePath,
-      headless: true,
-      args: ['--no-sandbox', '--disable-setuid-sandbox'],
+      executablePath: localChromePath,
+      headless: true
     });
     const page = await browser.newPage();
     await page.goto(mainURL);
@@ -48,7 +40,7 @@ export async function GET(req: Request) {
     const nextData = {
         userName: userName,
         userID: userID,
-        tweetText: tweetContent,
+        tweetText: tweetContent ? tweetContent : "-",
         postedOn: "-"
     }
     if(nextData.tweetText == "-"){
@@ -57,11 +49,10 @@ export async function GET(req: Request) {
 
     await browser.close();
 
-    console.log(nextData);
 
     const browser2 = await puppeteer.launch({
-        headless: true,
-        args: ['--no-sandbox', '--disable-setuid-sandbox'],
+        executablePath: localChromePath,
+        headless: true
     });
     const page2 = await browser2.newPage();
     await page2.goto(`https://twitter.com/${nextData.userID}`);
@@ -72,10 +63,6 @@ export async function GET(req: Request) {
     const userDesc = userDescriptionDiv.text();
     const userProfSpan = $('span[data-testid="UserProfessionalCategory"]');
     const userProf = userProfSpan.text();
-
-    console.log(userDesc);
-    console.log(userProf);
-    
 
     await browser2.close();
     
@@ -102,15 +89,11 @@ export async function GET(req: Request) {
       ],
       model: 'gpt-3.5-turbo',
     });
-
-    console.log("Got OpenAI API response");
     
 
     const responseContent: any = completion.choices[0].message['content'];
     const scrapedData = JSON.parse(responseContent);
     const { commitment, description, deadline, min_pay, max_pay, is_remote, location } = scrapedData;
-
-    console.log(scrapedData); 
 
 
     return Response.json({

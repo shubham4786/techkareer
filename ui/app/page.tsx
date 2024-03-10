@@ -6,28 +6,45 @@ import add from './add';
 export default function Home() {
   const [url, setUrl] = useState<string>("");
   const [info, setInfo] = useState<string>("");
-  const [showInfo, setShowInfo] = useState<boolean>(false);
+  const [showSuccess, setShowSuccess] = useState<boolean>(false);
+  const [success, setSuccess] = useState<boolean>(false);
+  const [retry, setRetry] = useState<boolean>(false);
   const [searching, setSearching] = useState<boolean>(false);
 
+
+
   useEffect(() => {
-    setShowInfo(false);
-  }, [searching])
+    setInfo("Some error occured. Please try again.");
+    setShowSuccess(true);
+    setSearching(false);
+  }, [retry])
+  useEffect(() => {
+    setInfo("Data added successfully")
+    setShowSuccess(true);
+    setSearching(false);
+  }, [success]);
+
+  useEffect(() => {
+    setShowSuccess(false);
+  }, []) 
 
 
   const handleSubmit = async (e: any) => {
     e.preventDefault();
     try {
-      await add(encodeURIComponent(url));
+      const res = await add(encodeURIComponent(url));
+      if(res == 200){
+        setSuccess(prev => !prev);
+      }
+      else{
+        throw new Error("Please retry.");
+      }
+      
     } 
     catch (error: any) {
       console.log('Some error occured in submission: ', error.message);            
-      setInfo("Some error occured.Please try again.")
-      setShowInfo(true);
-      setSearching(false);
+      setRetry(prev => !prev);
     }
-    setInfo("Data added successfully")
-    setShowInfo(true);
-    setSearching(false);
   }
 
 
@@ -53,6 +70,7 @@ export default function Home() {
           type="submit"
           onClick={(e) => {
             setSearching(true);
+            setInfo("");
             handleSubmit(e);
           }}
           className="bg-blue-300 hover:bg-blue-500 text-xl font-bold px-2 py-1 sm:px-4 rounded-[10px] border-[1px] border-gray-500 text-black text-center flex flex-row justify-center items-center active:bg-slate-400"
@@ -63,7 +81,7 @@ export default function Home() {
 
 
       {
-        showInfo && 
+        showSuccess && 
         <p>{info}</p>
       }
 
