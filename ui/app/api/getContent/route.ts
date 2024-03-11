@@ -1,67 +1,67 @@
-import OpenAI from 'openai';
-import cheerio from 'cheerio';
-import puppeteer from 'puppeteer';
-import path from 'path';
+import OpenAI from "openai";
+import cheerio from "cheerio";
+import puppeteer from "puppeteer";
+import path from "path";
 
 const openai = new OpenAI({ apiKey: process.env.API_KEY });
 
-
-
 export async function GET(req: Request) {
   try {
-    
     const link = new URL(req.url);
     const fullURL: any = link.searchParams.get("url");
     const mainURL = decodeURIComponent(fullURL);
 
-    
-
     // const browserPath = path.resolve(__dirname, "../../../../../browser/chrome.exe");
     // const browserPath2 = path.resolve("./browser/chrome.exe");
-    
 
-    const localChromePath = process.env.LOCAL_BROWSER_PATH
-    
+    const localChromePath = process.env.LOCAL_BROWSER_PATH;
+
     const browser = await puppeteer.launch({
       // executablePath: browserPath2,
       // executablePath: browserPath,
       executablePath: localChromePath,
-      headless: true
+      headless: false,
     });
     const page = await browser.newPage();
     await page.goto(mainURL);
+
+    try {
+      await page.waitForNavigation({
+        timeout: 10000,
+        waitUntil: "networkidle0",
+      });
+    } catch (e) {}
+
     const data = await page.title();
 
     const regex = /on X:(.*?)(?=\/ X)/;
 
     const match = data.match(regex);
     const tweetContent = match ? match[1].trim() : "-";
-    
+
     const regex2 = /^(.*?)(?=\s*on X:)/;
     const match2 = data.match(regex2);
     const userName = match2 ? match2[1].trim() : "-";
-    
+
     const urlRegex = /https:\/\/([^.]+)\.com\/([^\/]+)\/status/;
     const match3 = mainURL.match(urlRegex);
     const userID = match3 ? match3[2] : "-";
-    
-    
+
     const nextData = {
-        userName: userName,
-        userID: userID,
-        tweetText: tweetContent ? tweetContent : "-",
-        postedOn: "-"
-    }
-    if(nextData.tweetText == "-"){
-        throw new Error("Puppeteer did not work.");
+      userName: userName,
+      userID: userID,
+      tweetText: tweetContent ? tweetContent : "-",
+      postedOn: "-",
+    };
+    if (nextData.tweetText == "-") {
+      throw new Error("Puppeteer did not work.");
     }
 
     await browser.close();
 
-
     const browser2 = await puppeteer.launch({
-        executablePath: localChromePath,
-        headless: true
+      executablePath: localChromePath,
+      headless: true,
     });
     const page2 = await browser2.newPage();
     await page2.goto(`https://twitter.com/${nextData.userID}`);
@@ -74,17 +74,13 @@ export async function GET(req: Request) {
     const userProf = userProfSpan.text();
 
     await browser2.close();
-    
-    
-    console.log("Scraped tweet data.");
-    
 
-    
+    console.log("Scraped tweet data.");
 
     const completion = await openai.chat.completions.create({
       messages: [
         {
-          role: 'assistant',
+          role: "assistant",
           content: `${nextData.tweetText}\n This is a tweet about a hiring or a gig or a hackathon or a startup program. Extract following details:
             1. commitment(full-time, part-time, freelance),
             2. description,
@@ -96,16 +92,23 @@ export async function GET(req: Request) {
             The fields which are not specified in the tweet will have - as the value. Return a JSON with only the specified fields and their values.`,
         },
       ],
-      model: 'gpt-3.5-turbo',
+      model: "gpt-3.5-turbo",
     });
-    
 
-    const responseContent: any = completion.choices[0].message['content'];
+    const responseContent: any = completion.choices[0].message["content"];
     const scrapedData = JSON.parse(responseContent);
-    const { commitment, description, deadline, min_pay, max_pay, is_remote, location } = scrapedData;
+    const {
+      commitment,
+      description,
+      deadline,
+      min_pay,
+      max_pay,
+      is_remote,
+      location,
+    } = scrapedData;
 
-
-    return Response.json({
+    return Response.json(
+      {
         commitment: commitment ? commitment : "-",
         description: description ? description : "-",
         deadline: deadline ? deadline : "-",
@@ -118,16 +121,20 @@ export async function GET(req: Request) {
         postedOn: "-",
         userName: nextData.userName,
         userDescription: userDesc,
-        org: userProf
-      }, {
-      status: 200
-    });
-  } 
-  catch (error: any) {
-    return Response.json({
-      msg: error.message
-    }, {
-      status: 500
-    })
+        org: userProf,
+      },
+      {
+        status: 200,
+      }
+    );
+  } catch (error: any) {
+    return Response.json(
+      {
+        msg: error.message,
+      },
+      {
+        status: 500,
+      }
+    );
   }
 }
