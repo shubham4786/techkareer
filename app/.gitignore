@@ -4,7 +4,10 @@
 /node_modules
 /.pnp
 .pnp.js
+
 .yarn/install-state.gz
+
+
 
 # testing
 /coverage
@@ -28,9 +31,35 @@ yarn-error.log*
 # local env files
 .env*.local
 
+
+.env
+
 # vercel
 .vercel
 
 # typescript
 *.tsbuildinfo
+
 next-env.d.ts
+
+next-env.d.ts
+
+
+/chrome
+/test-results/
+/playwright-report/
+/blob-report/
+/playwright/.cache/
+/test-results/
+/playwright-report/
+/blob-report/
+/playwright/.cache/
+/test-results/
+/playwright-report/
+/blob-report/
+/playwright/.cache/
+/tests
+/tests-examples
+playwright.*
+/puppeteer-puppeteer-v22.4.1
+
