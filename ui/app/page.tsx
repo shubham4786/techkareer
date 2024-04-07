@@ -38,6 +38,7 @@ export default function Home() {
     e.preventDefault();
     if(url == ""){
       alert("Please enter a valid URL.");
+      setSearching(false)
       return;
     }
 
