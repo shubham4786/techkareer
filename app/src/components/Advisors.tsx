@@ -13,21 +13,25 @@ const Advisors = () => {
       name: "Rajesh Muppalla",
       photo: RAJESH_MULLAPPA_PHOTO,
       designation: "Co-Founder and Director of Engineering at Indix",
+      linkedin: "https://www.linkedin.com/in/codingnirvana/",
     },
     {
       name: "Shivam Bhatia",
       photo: SHIVAM_BHATIA_PHOTO,
       designation: "Co-Founder at Slingshot",
+      linkedin: "https://www.linkedin.com/in/shivambhatia5432/",
     },
     {
       name: "Sachin Aggarwal",
       photo: SACHIN_AGGARWAL_PHOTO,
       designation: "Principal Software Engineer at Quickreply.ai",
+      linkedin: "https://www.linkedin.com/in/sachin-aggarwal-82794a81/",
     },
     {
       name: "Shubham Kanodia",
       photo: SHUBHAM_KANODIA_PHOTO,
       designation: "Machine Learning Engineer at Avalara",
+      linkedin: "https://www.linkedin.com/in/shubham-kanodia123/",
     },
   ];
   return (
@@ -43,6 +47,7 @@ const Advisors = () => {
               name={advisor.name}
               photo={advisor.photo}
               designation={advisor.designation}
+              linkedin={advisor.linkedin}
             />
           ))}
         </div>
