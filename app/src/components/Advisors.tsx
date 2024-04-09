@@ -10,24 +10,24 @@ import {
 const Advisors = () => {
   const advisors = [
     {
-      name: "Rajest Muppalla",
-      image: RAJESH_MULLAPPA_PHOTO,
-      description: "Co-Founder at Indix",
+      name: "Rajesh Muppalla",
+      photo: RAJESH_MULLAPPA_PHOTO,
+      designation: "Co-Founder and Director of Engineering at Indix",
     },
     {
       name: "Shivam Bhatia",
-      image: SHIVAM_BHATIA_PHOTO,
-      description: "Co-Founder at Slingshot",
+      photo: SHIVAM_BHATIA_PHOTO,
+      designation: "Co-Founder at Slingshot",
     },
     {
       name: "Sachin Aggarwal",
-      image: SACHIN_AGGARWAL_PHOTO,
-      description: "Principal Software Engineer at Quickreply.ai",
+      photo: SACHIN_AGGARWAL_PHOTO,
+      designation: "Principal Software Engineer at Quickreply.ai",
     },
     {
       name: "Shubham Kanodia",
-      image: SHUBHAM_KANODIA_PHOTO,
-      description: "Machine Learning Engineer at Avalara",
+      photo: SHUBHAM_KANODIA_PHOTO,
+      designation: "Machine Learning Engineer at Avalara",
     },
   ];
   return (
@@ -41,8 +41,8 @@ const Advisors = () => {
             <AdvisorCard
               key={index}
               name={advisor.name}
-              image={advisor.image}
-              description={advisor.description}
+              photo={advisor.photo}
+              designation={advisor.designation}
             />
           ))}
         </div>
