@@ -8,3 +8,17 @@ export const SLASHBASE_LOGO =
 
 export const SHRAM_IO_LOGO =
   "https://media.licdn.com/dms/image/C4D0BAQFssZmEd_OOnQ/company-logo_200_200/0/1660983590803/shram_io_logo?e=2147483647&v=beta&t=sdjZtpv4APTJPaFnSW-zQKmCW9hgRqgXG3XQKf3W384";
+
+// Advisors profile photo links
+
+export const RAJESH_MULLAPPA_PHOTO =
+  "https://media.licdn.com/dms/image/C4E03AQHyVjLQORf79w/profile-displayphoto-shrink_800_800/0/1517653755743?e=1718236800&v=beta&t=_ewzy2RceAvsgQvkVBfTVvS7dTJnCPcEEecNY7DVHe0";
+
+export const SHIVAM_BHATIA_PHOTO =
+  "https://media.licdn.com/dms/image/C4D03AQEfD1Y3uBduXA/profile-displayphoto-shrink_400_400/0/1594900116493?e=1718236800&v=beta&t=vzhPLvylKJpWWF-snuSKifjq5bNQ7P7s6HsYs7hwBIo";
+
+export const SACHIN_AGGARWAL_PHOTO =
+  "https://media.licdn.com/dms/image/C5103AQHaAyxPLt5Ldw/profile-displayphoto-shrink_800_800/0/1568700254447?e=1718236800&v=beta&t=fSVGtvqidaN0V-5wZ0RA63lkjTwRM-YL8nXzHIyVGI4";
+
+export const SHUBHAM_KANODIA_PHOTO =
+  "https://media.licdn.com/dms/image/D4D03AQFCR_enBipDlQ/profile-displayphoto-shrink_400_400/0/1682045379027?e=1718236800&v=beta&t=XsTs2FHVrVVC80IA0ik547CHdfJBe4U2zC8w360Ojfg";

@@ -35,7 +35,7 @@ const Testimonials = () => {
   ];
 
   return (
-    <section>
+    <section className="py-12">
       <h1 className="text-white font-bold text-xl sm:text-4xl text-center">
         Testimonials
       </h1>
