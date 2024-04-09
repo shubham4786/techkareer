@@ -7,6 +7,7 @@ import Testimonials from "./Testimonials";
 import CompaniesHiredFromUs from "./CompaniesHiredFromUs";
 import JobOpportunities from "./JobOpportunities";
 import TopTalentSection from "./TopTalentSection";
+import Advisors from "./Advisors";
 
 const LandingPage = () => {
   return (
@@ -15,7 +16,7 @@ const LandingPage = () => {
         <LampContainer>
           <motion.h1
             initial={{ opacity: 0.5, y: 100 }}
-            animate={{opacity: 1, y: 0}}
+            animate={{ opacity: 1, y: 0 }}
             transition={{
               delay: 0.3,
               duration: 0.8,
@@ -29,6 +30,10 @@ const LandingPage = () => {
             Sourcing, Reviewing, and Shortlisting candidates made 10x faster
           </h2>
         </LampContainer>
+      </div>
+
+      <div>
+        <Advisors />
       </div>
 
       <div>
