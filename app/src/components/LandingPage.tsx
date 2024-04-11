@@ -26,9 +26,18 @@ const LandingPage = () => {
           >
             Hire Tech Talent <br /> 10x faster
           </motion.h1>
-          <h2 className="text-gray-400 text-lg sm:text-xl text-center">
+          <motion.h2
+            initial={{ opacity: 0, y: 50 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{
+              delay: 0.5,
+              duration: 0.6,
+              ease: "easeInOut",
+            }}
+            className="text-gray-400 text-lg sm:text-xl text-center"
+          >
             Sourcing, Reviewing, and Shortlisting candidates made 10x faster
-          </h2>
+          </motion.h2>
         </LampContainer>
       </div>
 
