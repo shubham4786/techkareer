@@ -10,7 +10,7 @@ Please ignore the `server` and `ui` folders now. Please use the `app` folder.
 ### Local Development Instructions 
 ```
 cd app
-npm run install
+npm install
 npm run dev
 ```
 
