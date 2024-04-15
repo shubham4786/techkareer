@@ -8,6 +8,7 @@ import CompaniesHiredFromUs from "./CompaniesHiredFromUs";
 import JobOpportunities from "./JobOpportunities";
 import TopTalentSection from "./TopTalentSection";
 import Advisors from "./Advisors";
+import FooterSection from "./FooterSection";
 
 const LandingPage = () => {
   return (
@@ -50,6 +51,10 @@ const LandingPage = () => {
 
       <div>
         <TopTalentSection />
+      </div>
+
+      <div>
+        <FooterSection/>
       </div>
     </main>
   );
