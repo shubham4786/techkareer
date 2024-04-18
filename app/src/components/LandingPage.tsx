@@ -9,10 +9,15 @@ import JobOpportunities from "./JobOpportunities";
 import TopTalentSection from "./TopTalentSection";
 import Advisors from "./Advisors";
 import FooterSection from "./FooterSection";
+import Navbar from "./Navbar";
 
 const LandingPage = () => {
   return (
+
     <main className="">
+      <div>
+        <Navbar />
+      </div>
       <div className="flex flex-col items-center justify-center">
         <LampContainer>
           <motion.h1
@@ -63,7 +68,7 @@ const LandingPage = () => {
       </div>
 
       <div>
-        <FooterSection/>
+        <FooterSection />
       </div>
     </main>
   );
