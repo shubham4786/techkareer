@@ -48,14 +48,6 @@ const LandingPage = () => {
       </div>
 
       <div>
-        <Advisors />
-      </div>
-
-      <div>
-        <Testimonials />
-      </div>
-
-      <div>
         <CompaniesHiredFromUs />
       </div>
 
@@ -65,6 +57,14 @@ const LandingPage = () => {
 
       <div>
         <TopTalentSection />
+      </div>
+
+      <div>
+        <Advisors />
+      </div>
+
+      <div>
+        <Testimonials />
       </div>
 
       <div>
