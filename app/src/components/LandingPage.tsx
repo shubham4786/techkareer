@@ -13,12 +13,11 @@ import Navbar from "./Navbar";
 
 const LandingPage = () => {
   return (
-
     <main className="">
       <div>
         <Navbar />
       </div>
-      <div className="flex flex-col items-center justify-center">
+      <div className="flex flex-col items-center justify-center relative">
         <LampContainer>
           <motion.h1
             initial={{ opacity: 0.5, y: 100 }}
@@ -48,14 +47,6 @@ const LandingPage = () => {
       </div>
 
       <div>
-        <Advisors />
-      </div>
-
-      <div>
-        <Testimonials />
-      </div>
-
-      <div>
         <CompaniesHiredFromUs />
       </div>
 
@@ -65,6 +56,14 @@ const LandingPage = () => {
 
       <div>
         <TopTalentSection />
+      </div>
+
+      <div>
+        <Advisors />
+      </div>
+
+      <div>
+        <Testimonials />
       </div>
 
       <div>
