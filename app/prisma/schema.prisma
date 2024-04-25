@@ -1,0 +1,132 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider        = "prisma-client-js"
+  previewFeatures = ["fullTextSearch", "fullTextIndex"]
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Organization {
+  id          Int          @id @default(autoincrement())
+  email       String       @unique
+  password    String
+  username    String       @unique
+  name        String       @unique
+  location    String
+  website     String?
+  overview    String
+  foundedAt   String
+  profilePic  String?
+  jobProfiles JobProfile[]
+  createdAt   DateTime     @default(now())
+  updatedAt   DateTime     @updatedAt
+}
+
+model JobSeeker {
+  id                Int           @id @default(autoincrement())
+  email             String        @unique
+  password          String
+  username          String        @unique
+  firstName         String
+  lastName          String
+  description       String
+  phoneNumber       String
+  yearsOfExperience Int
+  skills            String[]
+  resume            String?
+  profilePic        String?
+  jobApplications   Application[]
+  createdAt         DateTime      @default(now())
+  updatedAt         DateTime      @updatedAt
+  followedBy        Connections[] @relation("followedBy")
+  following         Connections[] @relation("following")
+  experiences       Experience[]
+  projects          Project[]
+}
+
+model JobProfile {
+  id                 Int           @id @default(autoincrement())
+  role               String
+  requiredExperience Int
+  employeeType       String
+  salary             Int
+  jobDescription     String
+  location           String
+  skillsRequired     String[]
+  organization       Organization  @relation(fields: [organizationId], references: [id])
+  organizationId     Int
+  applications       Application[]
+  createdAt          DateTime      @default(now())
+  updatedAt          DateTime      @updatedAt
+}
+
+enum Status {
+  PENDING
+  ACCEPTED
+  REJECTED
+}
+
+model Application {
+  id              Int        @id @default(autoincrement())
+  jobProfile      JobProfile @relation(fields: [jobProfileId], references: [id])
+  jobProfileId    Int
+  jobSeeker       JobSeeker  @relation(fields: [jobSeekerId], references: [id])
+  jobSeekerId     Int
+  status          Status     @default(PENDING)
+  applicationDate DateTime   @default(now())
+  updatedAt       DateTime   @updatedAt
+
+  @@unique([jobProfileId, jobSeekerId])
+}
+
+enum ConnectionStatus {
+  PENDING
+  ACCEPTED
+}
+
+model Connections {
+  followedBy   JobSeeker        @relation("followedBy", fields: [followedById], references: [id])
+  followedById Int
+  following    JobSeeker        @relation("following", fields: [followingId], references: [id])
+  followingId  Int
+  status       ConnectionStatus @default(PENDING)
+  createdAt    DateTime         @default(now())
+  updatedAt    DateTime         @updatedAt
+
+  @@id([followingId, followedById])
+}
+
+model Experience {
+  id          Int       @id @default(autoincrement())
+  role        String
+  company     String
+  techStack   Json[]
+  startMonth  String
+  startYear   Int
+  endMonth    String?
+  endYear     Int?
+  jobSeeker   JobSeeker @relation(fields: [jobSeekerId], references: [id])
+  jobSeekerId Int
+}
+
+model Project {
+  id           Int       @id @default(autoincrement())
+  name         String
+  image        String?
+  description  String
+  deployedLink String?
+  repoLink     String?
+  techStack    String[]
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
+  jobSeeker    JobSeeker @relation(fields: [jobSeekerId], references: [id])
+  jobSeekerId  Int
+}
