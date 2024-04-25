@@ -1,4 +1,4 @@
-import { options } from "@/api/auth/[...nextauth]/option";
+import { options } from "@/app/api/auth/[...nextauth]/option";
 import { db } from "@/lib/db";
 import { getServerSession } from "next-auth";
 import { NextRequest, NextResponse } from "next/server";

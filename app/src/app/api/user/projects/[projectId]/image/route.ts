@@ -1,4 +1,4 @@
-import { options } from "@/api/auth/[...nextauth]/option";
+import { options } from "@/app/api/auth/[...nextauth]/option";
 import { db } from "@/lib/db";
 import { uploadFileFirebase } from "@/lib/firebase";
 import { getServerSession } from "next-auth";
