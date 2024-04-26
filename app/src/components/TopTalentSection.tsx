@@ -40,7 +40,7 @@ const TopTalentSection = () => {
         <h2 className="text-3xl font-bold text-center text-white mb-8">
           Top Talent
         </h2>
-        {/* TODO: we can have a loading skeleton for jobs here */}
+        {/* TODO: we can have a loading skeleton for Talents here */}
         <p className="text-center text-white text-2xl">Loading talents....</p>
       </div>
     );
