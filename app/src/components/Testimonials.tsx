@@ -1,37 +1,41 @@
 import React from "react";
 import { InfiniteMovingCards } from "./ui/infinite-moving-cards";
+import { SAKET_SARIN_PHOTO,PARAS_WAYKOLE_PHOTO,AYUSH_SINGHAL_PHOTO } from "@/utils/constants";
 
 const Testimonials = () => {
   const testimonials = [
     {
       quote:
-        "It was the best of times, it was the worst of times, it was the age of wisdom, it was the age of foolishness, it was the epoch of belief, it was the epoch of incredulity, it was the season of Light, it was the season of Darkness, it was the spring of hope, it was the winter of despair.",
-      name: "Charles Dickens",
-      title: "A Tale of Two Cities",
+        "Thanks to TechKareer by harsh Agrawal, I landed this super cool gig at an emerging AI startup based in the US. His advice and the connections I made with TechKareer were total game-changers. If you're hunting for a tech job, seriously, give it a shot!",
+      name: "Saket Sarin",
+      title: "Software Engineer Intern at BanterAI ",
+      photo: SAKET_SARIN_PHOTO
     },
     {
       quote:
-        "To be, or not to be, that is the question: Whether 'tis nobler in the mind to suffer The slings and arrows of outrageous fortune, Or to take Arms against a Sea of troubles, And by opposing end them: to die, to sleep.",
-      name: "William Shakespeare",
-      title: "Hamlet",
+        "TechKareer made tech hiring very convenient and easy for Slashbase. Would love to use it again for future hirings.",
+      name: "Paras Waykole",
+      title: " SDE 3 at Loco | Founder of Slashbase",
+      photo: PARAS_WAYKOLE_PHOTO
     },
     {
-      quote: "All that we see or seem is but a dream within a dream.",
-      name: "Edgar Allan Poe",
-      title: "A Dream Within a Dream",
+      quote: `Big shoutout to my boii @itsharshag 🫡, his curated list of talented folks really helps in hiring for a good developer. Anyone looking out for tech talent, do reachout to him🙌`,
+      name: "Ayush Singhal",
+      title: "Founder of Codemate.ai",
+      photo: AYUSH_SINGHAL_PHOTO
     },
-    {
-      quote:
-        "It is a truth universally acknowledged, that a single man in possession of a good fortune, must be in want of a wife.",
-      name: "Jane Austen",
-      title: "Pride and Prejudice",
-    },
-    {
-      quote:
-        "Call me Ishmael. Some years ago—never mind how long precisely—having little or no money in my purse, and nothing particular to interest me on shore, I thought I would sail about a little and see the watery part of the world.",
-      name: "Herman Melville",
-      title: "Moby-Dick",
-    },
+    // {
+    //   quote:
+    //     "It is a truth universally acknowledged, that a single man in possession of a good fortune, must be in want of a wife.",
+    //   name: "Jane Austen",
+    //   title: "Pride and Prejudice",
+    // },
+    // {
+    //   quote:
+    //     "Call me Ishmael. Some years ago—never mind how long precisely—having little or no money in my purse, and nothing particular to interest me on shore, I thought I would sail about a little and see the watery part of the world.",
+    //   name: "Herman Melville",
+    //   title: "Moby-Dick",
+    // },
   ];
 
   return (
