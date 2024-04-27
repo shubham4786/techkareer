@@ -59,11 +59,11 @@ const LandingPage = () => {
       </div>
 
       <div>
-        <Advisors />
+        <Testimonials />
       </div>
 
       <div>
-        <Testimonials />
+        <Advisors />
       </div>
 
       <div>
