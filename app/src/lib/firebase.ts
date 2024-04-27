@@ -1,14 +1,16 @@
 import { randomUUID } from "crypto";
 import { initializeApp } from "firebase/app";
 import { ref, uploadBytes, getStorage, getDownloadURL } from "firebase/storage";
+import { env } from "@/env";
+
 const firebaseConfig = {
-  apiKey: process.env.FIRESTORAGE_APIKEY,
-  authDomain: process.env.FIRESTORAGE_AUTHDOMAIN,
-  projectId: process.env.FIRESTORAGE_PROJECTID,
-  storageBucket: process.env.FIRESTORAGE_STORAGEBUCKET,
-  messagingSenderId: process.env.FIRESTORAGE_MESSAGINGSENDERID,
-  appId: process.env.FIRESTORAGE_APPID,
-  measurementId: process.env.FIRESTORAGE_MEASUREMENTID,
+  apiKey: env.FIRESTORAGE_APIKEY,
+  authDomain: env.FIRESTORAGE_AUTHDOMAIN,
+  projectId: env.FIRESTORAGE_PROJECTID,
+  storageBucket: env.FIRESTORAGE_STORAGEBUCKET,
+  messagingSenderId: env.FIRESTORAGE_MESSAGINGSENDERID,
+  appId: env.FIRESTORAGE_APPID,
+  measurementId: env.FIRESTORAGE_MEASUREMENTID,
 };
 
 const app = initializeApp(firebaseConfig);
