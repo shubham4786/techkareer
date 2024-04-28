@@ -9,7 +9,7 @@ export const Feature = () => {
         <SectionWrapper>
             <div className="flex justify-center items-center flex-col">
                 <h3 className="self-end md:self-center bg-gradient-to-r from-blue-400 via-ping-200 to-pink-400 inline-block text-transparent bg-clip-text">included</h3>
-                <h2 className="self-end md:self-center text-3xl tracking-wide mt-4 text-center mb-16">Powerful features tailored to your needs</h2>
+                <h2 className="text-right w-full md:text-center text-3xl tracking-wide mt-4 mb-16">Powerful features tailored to your needs</h2>
                 <div className=" grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 justify-center gap-4 ">
                     {feature.map((item, index) => (
                         <FeatureCard
