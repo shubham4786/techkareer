@@ -1,14 +1,40 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   images: {
-    domains: [
-      "images.unsplash.com",
-      "static.wixstatic.com",
-      "www.getdevkit.com",
-      "https://banterai.app",
-      "avatars.githubusercontent.com",
-      "media.licdn.com",
-    ],
+    remotePatterns:[
+      {
+        protocol:"https",
+        hostname:"images.unsplash.com",
+        port:""
+      },
+      {
+        protocol:"https",
+        hostname:"static.wixstatic.com",
+        port:""
+      },
+      {
+        protocol:"https",
+        hostname:"www.getdevkit.com",
+        port:""
+      },
+      {
+        protocol:"https",
+        hostname:"https://banterai.app",
+        port:""
+      },
+      {
+        protocol:"https",
+        hostname:"avatars.githubusercontent.com",
+        port:""
+      },
+      
+      {
+        protocol:"https",
+        hostname:"media.licdn.com",
+        port:""
+      },
+      
+    ]
   },
 };
 

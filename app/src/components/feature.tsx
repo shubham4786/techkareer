@@ -1,9 +1,10 @@
 "use client"
 import Image, { StaticImageData } from "next/image"
 import { SectionWrapper } from "./section-wrapper"
-import feature from "@/assets/feature/feature"
-import bg from "@/assets/feature/bg.webp"
+import feature from "@/constants/features"
+import bg from '@/assets/bg.webp'
 import { motion } from "framer-motion"
+import React from "react"
 export const Feature = () => {
     return (
         <SectionWrapper>
@@ -27,7 +28,7 @@ export const Feature = () => {
     )
 }
 type featureCardProps = {
-    icon: StaticImageData;
+    icon:   React.ReactNode;
     name: string;
     description: string;
     duration?: number;
@@ -36,20 +37,15 @@ const FeatureCard: React.FC<featureCardProps> = ({ icon, name, description, dura
     return (
         <motion.div
             initial={{ opacity: 0, y: 10, }}
+
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.2, delay: duration, ease: "easeInOut" }}
             viewport={{ once: true }}
             style={{ backgroundImage: `url(${bg.src})`, backgroundSize: "cover", backgroundPosition: "center" }}
-            className="p-4 rounded-2xl flex flex-col justify-center items-center max-w-[368px] max-h-[278px]"
+            className="p-4 rounded-2xl flex flex-col justify-center items-center max-w-[368px] max-h-[278px] cursor-pointer"
         >
             <div className="bg-[#5287FA] p-2 rounded-full">
-                <Image
-                    src={icon}
-                    alt=""
-                    height={35}
-                    width={35}
-                    className="rounded-full"
-                />
+               {icon}
             </div>
             <h3 className="text-xl font-bold mt-4 text-center text-[#02015A]">{name}</h3>
             <p className="text-sm mt-2  w-[80%] text-center font-lighter text-gray-700 tracking-wider leading-6">{description}</p>
