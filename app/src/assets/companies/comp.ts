@@ -1,11 +1,11 @@
-import c1 from './c1.png';
-import c2 from './c2.jpeg';
-import c3 from './c3.jpeg';
-import c4 from './c4.jpeg';
-import c5 from './c5.jpeg';
-import c6 from './c6.jpeg';
-import c7 from './c7.jpeg';
-import c8 from './c8.jpeg';
+import c1 from './2.webp';
+import c2 from './1.webp';
+import c3 from './4.webp';
+import c4 from './3.webp';
+import c5 from './5.webp';
+import c6 from './7.webp';
+import c7 from './6.webp';
+import c8 from './8.webp';
 
 export  {
   c1,

@@ -7,8 +7,13 @@ export const Footer = ()=>{
             <footer className="border-t-[1px] border-solid border-white/80 flex justify-center items-center pt-12 flex-col ">
                <h1 className="font-semibold text-2xl md:text-4xl mb-8 md:mb-16">TechKareer</h1>
                <div className="flex flex-row gap-6 mb-5">
-               <Twitter size={30} fill="white" />
-               <Linkedin size={30}/>
+            <Link href="https://twitter.com/_techkareer" >
+            <Twitter size={30} fill="white" />
+            </Link>  
+            <Link href="https://www.linkedin.com/in/itsharshag/">
+            <Linkedin size={30}/>
+            </Link>
+              
                </div>
                 <p className="text-sm text-gray-200/60 mb-5">© 2024 Techkareer. All rights reserved.</p>
                 <div className="flex gap-5">

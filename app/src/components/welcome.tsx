@@ -53,7 +53,7 @@ export const Welcome = () => {
                     animate={{ opacity: 1, y: 0,scale: 1}}
                     transition={{ duration: 0.5, delay: 2.4 }}
                     viewport={{ once: true }}
-                    className="bg-white text-black px-8 py-4  font-bold text-xs rounded-full tracking-wider shadow-[0px_0px_10px_1px_#fed7e2]  ">
+                    className="bg-white text-black px-8 py-4  font-bold text-xs rounded-full tracking-wider shadow-[0px_0px_10px_1px_#fed7e2] hover:bg-transparent hover:text-white hover:shadow-transparent border-solid border-[1px] border-transparent hover:border-gray-200 hover:duration-150">
                     REGISTER
                 </motion.button>
 
