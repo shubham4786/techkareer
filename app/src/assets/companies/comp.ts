@@ -5,7 +5,7 @@ import c4 from './3.webp';
 import c5 from './5.webp';
 import c6 from './7.webp';
 import c7 from './6.webp';
-import c8 from './1.webp';
+import c8 from './8.webp';
 
 export  {
   c1,
