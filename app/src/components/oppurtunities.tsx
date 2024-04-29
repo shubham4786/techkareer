@@ -21,7 +21,10 @@ export const Oppurtunities = () => {
                         whileInView={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.8, ease: "easeInOut" }}
                         viewport={{ once: true }}
-                        className="text-xs text-gray-200/50">Become part of dynamic and innovative team - Unlock your potential in a collaborative environment driven by excellence.</motion.p>
+                        className="text-xs text-gray-200/90">Become part of dynamic and innovative team - Unlock your potential in a collaborative environment driven by excellence.</motion.p>
+                        <button className="bg-purple-400 w-fit px-6 py-2  flex justify-center items-center gap-4 mt-3 cursor-pointer rounded-full group">
+                        <span>Explore </span> <ChevronRight className="inline-block group-hover:translate-x-2 transition-all text-white" />
+                        </button>
                 </div>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4 place-items-center ">
                     {oppurtunitiesArray.map((item, index) => (
