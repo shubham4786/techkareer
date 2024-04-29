@@ -27,7 +27,7 @@ import FilterForm from "./FilterForm/FilterForm";
 export {
   BottomBar,
   Leftbar,
-  Navbar,
+Navbar,
   Rightbar,
   RightBarOrganizationList,
   RightBarJobseekerList,
