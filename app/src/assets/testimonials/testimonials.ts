@@ -1,8 +1,8 @@
-import test1 from './test1.jpeg'
+import test1 from './test1.webp'
 import test2 from './test2.webp'
-import test3 from './test3.jpeg'
-import test4 from './test4.jpeg'
-import test5 from './test5.jpeg'
+import test3 from './test3.webp'
+import test4 from './test4.webp'
+import test5 from './test5.webp'
 import { StaticImageData } from 'next/image'
 type testimonialsProp={
     image:StaticImageData,

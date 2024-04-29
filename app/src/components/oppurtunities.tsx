@@ -1,7 +1,7 @@
 "use client"
 import { SectionWrapper } from "./section-wrapper"
 import Image, { StaticImageData } from "next/image"
-import bg from "@/assets/feature/bg.webp"
+import bg from "@/assets/bg.webp"
 import { ChevronRight, CircleCheck } from "lucide-react"
 import { motion } from "framer-motion"
 import { oppurtunitiesArray } from "@/constants/opputunities"
