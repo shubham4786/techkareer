@@ -8,7 +8,7 @@ import { oppurtunitiesArray } from "@/constants/opputunities"
 export const Oppurtunities = () => {
     return (
         <SectionWrapper>
-            <div className="flex gap-4 flex-nowrap relative flex-col lg:flex-row">
+            <div className="flex gap-4 flex-nowrap relative flex-col lg:flex-row" id="opportunities">
                 <div className="w-full lg:w-[30%] flex flex-col gap-3 mb-8" >
                     <h3 className="bg-gradient-to-r from-blue-400 via-ping-200 to-pink-400 inline-block text-transparent bg-clip-text">Opportunities</h3>
                     <div className="text-3xl w-full font-semibold">
@@ -22,7 +22,7 @@ export const Oppurtunities = () => {
                         transition={{ duration: 0.8, ease: "easeInOut" }}
                         viewport={{ once: true }}
                         className="text-xs text-gray-200/90">Become part of dynamic and innovative team - Unlock your potential in a collaborative environment driven by excellence.</motion.p>
-                        <button className="bg-purple-400 w-fit px-6 py-2  flex justify-center items-center gap-4 mt-3 cursor-pointer rounded-full group">
+                        <button className="bg-purple-400 hidden w-fit px-6 py-2  justify-center items-center gap-4 mt-3 cursor-pointer rounded-full group">
                         <span>Explore </span> <ChevronRight className="inline-block group-hover:translate-x-2 transition-all text-white" />
                         </button>
                 </div>

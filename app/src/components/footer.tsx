@@ -1,16 +1,25 @@
 import { Linkedin, Twitter } from "lucide-react"
 import { SectionWrapper } from "./section-wrapper"
+import Image from "next/image"
 import Link from "next/link"
+import textLogo from '@/assets/techkareer(2).webp'
 export const Footer = ()=>{
     return (
         <SectionWrapper>
             <footer className="border-t-[1px] border-solid border-white/80 flex justify-center items-center pt-12 flex-col ">
-               <h1 className="font-semibold text-2xl md:text-4xl mb-8 md:mb-16">TechKareer</h1>
+               <Image
+               src={textLogo}
+               alt="Techkareer"
+                width={200}
+                height={200}
+                className="mb-8"
+
+               />
                <div className="flex flex-row gap-6 mb-5">
             <Link href="https://twitter.com/_techkareer" >
             <Twitter size={30} fill="white" />
             </Link>  
-            <Link href="https://www.linkedin.com/in/itsharshag/">
+            <Link href="https://www.linkedin.com/showcase/techkareer/about/">
             <Linkedin size={30}/>
             </Link>
               

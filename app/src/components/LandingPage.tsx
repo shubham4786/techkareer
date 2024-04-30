@@ -11,7 +11,7 @@ import { Footer } from "./footer";
 
 const LandingPage = () => {
   return (
-    <main className="min-h-screen relative scroll-smooth select-none">
+    <main className="min-h-screen relative scroll-smooth ">
     <Navbar />
     <Welcome/>
     <InfiniteMovingCards

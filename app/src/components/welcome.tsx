@@ -5,7 +5,7 @@ import Image from "next/image"
 import { StaticImageData } from 'next/image';
 import pfp from "@/assets/userpfp"
 
-
+import { Link , animateScroll as scroll } from "react-scroll";
 export const Welcome = () => {
 
     return (
@@ -38,7 +38,7 @@ export const Welcome = () => {
                             animate={{ opacity: 1, y: 0 }}
                             viewport={{ once: true }}
                             transition={{ duration: 0.5, delay: 1.1 }}
-                            className="underline decoration-wavy decoration-[2px] md:decoration-[3px] decoration-[#da43f5]"
+                            className="underline decoration-wavy decoration-[2px] md:decoration-[3px] decoration-blue-500"
                         >Hire.</motion.span>
                     </div>
                     <motion.p
@@ -48,21 +48,28 @@ export const Welcome = () => {
                         transition={{ duration: 0.5, delay: 1.2 }}
                         className="w-full md:w-[55%] text-lg md:text-xl text-[#858694] text-center  leading-8 md:leading-10">TechKareer is used by numerous businesses, institutions, and recruiters to significantly enhance their screening and recruitment procedures.</motion.p>
                 </div>
-                <motion.button
+                <Link                spy={true}
+                smooth={true}
+                duration={500}
+                to={"features"}
+                >
+                     <motion.button
                     initial={{ opacity: 0, y: 30,scale: 0.6 }}
                     animate={{ opacity: 1, y: 0,scale: 1}}
                     transition={{ duration: 0.5, delay: 2.4 }}
                     viewport={{ once: true }}
-                    className="bg-white text-black px-8 py-4  font-bold text-xs rounded-full tracking-wider shadow-[0px_0px_10px_1px_#fed7e2] hover:bg-transparent hover:text-white hover:shadow-transparent border-solid border-[1px] border-transparent hover:border-gray-200 hover:duration-150">
-                    REGISTER
+                    className="bg-white text-black px-8 py-4  font-bold text-xs rounded-full  tracking-wider shadow-[0px_0px_10px_1px_#fed7e2] hover:bg-transparent hover:text-white hover:shadow-transparent border-solid border-[1px] border-transparent hover:border-gray-200 hover:duration-150">
+                    KNOW MORE
                 </motion.button>
+                    </Link>
+               
 
                 <motion.video
                     initial={{ opacity: 0, y: 20, scale: 0.8 }}
                     animate={{ opacity: 1, y: 0, scale: 1 }}
                     viewport={{ once: true }}
                     transition={{ duration: 0.5  ,delay: 1.2}}
-                    autoPlay loop muted className="rounded-2xl mt-12 md:mt-24 w-[80%]" >
+                    autoPlay loop muted className="rounded-2xl mt-12 md:mt-10 w-[80%]" >
                     <source src="./video.mp4" />
                 </motion.video>
 
