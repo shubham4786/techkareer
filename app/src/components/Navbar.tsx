@@ -50,7 +50,7 @@ export const Navbar = () => {
                         whileHover={{ backgroundColor: "#F9F9F9", color: "#000" }}
                         whileTap={{ scale: 0.95 }}
                     >
-                        <p className="text-xs md:text-base">Opportunities</p>
+                        <p className="text-xs md:text-base">OPPORTUNITIES</p>
                     </motion.button>
                 </ReactLink>
 
