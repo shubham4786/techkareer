@@ -2,7 +2,7 @@ import { Linkedin, Twitter } from "lucide-react"
 import { SectionWrapper } from "./section-wrapper"
 import Image from "next/image"
 import Link from "next/link"
-import textLogo from '@/assets/techkareer(2).png'
+import textLogo from '@/assets/techkareer(2).webp'
 export const Footer = ()=>{
     return (
         <SectionWrapper>
