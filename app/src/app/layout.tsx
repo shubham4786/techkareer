@@ -17,10 +17,8 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-
       <Head>
-
-      <link
+        <link
           rel="icon"
           href="/icon?<generated>"
           type="image/<generated>"
