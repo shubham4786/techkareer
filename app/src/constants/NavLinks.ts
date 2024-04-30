@@ -3,20 +3,20 @@ type NavLink = {
     path: string;
   };
 export const NavLinks:NavLink[] =[
-    {
-        name:"HOME",
-        path:"/"
+    // {
+    //     name:"HOME",
+    //     path:"/"
 
-    },
-    {
-        name:"JOBS",
-        path:"/job"
+    // },
+    // {
+    //     name:"JOBS",
+    //     path:"/job"
 
-    },
-    {
-        name:"TALENTS",
-        path:"/talent"
+    // },
+    // {
+    //     name:"TALENTS",
+    //     path:"/talent"
 
-    },
+    // },
     
 ]
