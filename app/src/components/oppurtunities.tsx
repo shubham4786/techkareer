@@ -53,7 +53,7 @@ type oppurtunitiesCardProps = {
     features: {
         location: string;
         date: string;
-        id: string;
+
         jobType: string;
     }[]
 }
@@ -94,7 +94,7 @@ const OppurtunitiesCard: React.FC<oppurtunitiesCardProps> = ({ company, logo, po
                         key={index} className="flex justify-center items-start gap-4 flex-col px-4 py-6">
                             <p className="text-lg font-semibold text-black/70 flex justify-start items-center gap-2 w-full"><CircleCheck className="inline-block w-[10%]" /> <span className="w-[90%]">{item.location}</span></p>
                             <p className="text-lg font-semibold text-black/70 flex justify-start items-center gap-2 w-full"><CircleCheck className="inline-block w-[10%]" /> <span className="w-[90%]">{item.date}</span></p>
-                            <p className="text-lg font-semibold text-black/70 flex justify-start items-center gap-2 w-full"><CircleCheck className="inline-block w-[10%]" /> <span className="w-[90%]">{item.id}</span></p>
+
                             <p className="text-lg font-semibold text-black/70 flex justify-start items-center gap-2 w-full"><CircleCheck className="inline-block w-[10%]" /> <span className="w-[90%]">{item.jobType}</span></p>
                         </motion.div>
                     ))

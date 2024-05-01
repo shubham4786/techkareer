@@ -15,7 +15,7 @@ export const opportunitiesArray = [
 
                 date: "30/3/2024",
 
-                id: "TECHKAREER002",
+             
 
                 jobType: "Full Time"
             }
@@ -33,8 +33,7 @@ export const opportunitiesArray = [
 
                 date: "30/3/2024",
 
-                id: "TECHKAREER002",
-
+              
                 jobType: "Full-time"
             }
         ]
@@ -51,8 +50,7 @@ export const opportunitiesArray = [
 
                 date: "30/3/2024",
 
-                id: "TECHKAREER002",
-
+             
                 jobType: "Full-time"
             }
         ]
@@ -69,7 +67,7 @@ export const opportunitiesArray = [
 
                 date: "30/3/2024",
 
-                id: "TECHKAREER002",
+               
 
                 jobType: "Internship"
             }
