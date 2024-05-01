@@ -2,8 +2,7 @@ import type { Metadata } from "next";
 import Head from "next/head";
 import "./globals.css";
 import Providers from "./Providers";
-
-
+import { GoogleAnalytics } from "@next/third-parties/google";
 
 export const metadata: Metadata = {
   title: "Techkareer",
@@ -31,11 +30,10 @@ export default function RootLayout({
           sizes="<generated>"
         />
       </Head>
-      <body >
-        <Providers>
-          {children}
-        </Providers>
+      <body>
+        <Providers>{children}</Providers>
       </body>
+      <GoogleAnalytics gaId="G-89FV5R6QSB" />
     </html>
   );
 }

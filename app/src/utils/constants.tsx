@@ -1,3 +1,5 @@
+export const BASE_URL = "https://techkareer-lemon.vercel.app";
+
 export const BANTERAI_LOGO = "https://banterai.app/logo.svg";
 
 export const CODEMATE_AI_LOGO =
@@ -23,12 +25,11 @@ export const SACHIN_AGGARWAL_PHOTO =
 export const SHUBHAM_KANODIA_PHOTO =
   "https://media.licdn.com/dms/image/D4D03AQFCR_enBipDlQ/profile-displayphoto-shrink_400_400/0/1682045379027?e=1718236800&v=beta&t=XsTs2FHVrVVC80IA0ik547CHdfJBe4U2zC8w360Ojfg";
 
-
-export const SAKET_SARIN_PHOTO = 
+export const SAKET_SARIN_PHOTO =
   "https://media.licdn.com/dms/image/C5603AQF_RkbkjxaNZQ/profile-displayphoto-shrink_800_800/0/1622713611331?e=1719446400&v=beta&t=YRlO8z-OkCWq2s21KUm7PljXy9RuBkFJK5OwfM9vCso";
 
-export const PARAS_WAYKOLE_PHOTO = 
+export const PARAS_WAYKOLE_PHOTO =
   "https://media.licdn.com/dms/image/D4D03AQF6eRxVtR-_XQ/profile-displayphoto-shrink_800_800/0/1705993247218?e=1719446400&v=beta&t=BAyV6_nYskor3rsJVmrT5-06ISr95m7wDQh5scG20BI";
 
-export const AYUSH_SINGHAL_PHOTO = 
+export const AYUSH_SINGHAL_PHOTO =
   "https://media.licdn.com/dms/image/D5603AQEa0TpjdAeQKg/profile-displayphoto-shrink_800_800/0/1707041435028?e=1719446400&v=beta&t=DUZte9p4gC0_sg4a3roQluFR0Xcl30SSzecm0wXeGyk";

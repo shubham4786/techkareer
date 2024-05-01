@@ -13,6 +13,7 @@ export const InfiniteMovingCards = ({
 }: {
   items: {
     image: StaticImageData;
+    name: string;
     role: string;
     des: string;
   }[];
@@ -82,43 +83,52 @@ export const InfiniteMovingCards = ({
         ref={scrollerRef}
         className={cn(
           " flex min-w-full shrink-0 gap-4 py-4 w-max flex-nowrap",
-          start && "animate-scroll ",
-
+          start && "animate-scroll "
         )}
       >
         {items.map((item, idx) => (
-           <TestimonialCard key={idx} image={item.image} role={item.role} des={item.des} />
+          <TestimonialCard
+            key={idx}
+            image={item.image}
+            name={item.name}
+            role={item.role}
+            des={item.des}
+          />
         ))}
       </ul>
     </div>
   );
 };
 
-
 type TestimonialCardProps = {
-    image: StaticImageData;
-    role: string;
-    des: string;
-}
-const TestimonialCard: React.FC<TestimonialCardProps> = ({ image, role, des }) => {
-    return (
-        <div
-        
-        className="bg-transparent p-4 flex  max-w-[700px] justify-start items-center gap-5  ">
-            <div>
-                <Image
-                    src={image}
-                    alt=""
-                    width={60}
-                    height={60}
-                    className="rounded-full" />
-            </div>
+  image: StaticImageData;
+  name: string;
+  role: string;
+  des: string;
+};
+const TestimonialCard: React.FC<TestimonialCardProps> = ({
+  image,
+  name,
+  role,
+  des,
+}) => {
+  return (
+    <div className="bg-transparent p-4 flex max-w-[700px] justify-start items-center gap-5">
+      <div>
+        <Image
+          src={image}
+          alt=""
+          width={60}
+          height={60}
+          className="rounded-full min-w-[60px] min-h-[60px]"
+        />
+      </div>
 
-            <div>
-                <h2 className="text-lg font-semibold">Testimonial card/positio</h2>
-                <h3 className="font-light">{role}</h3>
-                <h5 className="font-light">{des}</h5>
-            </div>
-        </div>
-    )
-}
+      <div>
+        <h2 className="text-lg font-semibold">{name}</h2>
+        <h3 className="font-light">{role}</h3>
+        <h5 className="mt-1 text-sm font-light opacity-70">{des}</h5>
+      </div>
+    </div>
+  );
+};

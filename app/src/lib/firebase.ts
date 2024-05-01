@@ -1,6 +1,7 @@
 import { randomUUID } from "crypto";
 import { initializeApp } from "firebase/app";
 import { ref, uploadBytes, getStorage, getDownloadURL } from "firebase/storage";
+
 const firebaseConfig = {
   apiKey: process.env.FIRESTORAGE_APIKEY,
   authDomain: process.env.FIRESTORAGE_AUTHDOMAIN,
