@@ -1,15 +1,17 @@
-import devkitLogo from '@/assets/devkit.webp'
-import garmhal from '@/assets/garmhal.webp'
 
-export const oppurtunitiesArray = [
+import praavi from '@/assets/jobs/praavi.svg'
+import codemate from '@/assets/jobs/codemate.webp'
+import rifflix from '@/assets/jobs/rifflix.webp'
+export const opportunitiesArray = [
     {
-        company: "Gramhal",
-        logo: garmhal,
-        position: "Senior Backend Developer ",
-        payRange: "₹12L - ₹20L / yr",
+        company: "Rifflix",
+        logo: rifflix,
+        position: "Software Engineer",
+        payRange: "₹12L - ₹24L / yr",
+        descriptions:"AI to create and experience animated shows and movies",
         features: [
             {
-                location: "Goa, India (Remote)",
+                location: "India (Remote)",
 
                 date: "30/3/2024",
 
@@ -20,47 +22,50 @@ export const oppurtunitiesArray = [
         ]
     },
     {
-        company: "DevKit",
-        logo: devkitLogo,
-        position: "Hardware Engineer",
-        payRange: "₹8K - ₹15K / mo",
+        company: "Praavi ",
+        logo: praavi,
+        position: "Senior Frontend Engineer",
+        payRange: "₹20L - ₹24L / yr",
+        descriptions:"PRAAVI logs your staff’s attendance & location with just a simple picture",
         features: [
             {
-                location: "Faridabad, Haryana, India",
+                location: "Gurugram",
 
                 date: "30/3/2024",
 
                 id: "TECHKAREER002",
 
-                jobType: "Internship"
+                jobType: "Full-time"
             }
         ]
     },
     {
-        company: "DevKit",
-        position: "Hardware Engineer",
-        logo: devkitLogo,
-        payRange: "₹8K - ₹15K / mo",
+        company: "Codemate",
+        position: "Senior Software Engineer ",
+        logo: codemate,
+        payRange: "₹10L - ₹14L / yr",
+        descriptions:"The fastest way to write error-free code",
         features: [
             {
-                location: "Faridabad, Haryana, India",
+                location: "Delhi ( Remote for exceptional candidates ) ",
 
                 date: "30/3/2024",
 
                 id: "TECHKAREER002",
 
-                jobType: "Internship"
+                jobType: "Full-time"
             }
         ]
     },
     {
-        company: "DevKit",
-        position: "Hardware Engineer",
-        logo: devkitLogo,
-        payRange: "₹8K - ₹15K / mo",
+        company: "Codemate",
+        position: "Software Engineer",
+        logo: codemate,
+        payRange: "₹9L - ₹12L / yr",
+        descriptions:"The fastest way to write error-free code",
         features: [
             {
-                location: "Faridabad, Haryana, India",
+                location: "Delhi ( Remote for exceptional candidates ) ",
 
                 date: "30/3/2024",
 

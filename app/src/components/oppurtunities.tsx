@@ -4,8 +4,8 @@ import Image, { StaticImageData } from "next/image"
 import bg from "@/assets/bg.webp"
 import { ChevronRight, CircleCheck } from "lucide-react"
 import { motion } from "framer-motion"
-import { oppurtunitiesArray } from "@/constants/opputunities"
-export const Oppurtunities = () => {
+import { opportunitiesArray } from "@/constants/opputunities"
+export const Opportunities = () => {
     return (
         <SectionWrapper>
             <div className="flex gap-4 flex-nowrap relative flex-col lg:flex-row" id="opportunities">
@@ -27,7 +27,7 @@ export const Oppurtunities = () => {
                         </button>
                 </div>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4 place-items-center ">
-                    {oppurtunitiesArray.map((item, index) => (
+                    {opportunitiesArray.map((item, index) => (
                         <OppurtunitiesCard
                             key={index}
                             company={item.company}
@@ -62,7 +62,7 @@ const OppurtunitiesCard: React.FC<oppurtunitiesCardProps> = ({ company, logo, po
 
         <div
             style={{ backgroundImage: `url(${bg.src})`, backgroundSize: "cover", backgroundPosition: "center" }}
-            className="rounded-2xl p-4 w-[340px] md:min-w-[390px] lg:max-w-[420px] lg:min-w-[390px] h-[501px]   flex flex-col gap-4"
+            className="rounded-2xl p-4 w-[340px] md:min-w-[390px] lg:max-w-[420px] lg:min-w-[390px] min-h-[501px]   flex flex-col gap-4 justify-evenly"
         >
             <div className="flex justify-start items-center gap-2">
                 <Image
@@ -70,7 +70,7 @@ const OppurtunitiesCard: React.FC<oppurtunitiesCardProps> = ({ company, logo, po
                     alt="logo"
                     height={40}
                     width={40}
-
+                    className="rounded-full  bg-black/80"
                 />
                 <p className="text-lg text-black ">{company}</p>
             </div>
@@ -92,10 +92,10 @@ const OppurtunitiesCard: React.FC<oppurtunitiesCardProps> = ({ company, logo, po
                         transition={{ duration: 0.8, delay:.2,ease: "easeInOut" }}
                         viewport={{ once: true }}
                         key={index} className="flex justify-center items-start gap-4 flex-col px-4 py-6">
-                            <p className="text-lg font-semibold text-black/70 flex justify-start items-center gap-2"><CircleCheck className="inline-block" /> <span>{item.location}</span></p>
-                            <p className="text-lg font-semibold text-black/70 flex justify-start items-center gap-2"><CircleCheck className="inline-block" /> <span>{item.date}</span></p>
-                            <p className="text-lg font-semibold text-black/70 flex justify-start items-center gap-2"><CircleCheck className="inline-block" /> <span>{item.id}</span></p>
-                            <p className="text-lg font-semibold text-black/70 flex justify-start items-center gap-2"><CircleCheck className="inline-block" /> <span>{item.jobType}</span></p>
+                            <p className="text-lg font-semibold text-black/70 flex justify-start items-center gap-2 w-full"><CircleCheck className="inline-block w-[10%]" /> <span className="w-[90%]">{item.location}</span></p>
+                            <p className="text-lg font-semibold text-black/70 flex justify-start items-center gap-2 w-full"><CircleCheck className="inline-block w-[10%]" /> <span className="w-[90%]">{item.date}</span></p>
+                            <p className="text-lg font-semibold text-black/70 flex justify-start items-center gap-2 w-full"><CircleCheck className="inline-block w-[10%]" /> <span className="w-[90%]">{item.id}</span></p>
+                            <p className="text-lg font-semibold text-black/70 flex justify-start items-center gap-2 w-full"><CircleCheck className="inline-block w-[10%]" /> <span className="w-[90%]">{item.jobType}</span></p>
                         </motion.div>
                     ))
                 }
