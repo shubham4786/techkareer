@@ -4,7 +4,7 @@ import Image, { StaticImageData } from "next/image"
 import bg from "@/assets/bg.webp"
 import { ChevronRight, CircleCheck } from "lucide-react"
 import { motion } from "framer-motion"
-import { opportunitiesArray } from "@/constants/opputunities"
+import { opportunitiesArray } from "@/constants/opportunities"
 export const Opportunities = () => {
     return (
         <SectionWrapper>
