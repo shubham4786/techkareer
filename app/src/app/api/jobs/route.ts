@@ -7,7 +7,6 @@ import { options } from "@/app/api/auth/[...nextauth]/option";
 
 export async function GET(req: NextRequest) {
   try {
-    console.log(" here i am");
     const url = new URL(req.url);
     const search = url.searchParams.get("search");
     const sort = url.searchParams.get("sort") ?? "createdAt";

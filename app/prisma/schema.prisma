@@ -15,41 +15,53 @@ datasource db {
 }
 
 model User {
-  id     Int     @id @default(autoincrement())
-  name   String
-  email  String  @unique
-  github String?
-  resume String?
+  id           Int      @id @default(autoincrement())
+  name         String
+  email        String
+  github       String?
+  resume       String?
+  linkedin     String?
+  roles        String[]
+  commitment   String[]
+  opportunity  String?
+  introduction String?
+  twitter      String?
+  minIncome    Int?
+  referralID   String?
 }
 
 model Opportunity {
-  id                        Int      @id @default(autoincrement())
+  id                        Int       @id @default(autoincrement())
   title                     String
   companyName               String
   companyTagline            String
   companyDesc               String
   companyLogo               String?
   role                      String
-  quantity                  Int
+  roleApplyingFor           String
+  payRange                  String
+  quantity                  Int?
   minAnnualPay              Int?
   maxAnnualPay              Int?
-  currency                  String
-  minMonthlyPay             Int?
-  maxMonthlyPay             Int?
+  currency                  String?
+  minMonthlyPay             Int
+  maxMonthlyPay             Int
   equity                    Int?
   vestingProcedure          String?
   potentialRevenueCompany   Float?
   potentialRevenueCandidate Float?
-  waiveFeesCompany          Boolean
-  waiveFeesCandidate        Boolean
+  waiveFeesCompany          Boolean?
+  waiveFeesCandidate        Boolean?
   totalPotentialRevenue     Float?
+  jobID                     String?
   commitment                String
   location                  String
-  yearsExp                  Int
-  deadline                  DateTime
+  yearsExp                  String?
+  deadline                  DateTime?
+  isActive                  Boolean?
   cutsomJobPortalLink       String?
-  createdAt                 DateTime @default(now())
-  updatedAt                 DateTime @updatedAt
+  createdAt                 DateTime
+  updatedAt                 DateTime  @updatedAt
 }
 
 model Gigs {
