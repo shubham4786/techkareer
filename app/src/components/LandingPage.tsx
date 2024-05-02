@@ -20,7 +20,7 @@ const LandingPage = () => {
         speed="slow"
       />
       <Feature />
-      <Oppurtunities />
+      <Opportunities />
       <Companies />
       {/* <Sponsor /> */}
       <Footer />
