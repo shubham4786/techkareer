@@ -19,13 +19,11 @@ const LandingPage = () => {
         direction="left"
         speed="slow"
       />
-
-      <Feature/>
-      <Opportunities/>
-      <Companies/>
-      <Sponsor/>
-      <Footer/>
-
+      <Feature />
+      <Oppurtunities />
+      <Companies />
+      {/* <Sponsor /> */}
+      <Footer />
     </main>
   );
 };
