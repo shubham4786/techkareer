@@ -1,13 +1,35 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import jobOpportunitiesData from "../utils/data/job-opportunities.json";
+
+import { Job } from "@/lib/types";
 
 const JobOpportunities = () => {
   const initialDisplayedJobs = 4;
   const [displayedJobs, setDisplayedJobs] = useState(initialDisplayedJobs);
+  // modify Job types based on the airtable data
+  const [jobs, setJobs] = useState<Job[]>([])
+  const [loading, setLoading] = useState(true)
   const router = useRouter();
+
+  useEffect(() => {
+    async function fetchData() {
+      try {
+        const data = await fetch('/api/get_job_opportunities');
+        const response = await data.json();
+        if ('error' in response) {
+          throw new Error(response.error);
+        }
+        setJobs(response.jobsData);
+      } catch (error) {
+        console.error('Error fetching job details:', error);
+      } finally {
+        setLoading(false);
+      }
+    }
+    fetchData();
+  }, [])
 
   const handleJobOpportunityClick = (jobId: String) => {
     router.push(`/jobs/${jobId}`);
@@ -17,6 +39,29 @@ const JobOpportunities = () => {
     setDisplayedJobs(displayedJobs + 4);
   };
 
+  if (loading) {
+    return (
+      <div className="container mx-auto">
+        <h2 className="text-3xl font-bold text-center text-white mb-8">
+          Job Opportunities
+        </h2>
+        {/* TODO: we can have a loading skeleton for jobs here */}
+        <p className="text-center text-white text-2xl">Loading Jobs....</p>
+      </div>
+    );
+  }
+
+  if (!jobs || jobs.length === 0) {
+    return (
+      <div className="container mx-auto">
+        <h2 className="text-3xl font-bold text-center text-white mb-8">
+          Job Opportunities
+        </h2>
+        <p className="text-center text-white text-2xl">No jobs available.</p>
+      </div>
+    );
+  }
+
   return (
     <section className="py-12" id="JobOpportunity">
       <div className="container mx-auto">
@@ -24,7 +69,7 @@ const JobOpportunities = () => {
           Job Opportunities
         </h2>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-8">
-          {jobOpportunitiesData.slice(0, displayedJobs).map((job) => (
+          {jobs.slice(0, displayedJobs).map((job) => (
             <div
               key={job.id}
               className="p-6 rounded-lg shadow-lg bg-gray-800 flex flex-col cursor-pointer"
@@ -34,7 +79,7 @@ const JobOpportunities = () => {
                 <div className="flex items-center gap-4">
                   <Image
                     alt="company-logo"
-                    src={require(`../utils/images/${job.logo}`).default}
+                    src={require(`../utils/images/${job.logo}`)}
                     height={50}
                     width={50}
                   />
@@ -61,7 +106,7 @@ const JobOpportunities = () => {
           ))}
         </div>
 
-        {displayedJobs < jobOpportunitiesData.length && (
+        {displayedJobs < jobs.length && (
           <div className="flex items-center justify-center mt-8">
             <Button
               className="bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded"
