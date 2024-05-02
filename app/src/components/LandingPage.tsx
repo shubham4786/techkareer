@@ -22,7 +22,7 @@ const LandingPage = () => {
       <Feature />
       <Oppurtunities />
       <Companies />
-      <Sponsor />
+      {/* <Sponsor /> */}
       <Footer />
     </main>
   );
