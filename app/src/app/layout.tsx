@@ -1,9 +1,8 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import Head from "next/head";
 import "./globals.css";
 import Providers from "./Providers";
-
-const inter = Inter({ subsets: ["latin"] });
+import { GoogleAnalytics } from "@next/third-parties/google";
 
 export const metadata: Metadata = {
   title: "Techkareer",
@@ -17,11 +16,24 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={inter.className}>
-        <Providers>
-          {children}
-        </Providers>
+      <Head>
+        <link
+          rel="icon"
+          href="/icon?<generated>"
+          type="image/<generated>"
+          sizes="<generated>"
+        />
+        <link
+          rel="apple-touch-icon"
+          href="/apple-icon?<generated>"
+          type="image/<generated>"
+          sizes="<generated>"
+        />
+      </Head>
+      <body>
+        <Providers>{children}</Providers>
       </body>
+      <GoogleAnalytics gaId="G-89FV5R6QSB" />
     </html>
   );
 }
