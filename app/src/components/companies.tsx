@@ -64,7 +64,7 @@ export const Companies = () => {
           variants={variants}
           className="flex flex-col gap-2"
         >
-          <Image src={c3} alt="company1" width={300} height={300} />
+          <Image src={c3} alt="company1" width={300} height={300} className="rounded-2xl" />
           <Image src={c4} alt="company2" height={300} width={300} />
         </motion.div>
       </AnimatePresence>
@@ -78,7 +78,7 @@ export const Companies = () => {
           className="md:flex flex-col gap-2 hidden"
         >
           <Image src={c5} alt="company1" width={300} height={300} />
-          <Image src={c6} alt="company2" height={300} width={300} />
+          <Image src={c6} alt="company1" width={300} height={300} className="rounded-2xl" />
         </motion.div>
       </AnimatePresence>
       <AnimatePresence>
