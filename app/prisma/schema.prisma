@@ -71,7 +71,7 @@ model Gigs {
   amount      Int
   twitterLink String
   gigType     String
-  role        String
+  role        String[]
   deadline    DateTime
   winner      String?
 }
