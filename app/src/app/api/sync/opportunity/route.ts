@@ -32,49 +32,44 @@ export async function GET(req: NextRequest) {
   try {
     const records: OpportunitiesRecord[] =
       (await fetchDataFromAirtable()) as OpportunitiesRecord[];
-    console.log(records);
-    for (const record of records) {
-      try {
-        const existingRecord = await db.opportunity.findFirst({
-          where: {
-            id: record.Id,
-          },
-        });
-        const deadlineISODateTime = record.Deadline
-          ? new Date(record.Deadline).toISOString()
-          : null;
 
-        const createdISODateTime = new Date(record.CreatedAt).toISOString();
-        if (!existingRecord) {
-          await db.opportunity.create({
-            data: {
-              id: record.Id,
-              title: record.Title,
-              companyName: record.CompanyName,
-              companyTagline: record.CompanyTagline,
-              companyDesc: record.CompanyDesc,
-              companyLogo: record.CompanyLogo,
-              role: record.Role,
-              payRange: record.PayRange,
-              commitment: record.Commitment,
-              location: record.Location,
-              roleApplyingFor: record.RoleApplyingFor,
-              deadline: deadlineISODateTime,
-              isActive: record.IsActive,
-              jobID: record.JobID,
-              yearsExp: record.Experience,
-              minMonthlyPay: record.MinIncome,
-              maxMonthlyPay: record.MaxIncome,
-              createdAt: createdISODateTime,
-            },
-          });
-        }
-      } catch (err) {
-        if (err instanceof PrismaClientValidationError) {
-          console.error("Validation error:", err.message);
-        }
-        throw err;
-      }
+    const ids = records.map((record) => record.Id);
+    const existingRecords = await db.opportunity.findMany({
+      where: {
+        id: {
+          in: ids,
+        },
+      },
+    });
+    const newRecords = records.filter(
+      (record) =>
+        !existingRecords.some(
+          (existingRecord) => existingRecord.id === record.Id
+        )
+    );
+    if (newRecords.length > 0) {
+      await db.opportunity.createMany({
+        data: newRecords.map((record) => ({
+          id: record.Id,
+          title: record.Title,
+          companyName: record.CompanyName,
+          companyTagline: record.CompanyTagline,
+          companyDesc: record.CompanyDesc,
+          companyLogo: record.CompanyLogo,
+          role: record.Role,
+          payRange: record.PayRange,
+          commitment: record.Commitment,
+          location: record.Location,
+          roleApplyingFor: record.RoleApplyingFor,
+          deadline: record.Deadline ? new Date(record.Deadline) : null,
+          isActive: record.IsActive,
+          jobID: record.JobID,
+          yearsExp: record.Experience,
+          minMonthlyPay: record.MinIncome,
+          maxMonthlyPay: record.MaxIncome,
+          createdAt: new Date(record.CreatedAt),
+        })),
+      });
     }
     return NextResponse.json({
       message: "Records fetched successfully",

@@ -1,6 +1,4 @@
-import { title } from "process";
 import { db } from "@/lib/db";
-import { PrismaClientValidationError } from "@prisma/client/runtime/library";
 import Airtable from "airtable";
 import { NextRequest, NextResponse } from "next/server";
 
@@ -21,36 +19,34 @@ interface GigRecord {
 export async function GET(req: NextRequest, res: NextResponse) {
   try {
     const records: GigRecord[] = (await fetchDataFromAirtable()) as GigRecord[];
-    for (const record of records) {
-      console.log(record, "Records from GET");
-      try {
-        const existingRecord = await db.gigs.findFirst({
-          where: {
-            id: record.Id,
-          },
-        });
-
-        if (!existingRecord) {
-          await db.gigs.create({
-            data: {
-              id: record.Id,
-              title: record.Title,
-              desc: record.Desc,
-              amount: record.Amount,
-              twitterLink: record.TwitterLink,
-              gigType: record.GigType,
-              deadline: record.Deadline,
-              role: record.Role,
-              winner: record.Winner,
-            },
-          });
-        }
-      } catch (err) {
-        if (err instanceof PrismaClientValidationError) {
-          console.error("Validation error:", err.message);
-        }
-        throw err;
-      }
+    const ids = records.map((record) => record.Id);
+    const existingRecords = await db.gigs.findMany({
+      where: {
+        id: {
+          in: ids,
+        },
+      },
+    });
+    const newRecords = records.filter(
+      (record) =>
+        !existingRecords.some(
+          (existingRecord) => existingRecord.id === record.Id
+        )
+    );
+    if (newRecords.length > 0) {
+      await db.gigs.createMany({
+        data: newRecords.map((record) => ({
+          id: record.Id,
+          title: record.Title,
+          desc: record.Desc,
+          amount: record.Amount,
+          twitterLink: record.TwitterLink,
+          gigType: record.GigType,
+          deadline: record.Deadline,
+          role: record.Role,
+          winner: record.Winner,
+        })),
+      });
     }
     return NextResponse.json({
       message: "Records fetched successfully",
