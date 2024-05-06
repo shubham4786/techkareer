@@ -52,7 +52,8 @@ export const Companies = () => {
           className="flex flex-col gap-2 justify-center items-center"
         >
           <Image src={c1} alt="company1" width={300} height={300} />
-          <Image src={c2} alt="company2" height={300} width={270} className='rounded-2xl'/>
+
+          <Image src={c8} alt="company1" width={300} height={270} className="rounded-2xl" />
         </motion.div>
       </AnimatePresence>
       <AnimatePresence>
@@ -91,7 +92,7 @@ export const Companies = () => {
           className="md:flex flex-col gap-2 hidden"
         >
 
-          <Image src={c8} alt="company1" width={300} height={270} className="rounded-2xl" />
+          <Image src={c2} alt="company1" width={300} height={270} className="rounded-2xl" />
           <Image src={c7} alt="company1" width={300} height={300} />
         </motion.div>
       </AnimatePresence>

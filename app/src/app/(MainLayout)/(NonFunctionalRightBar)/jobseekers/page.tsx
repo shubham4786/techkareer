@@ -37,8 +37,8 @@ function JobseekerListPage() {
           onChange={handleInputChange}
         />
       </SearchSectionWrapper>
-      <JobseekerList></JobseekerList>
-      <BottomBar></BottomBar>
+      <JobseekerList/>
+      <BottomBar/>
 
     </>
   );
