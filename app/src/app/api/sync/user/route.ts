@@ -1,7 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { db } from "@/lib/db";
 import Airtable from "airtable";
-import { PrismaClientValidationError } from "@prisma/client/runtime/library";
 
 interface UserRecord {
   ID: number;
@@ -24,57 +23,27 @@ const base = new Airtable({
 }).base(process.env.AIRTABLE_BASE_ID as string);
 export async function GET(req: NextRequest) {
   try {
-    const records: UserRecord[] =
+    const airtableRecords: UserRecord[] =
       (await fetchDataFromAirtable()) as UserRecord[];
 
-    for (const record of records) {
-      if (
-        !record.Name ||
-        record.Name.trim() === "" ||
-        !record.Email ||
-        record.Email.trim() === ""
-      ) {
-        console.warn("Skipping record: Name or Email is missing or empty");
-        continue;
-      }
-      if (!record.Role) {
-        record.Role = [];
-      }
-      if (!record.Commitment) {
-        record.Commitment = [];
-      }
+    const existingUserIds = await db.user.findMany({
+      where: {
+        id: { in: airtableRecords.map((record) => record.ID) },
+      },
+      select: {
+        id: true,
+      },
+    });
 
-      try {
-        const existingRecord = await db.user.findFirst({
-          where: {
-            id: record.ID,
-          },
-        });
+    const existingIdsSet = new Set(existingUserIds.map((user) => user.id));
+    const usersToCreate = airtableRecords
+      .filter((record) => !existingIdsSet.has(record.ID))
+      .map(mapUserRecordToDatabaseFormat);
 
-        if (!existingRecord) {
-          await db.user.create({
-            data: {
-              id: record.ID,
-              name: record.Name,
-              email: record.Email,
-              github: record.GitHub,
-              resume: record.Resume,
-              linkedin: record.LinkedIn,
-              roles: record.Role,
-              commitment: record.Commitment,
-              introduction: record.Introduction,
-              twitter: record.Twitter,
-              minIncome: record.MinIncome,
-              referralID: record.ReferralID,
-            },
-          });
-        }
-      } catch (err) {
-        if (err instanceof PrismaClientValidationError) {
-          console.error("Validation error:", err.message);
-        }
-        throw err;
-      }
+    if (usersToCreate.length > 0) {
+      await db.user.createMany({
+        data: usersToCreate,
+      });
     }
 
     return NextResponse.json({
@@ -143,4 +112,22 @@ const fetchDataFromAirtable = async () => {
         }
       );
   });
+};
+
+const mapUserRecordToDatabaseFormat = (record: UserRecord): any => {
+  return {
+    id: record.ID,
+    name: record.Name,
+    email: record.Email,
+    github: record.GitHub,
+    resume: record.Resume,
+    linkedin: record.LinkedIn,
+    roles: record.Role || [],
+    commitment: record.Commitment || [],
+    opportunity: record.Opportunity,
+    introduction: record.Introduction,
+    twitter: record.Twitter,
+    minIncome: record.MinIncome,
+    referralID: record.ReferralID,
+  };
 };
