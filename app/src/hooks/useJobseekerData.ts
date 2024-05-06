@@ -1,4 +1,4 @@
-import { JobSeeker } from "@/types/type";
+import { JobSeeker, User } from "@/types/type";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import { useSession } from "next-auth/react";
@@ -7,11 +7,11 @@ import { useFilterStore } from "@/store/filterStore";
 
 export const useFetchAllJobseekers = (component?:string) => {
   const { filters } = useFilterStore();
-  const fetchAllJobseekers = async (): Promise<JobSeeker[]> => {
+  const fetchAllJobseekers = async (): Promise<User[]> => {
     const response = await axios.get(
-      `/api/user/jobseeker${filters.search ? `?search=${filters.search}` : ""}`
+      `/api/techkareer/users`
     );
-    return response.data.jobseekers;
+    return response.data.users 
   };
 
   return useQuery({
@@ -20,14 +20,14 @@ export const useFetchAllJobseekers = (component?:string) => {
   });
 };
 
-export const useFetchSingleJobseekers = (username: string) => {
-  const fetchSingleJobseekers = async (): Promise<JobSeeker> => {
-    const response = await axios.get(`/api/user/jobseeker/${username}`);
+export const useFetchSingleJobseekers = (id: string) => {
+  const fetchSingleJobseekers = async (): Promise<User> => {
+    const response = await axios.get(`/api/user/jobseeker/${id}`);
     return response.data.jobseeker;
   };
 
   return useQuery({
-    queryKey: [`jobseeker-${username}`],
+    queryKey: [`jobseeker-${id}`],
     queryFn: fetchSingleJobseekers,
   });
 };

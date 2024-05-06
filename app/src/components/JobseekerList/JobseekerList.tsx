@@ -5,9 +5,11 @@ import { JobseekerBox } from "../components";
 import { useFilterStore } from "@/store/filterStore";
 import { useSession } from "next-auth/react";
 import Loader from "../ui/Loader";
+import { User } from "@/types/type";
 
 function JobseekerList() {
-  const { data: jobseekers, isLoading, refetch } = useFetchAllJobseekers();
+  const { data: jobseekers, isLoading, refetch } = useFetchAllJobseekers('jobseekers');
+
   const { filters } = useFilterStore();
   useEffect(() => {
     const timeoutID = setTimeout(() => {
@@ -28,7 +30,7 @@ function JobseekerList() {
           <div className="max-xl:block max-sm:h-[73vh] max-h-[83vh] flex gap-[18px] flex-wrap justify-center  w-full overflow-x-hidden overflow-y-auto px-3 py-5 max-xl:py-[0px]">
             <>
               {" "}
-              {jobseekers.map((jobseeker) => (
+              {jobseekers.map((jobseeker:any) => (
                 <JobseekerBox
                   key={jobseeker.id}
                   jobseeker={jobseeker}
