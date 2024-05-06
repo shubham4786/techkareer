@@ -114,7 +114,7 @@ model JobSeeker {
   projects          Project[]
 }
 
-..
+
 model JobProfile {
   id                 Int           @id @default(autoincrement())
   role               String
