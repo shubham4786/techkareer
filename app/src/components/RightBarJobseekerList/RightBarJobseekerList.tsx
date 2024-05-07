@@ -5,14 +5,15 @@ import { useFetchAllJobseekers } from "@/hooks/useJobseekerData";
 import Image from "next/image";
 import { FaArrowRightLong } from "react-icons/fa6";
 import { useRouter } from "next/navigation";
-import { JobSeeker } from "@/types/type";
+import { JobSeeker, User } from "@/types/type";
 import { useSession } from "next-auth/react";
 import { shuffle } from "@/utils/utils";
+import { getName } from "@/lib/utils";
 
 function RightBarJobseekerList() {
   const router = useRouter();
   const { data: authData } = useSession();
-  const [seekers, setSeekers] = useState<JobSeeker[]>([]);
+  const [seekers, setSeekers] = useState<User[]>([]);
 
   const { data: jobseekers, isSuccess } = useFetchAllJobseekers(
     "seekers-for-section"
@@ -35,24 +36,12 @@ function RightBarJobseekerList() {
         <div className="user-desc flex flex-col gap-[2px] w-full ps-2 pe-2 mt-1 ps-3">
           {seekers ? (
             seekers
-              .filter((jobseeker) => {
-                if (
-                  authData &&
-                  authData.user.username &&
-                  authData.user.username == jobseeker.username
-                ) {
-                  return false;
-                }
-                return true;
-              })
               .slice(0, 3)
 
-              .map((jobseeker: JobSeeker) => {
+              .map((jobseeker: User) => {
                 return (
                   <div
-                    onClick={() =>
-                      router.push(`/jobseekers/${jobseeker.username}`)
-                    }
+                    onClick={() => router.push(`/jobseekers/${jobseeker.id}`)}
                     key={jobseeker.id}
                   >
                     <div className="profile-pic-follow cursor-pointer mt-1 flex flex-between items-center">
@@ -72,11 +61,13 @@ function RightBarJobseekerList() {
                         )}
                       </div>
                       <div className="people-username text-[13px] mt-2 ms-2">
-                        {`${jobseeker.firstName} ${jobseeker.lastName}`}
+                        {jobseeker?.name
+                          ? jobseeker.name
+                          : getName(jobseeker.email)}
                       </div>
                     </div>
                     <div className="people-desc truncate color-lgt-grey w-full text-[13px] mt-2 pe-2 mb-1">
-                      {jobseeker.description}
+                      {jobseeker.introduction}
                     </div>
                   </div>
                 );

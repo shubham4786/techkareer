@@ -1,7 +1,7 @@
 "use client";
 
 import { jobseekerPlaceHolder, organizationPlaceHolder } from "@/assets/assets";
-import { JobSeeker, Status } from "@/types/type";
+import { JobSeeker, Status,User } from "@/types/type";
 import Image from "next/image";
 import React from "react";
 import { DevIcon } from "../components";
@@ -10,13 +10,13 @@ import { useSession } from "next-auth/react";
 import { useHandleSeekerApplication } from "@/hooks/useJobData";
 import { useHandleConnection } from "@/hooks/useConnectionData";
 import Loader from "../ui/Loader";
-
+import { getName } from "@/lib/utils";
 function JobseekerBox({
   jobseeker,
   status,
   connectionStatus,
 }: {
-  jobseeker: JobSeeker;
+  jobseeker: User;
   status?: Status;
   connectionStatus?: string;
 }) {
@@ -26,10 +26,13 @@ function JobseekerBox({
   const { mutate: handleConnection, isPending: connectionLoading } =
     useHandleConnection();
 
+ 
+
+const mailtoLink = `mailto:${jobseeker.email}`;
   return (
     <>
       <div
-        onClick={() => router.push(`/jobseekers/${jobseeker.username}`)}
+        onClick={() => router.push(`/jobseekers/${jobseeker.id}`)}
         className="max-xl:my-[15px] max-xl:w-full w-[45%]  min-h-[max-content] border border-[#E1E4E8] py-[10px] px-[5px] rounded-[10px] cursor-pointer flex flex-col     ps-3 pe-3"
       >
         <div className="people-container flex justify-between items-center">
@@ -116,31 +119,33 @@ function JobseekerBox({
         </div>
 
         <div className="people-jobseekername text-[14px] mt-1 flex items-center gap-2">
-          {`${jobseeker.firstName} ${jobseeker.lastName}`}
+          {
+            jobseeker?.name ? jobseeker.name : getName(jobseeker.email)
+          }
           <span className="people-jobseekername  font-medium text-[14px]">
-            @{jobseeker.username}
+            Talent Id: {jobseeker.id}
           </span>
         </div>
 
         <div className="job-skills mt-2 flex gap-1 flex-wrap items-center w-full  text-black">
-          {(jobseeker.skills.length < 3
-            ? jobseeker.skills
-            : jobseeker.skills.slice(0, 3)
-          ).map((skill, i) => {
+          {(jobseeker.roles.length < 3
+            ? jobseeker.roles
+            : jobseeker.roles.slice(0, 3)
+          ).map((role, i) => {
             return (
               <div
                 key={i}
                 className="skills flex gap-1 items-center text-[12px] font-light pe-2 ps-2  border-[0.1px] truncate  border-solid rounded-[10px]"
               >
-                <DevIcon skillName={skill}></DevIcon>
-                {skill}
+                <DevIcon skillName={role}></DevIcon>
+                <p className="text-white">{role}</p>
               </div>
             );
           })}
 
-          {jobseeker.skills.length > 3 && (
+          {jobseeker.roles.length > 3 && (
             <div className="skills text-[11px]  pe-2 ps-2  border-[0.1px]  border-solid rounded-[10px]">
-              +{jobseeker.skills.length - 3}
+              +{jobseeker.roles.length - 3}
             </div>
           )}
         </div>
@@ -160,7 +165,7 @@ function JobseekerBox({
               ></span>
               {status}
             </div>
-            {isPending ? (
+            {/* {isPending ? (
               <Loader size="15px"></Loader>
             ) : (
               status == Status.PENDING &&
@@ -192,12 +197,24 @@ function JobseekerBox({
                   </div>
                 </>
               )
-            )}
+            )} */}
           </div>
         )}
 
         <div className="people-card-desc mt-2 color-lgt-grey w-full text-[12px] pe-2 text-three-line">
-          {jobseeker.description}
+          { jobseeker.introduction && jobseeker.introduction.length > 200 ? ( 
+            jobseeker.introduction.slice(0, 200) + "..."
+          ) : (
+            jobseeker.introduction
+          )  
+          }
+        </div>
+        <div>
+          <button className="bg-white text-black rounded-full px-5 mt-6 text-xs py-2"
+          onClick={()=> window.open(mailtoLink, "_blank")}
+          >
+            contact
+          </button>
         </div>
       </div>
     </>

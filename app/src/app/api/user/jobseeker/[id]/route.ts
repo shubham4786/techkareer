@@ -3,17 +3,17 @@ import { error } from "console";
 import { NextRequest, NextResponse } from "next/server";
 
 type Params = {
-    username: string
+    id: string
   }
   
 export async function GET( request:NextRequest,context: { params: Params }) {
     try {
       
-        const username = context.params.username
-        const jobseeker=await db.jobSeeker.findUnique({where:{username:username}})
+        const id = parseInt(context.params.id)
+        const jobseeker=await db.user.findUnique({where:{id:id}})
         if(!jobseeker){
           return NextResponse.json({
-            error:`Jobseeker Not found with usernam ${username}`
+            error:`Jobseeker Not found with usernam ${id}`
           },{status:404});
       }
         return NextResponse.json({jobseeker:jobseeker},{status:200});

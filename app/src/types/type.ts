@@ -25,6 +25,24 @@ export interface JobSeeker {
   jobApplications: Application[];
 }
 
+
+export interface User {
+  id: number;
+  profilePic?: string;
+  name?: string;
+  email: string;
+  github?: string;
+  resume?: string;
+  linkedin?: string;
+  roles: string[];
+  commitment: string[];
+  opportunity?: string;
+  introduction?: string;
+  twitter?: string;
+  minIncome?: number;
+  referralID?: string;
+}
+
 export interface JobProfile {
   id: number;
   role: string;
