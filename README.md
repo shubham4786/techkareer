@@ -52,3 +52,12 @@ SKIP_ENV_VALIDATION=true npm run dev # for developement
 4. Add the environment variable validation in server or client based on the type of the variable.
 5. Add you variable configuration in `runtimeEnv`.
 6. Yo're all set!
+
+# Contributing
+We welcome contributions from the community! However, to ensure a smooth review process and maintain the quality of our codebase, please follow these guidelines:
+
+1. Open PRs to the development branch: All pull requests should be opened against the development branch. Directly opening PRs to the main branch will result in immediate rejection.
+2. When opening issues or pull requests, Attach images or videos to provide additional context or illustrate the problem you're encountering
+
+
+Thank you for your interest in contributing to Techkareer!
