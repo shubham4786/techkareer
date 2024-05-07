@@ -1,6 +1,6 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import { jobseekerPlaceHolder } from "@/assets/assets";
+import jobseekerprofile from "@/assets/placholder-jobseeker.webp";
 import { useFetchAllJobseekers } from "@/hooks/useJobseekerData";
 import Image from "next/image";
 import { FaArrowRightLong } from "react-icons/fa6";
@@ -28,12 +28,12 @@ function RightBarJobseekerList() {
       <div className="people-rec-section  w-full flex flex-col mt-6 ">
         <div
           onClick={() => router.push("/jobseekers")}
-          className="text-holder cursor-pointer flex justify-between items-center text-[14px] font-medium ms-3 me-3"
+          className="text-holder cursor-pointer flex justify-between items-center text-[14px] font-medium ms-3 me-3 mb-4"
         >
           People on Techkareer
           <FaArrowRightLong />
         </div>
-        <div className="user-desc flex flex-col gap-[2px] w-full ps-2 pe-2 mt-1 ps-3">
+        <div className="user-desc flex flex-col gap-4 w-full  pe-2 mt-1 ps-3">
           {seekers ? (
             seekers
               .slice(0, 3)
@@ -44,30 +44,40 @@ function RightBarJobseekerList() {
                     onClick={() => router.push(`/jobseekers/${jobseeker.id}`)}
                     key={jobseeker.id}
                   >
-                    <div className="profile-pic-follow cursor-pointer mt-1 flex flex-between items-center">
-                      <div className="profile-pic h-[2.3rem] w-[2.3rem] flex flex-between justify-center items-center  mt-2 overflow-hidden border-[1px] rounded-full">
+                    <div className="profile-pic-follow  mt-1 flex  py-3 items-center w-full gap-2 hover:bg-gray-200/20 rounded-xl transition-all px-1 cursor-pointer">
+                      <div className="profile-pic w-[18%] flex flex-between justify-center items-center  mt-2 overflow-hidden rounded-full">
                         {jobseeker.profilePic ? (
-                          <img
+                          <Image
                             className=" object-fill  h-full w-full"
                             alt=""
+                            height={80}
+                            width={80}
                             src={`${jobseeker.profilePic}`}
-                          ></img>
+                          ></Image>
                         ) : (
                           <Image
-                            src={jobseekerPlaceHolder}
+                            src={jobseekerprofile}
                             alt=""
+                            height={80}
+                            width={80}
                             className=" object-contain  h-full w-full"
                           ></Image>
                         )}
                       </div>
-                      <div className="people-username text-[13px] mt-2 ms-2">
-                        {jobseeker?.name
-                          ? jobseeker.name
-                          : getName(jobseeker.email)}
+                      <div className="flex-col w-[90%]">
+                        <div className="people-username text-[13px]">
+                          {jobseeker?.name
+                            ? jobseeker.name
+                            : getName(jobseeker.email)}
+                        </div>
+                        {jobseeker.introduction && (
+                          <div className="people-desc truncate color-lgt-grey w-full text-[13px] text-wrap mt-1">
+                            {jobseeker.introduction.length > 50
+                              ? jobseeker.introduction.slice(0, 50) + "..."
+                              : jobseeker.introduction}
+                          </div>
+                        )}
                       </div>
-                    </div>
-                    <div className="people-desc truncate color-lgt-grey w-full text-[13px] mt-2 pe-2 mb-1">
-                      {jobseeker.introduction}
                     </div>
                   </div>
                 );

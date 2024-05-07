@@ -26,13 +26,13 @@ function JobseekerListPage() {
 
   }
     return (
-    <>
-      <Navbar>Users</Navbar>
+    <div className="flex flex-col">
+      <Navbar className="text-xl mt-3 md:text-2xl md:pl-8">JobSeekers</Navbar>
       <SearchSectionWrapper>
         <input
           type="text"
-          placeholder="Search"
-          className="search-box"
+          placeholder="Search for jobseekers"
+          className="bg-transparent px-6 outline-none"
           value={filters.search}
           onChange={handleInputChange}
         />
@@ -40,7 +40,7 @@ function JobseekerListPage() {
       <JobseekerList/>
       <BottomBar/>
 
-    </>
+    </div>
   );
 }
 
