@@ -17,8 +17,8 @@ interface statusType {
   value: string;
 }
 function JobListPage() {
-  
-  const {filters,setFilter} = useFilterStore();
+
+  const { filters, setFilter } = useFilterStore();
   const { refetch } = useFetchAllJobs();
   const [isOpen, setIsOpen] = useState(false);
   const [modalOpen, setModalOpen] = useState(false);
@@ -71,7 +71,7 @@ function JobListPage() {
     });
   };
   return (
-    <>
+    <div className="flex flex-col">
       <Navbar>
         Jobs
         <div className="relative flex gap-1 ">
@@ -124,16 +124,14 @@ function JobListPage() {
       <SearchSectionWrapper>
         <input
           type="text"
-          placeholder="Search"
-          className="search-box"
+          placeholder="Search for Jobs"
+          className="bg-transparent px-6 outline-none"
           value={filters.search}
           onChange={handleInputChange}
-          // onChange={handleSearchInput}
-          // onKeyDown={handleEnter}
         />
       </SearchSectionWrapper>
       <div className="scrollable-content-wrapper max-sm:h-[73vh] h-[83vh] w-full ">
-        <JobList></JobList>
+        <JobList />
       </div>
       <BottomBar></BottomBar>
       {modalOpen && (
@@ -153,7 +151,7 @@ function JobListPage() {
           </div>
         </>
       )}
-    </>
+    </div>
   );
 }
 

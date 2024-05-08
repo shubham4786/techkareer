@@ -1,5 +1,5 @@
 "use client";
-import { Application, JobProfile } from "@/types/type";
+import { Application, JobProfile, Opportunity } from "@/types/type";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import axios, { isAxiosError } from "axios";
 import { useSession } from "next-auth/react";
@@ -7,6 +7,30 @@ import { toast } from "react-toastify";
 import { appendToBaseUrl } from "./hooks";
 import { useState } from "react";
 import { useFilterStore } from "@/store/filterStore";
+
+export const useFetchAllOpportunities = (component?: string) => {
+  const { filters } = useFilterStore();
+  const fetchAllOpportunities = async (): Promise<Opportunity[]> => {
+    const response = await axios.get(`/api/techkareer/opportunities`);
+    return response.data.opportunities;
+  };
+
+  return useQuery({
+    queryKey: [component ? component : "all-opportunities"],
+    queryFn: fetchAllOpportunities,
+  });
+};
+export const useFetchSingleOpportunity = (id: string) => {
+  const fetchSingleOpportunity = async (): Promise<Opportunity> => {
+    const response = await axios.get(`/api/jobs/job/${id}`);
+    return response.data.opportunity;
+  };
+
+  return useQuery({
+    queryKey: [`opportunity-${id}`],
+    queryFn: fetchSingleOpportunity,
+  });
+};
 
 export const useFetchAllJobs = () => {
   const { filters } = useFilterStore();
@@ -20,7 +44,6 @@ export const useFetchAllJobs = () => {
           : ""
       }${filters.min_salary ? `&min_salary=${filters.min_salary}` : ""}
       ${filters.sort ? `&sort=${filters.sort}` : ""}`
-      
     );
     return response.data.jobProfile;
   };

@@ -25,7 +25,6 @@ export interface JobSeeker {
   jobApplications: Application[];
 }
 
-
 export interface User {
   id: number;
   profilePic?: string;
@@ -41,6 +40,40 @@ export interface User {
   twitter?: string;
   minIncome?: number;
   referralID?: string;
+}
+
+export interface Opportunity {
+  id: number;
+  title: string;
+  companyName: string;
+  companyTagline: string;
+  companyDesc: string;
+  companyLogo?: string;
+  role: string;
+  roleApplyingFor: string;
+  payRange: string;
+  quantity?: number;
+  minAnnualPay?: number;
+  maxAnnualPay?: number;
+  currency?: string;
+  minMonthlyPay: number;
+  maxMonthlyPay: number;
+  equity?: number;
+  vestingProcedure?: string;
+  potentialRevenueCompany?: number;
+  potentialRevenueCandidate?: number;
+  waiveFeesCompany?: boolean;
+  waiveFeesCandidate?: boolean;
+  totalPotentialRevenue?: number;
+  jobID?: string;
+  commitment: string;
+  location: string;
+  yearsExp?: string;
+  deadline?: Date;
+  isActive?: boolean;
+  cutsomJobPortalLink?: string;
+  createdAt: Date;
+  updatedAt: Date;
 }
 
 export interface JobProfile {
