@@ -1,11 +1,11 @@
 "use client";
 import { BottomBar, JobDetails, Navbar } from "@/components/components";
-import { useFetchSingleJob } from "@/hooks/useJobData";
+import { useFetchSingleJob, useFetchSingleOpportunity } from "@/hooks/useJobData";
 import React from "react";
 
 function JobDetailsPage({ params }: { params: { jobId: string } }) {
-  const { data: job, isLoading } = useFetchSingleJob(
-    params.jobId.split("-")[1]
+  const { data: job, isLoading } = useFetchSingleOpportunity(
+    params.jobId
   );
   return (
     <>
@@ -15,10 +15,10 @@ function JobDetailsPage({ params }: { params: { jobId: string } }) {
         job && (
           <>
             <Navbar>
-              {job.role} at {job.organization.name}
+              {job.role} at {job.companyName}
             </Navbar>{" "}
             <div className="scrollable-content-wrapper max-sm:h-[80vh] h-[90vh] ">
-                <JobDetails job={job}></JobDetails>
+              <JobDetails job={job}></JobDetails>
             </div>
             <BottomBar></BottomBar>
 
