@@ -10,11 +10,12 @@ function Rightbar({ children }: { children: ReactNode }) {
   const router=useRouter()
   return (
     <>
-      <div className="fav-section max-md:hidden w-[20%] h-[100vh]  border-r-[1px] border-r-[solid] border-r-[#E1E4E8]">
-        <div className="top-section  flex justify-between  items-center px-5 gap-5 border-b-[1px] border-b-[solid] border-b-[#E1E4E8] h-[10vh] max-h-[10vh]">
+      <div className="fav-section max-md:hidden w-[20%] h-[100vh]  ">
+        <div className="top-section  flex justify-between  items-center px-5 gap-5  h-[10vh] max-h-[10vh]">
+        {status == "authenticated" && auth && (
           <div className=" cursor-pointer flex items-center text-[14px]">
-            {status == "authenticated" && auth ? (
-              <>
+
+
                 <div onClick={()=>router.push(`/profile/${auth.user.role.toLowerCase()}`)} className="flex items-center gap-[5px] relative">
                   <div className="profile-pic-container h-[30px] min-w-[30px] relative flex items-center justify-center">
                     {auth.user?.image ? (
@@ -30,13 +31,10 @@ function Rightbar({ children }: { children: ReactNode }) {
                   </div>
                   {`@${auth.user.username}`}
                 </div>
-              </>
-            ) : (
-              <div onClick={()=>{router.push('/signin')}}>
-              Login
+  
+
           </div>
-            )}
-          </div>
+        )}
         </div>
         {children}
       </div>
