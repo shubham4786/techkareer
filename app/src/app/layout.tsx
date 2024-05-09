@@ -5,7 +5,6 @@ import Providers from "./Providers";
 import { GoogleAnalytics } from "@next/third-parties/google";
 
 export const metadata: Metadata = {
-
   openGraph:{
     title: "Techkareer",
     description: "The only app you need for hiring",
@@ -21,6 +20,7 @@ export const metadata: Metadata = {
     locale: 'en_US',
     type: 'website',
   }
+
 }
 
 export default function RootLayout({
