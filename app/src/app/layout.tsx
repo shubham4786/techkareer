@@ -7,7 +7,8 @@ import { GoogleAnalytics } from "@next/third-parties/google";
 export const metadata: Metadata = {
   title: "Techkareer",
   description: "The only app you need for hiring",
-};
+
+}
 
 export default function RootLayout({
   children,
@@ -29,6 +30,7 @@ export default function RootLayout({
           type="image/<generated>"
           sizes="<generated>"
         />
+
       </Head>
       <body>
         <Providers>{children}</Providers>

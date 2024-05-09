@@ -1,94 +1,136 @@
-"use client";
-import { jobseekerPlaceHolder, projectPlaceholder } from "@/assets/assets";
+"use client"
+import jobseekerPlaceholder from "@/assets/placholder-jobseeker.webp";
 import { useFetchSingleJobseekers } from "@/hooks/useJobseekerData";
 import Image from "next/image";
 import React, { useEffect } from "react";
-import { CiMail } from "react-icons/ci";
 import { DevIcon } from "../components";
 import { useSession } from "next-auth/react";
 import { redirect } from "next/navigation";
-import Loader from "../ui/Loader";
 
+import { MoveUpRight, Github, Linkedin } from "lucide-react";
+import Link from "next/link";
+import { User } from "@/types/type";
+import { Loader } from "lucide-react";
 
-function JobseekerDetails({ id }: { id: string }) {
+type jobseekerProp = {
+  jobseeker: User
+  isLoading: boolean
+}
+function JobseekerDetails({ jobseeker , isLoading }: jobseekerProp) {
   const { data: auth, status } = useSession();
-
 
   useEffect(() => {
     if (
       status != "loading" &&
-      auth?.user.role == "Jobseeker" 
+      auth?.user.role == "Jobseeker"
       // auth?.user.username == username
     ) {
       redirect("/profile/organization");
     }
   }, [status]);
   const { data: authData } = useSession();
-  const { data: jobseeker, isLoading } = useFetchSingleJobseekers(id);
 
 
-
+  console.log(jobseeker);
 
   return (
     <>
       {isLoading ? (
         <div className=" h-full w-full  flex justify-center items-center">
-          <Loader size="30px"></Loader>
+          <Loader className="text-white"></Loader>
         </div>
       ) : (
         jobseeker && (
           <div className=" h-full   flex flex-col gap-2 w-full overflow-x-none overflow-y-auto ">
-            <div className="intro-sec border-b-[1px] border-b-solid border-b-[#e1e4e8] flex flex-col  w-full justify-center mt-5 items-center pb-3">
-              <div className="image-container flex justify-center items-center h-[5rem] w-[5rem] border-[2px] border-solid border-[#22C55E] p-[1px]">
+            <div className="intro-sec  pb-6 flex flex-col  w-full justify-center mt-5 items-center ">
+              <div className="image-container flex justify-center items-center ">
                 {jobseeker.profilePic ? (
-                  <img
+                  <Image
                     src={`${jobseeker?.profilePic}`}
-                    className="h-full w-full  object-cover "
+                    alt=""
+                    width={50}
+                    height={50}
                   />
                 ) : (
                   <Image
+                    src={jobseekerPlaceholder}
                     alt=""
-                    src={jobseekerPlaceHolder}
-                    className="h-full w-full  object-contain  p-4"
+                    width={50}
+                    height={50}
                   />
                 )}
               </div>
-              <div className="follow-username-sec flex items-center justify-center gap-2 mt-2">
-                <div className="header-username  ">@{jobseeker.email}</div>
-              </div>
 
-
-
-              <div className="header-username font-medium text-[16px] mt-2">
-                {jobseeker?.name}
+              <div className="flex flex-col justify-center items-center text-[16px] mt-2">
+                <p>{jobseeker?.name}</p>
+                <p>@{jobseeker.email}</p>
               </div>
-              <div className="header-email text-[13px] mt-3 flex items-center gap-1 justify-center">
-                <CiMail />
-                {jobseeker?.email}
+              <div
+                className="header-email  itemtext-lg px-4 py-2 rounded-full bg-white text-gray-900 cursor-pointer  text-[13px] mt-3 flex items-center gap-1 justify-center   decoration-underline"
+                onClick={() => {}}
+              >
+                <p className="text-gray-900">Contact</p>
+
+                <MoveUpRight size={12} className="text-gray-900" />
               </div>
-              <div className="job-skills mt-2 flex flex-wrap justify-center items-center w-[70%] mt-5 gap-[9px] text-black">
+              <div className="job-skills  flex flex-wrap justify-center items-center w-[70%] mt-5 gap-[9px] text-black">
+                {jobseeker?.github && (
+                  <div
+                    className="  text-base px-4 py-2 rounded-full bg-white text-gray-900 cursor-pointer  text-[13px] flex items-center gap-1 justify-center   "
+                    onClick={() => {
+                      window.lo;
+                    }}
+                  >
+                    <Link
+                      href={jobseeker.github}
+                      rel="noopener noreferrer"
+                      target="_blank"
+                      className="flex gap-2 justify-center items-center"
+                    >
+                      <Github size={15} className="text-gray-900" />
+                      <p className="text-gray-900">Github</p>
+                    </Link>
+                  </div>
+                )}
+                {jobseeker?.linkedin && (
+                  <div
+                    className="header-email  text-base px-4 py-2 rounded-full bg-white text-gray-900 cursor-pointer flex items-center gap-1 justify-center   "
+                    onClick={() => {}}
+                  >
+                    <Link
+                      href={jobseeker.linkedin}
+                      rel="noopener noreferrer"
+                      target="_blank"
+                      className="flex gap-2 justify-center items-center"
+                    >
+                      <Linkedin size={15} className="text-gray-900" />
+                      <p className="text-gray-900">LinkedIn</p>
+                    </Link>
+                  </div>
+                )}
+              </div>
+              <div className="job-skills  flex flex-wrap justify-center items-center w-[70%] mt-5 gap-[9px] text-black">
                 {jobseeker?.roles.map((role, key) => {
                   return (
                     <div
                       key={key}
-                      className="skills flex items-center gap-1 text-[14px] font-light pe-2 ps-2  border-[0.1px]  border-solid rounded-[10px]"
+                      className="skills flex items-center gap-1 text-[14px] bg-gray-200 font-light pe-2 ps-2  border-[0.1px]  border-solid rounded-[10px]"
                     >
                       <DevIcon skillName={role}></DevIcon>
-                      <p className="text-white">{role}</p>
+                      <p className="text-gray-800">{role}</p>
                     </div>
                   );
                 })}
               </div>
             </div>
-            <div className="about-sec pb-3 border-b-[1px] border-b-solid border-b-[#e1e4e8] flex flex-col justify-center mt-2 items-center">
-              <div className="header-about text-[14px]">
-                About {jobseeker?.name}
-              </div>
-              <div className="header-about-txt text-[13px] text-grey-100 text-justify ps-7 pe-7 pt-4 ">
+            <div className="about-sec pb-3  flex flex-col justify-start mt-2 items-start gap-4 px-2">
+              <p className="header-about  text-white  text-4xl  font-semibold">
+                About
+              </p>
+              <div className="header-about-txt text-xl text-grey-100 text-justify  ">
                 {jobseeker?.introduction}
               </div>
             </div>
-         
           </div>
         )
       )}
