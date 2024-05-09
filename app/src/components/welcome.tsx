@@ -49,10 +49,6 @@ export const Welcome = () => {
             </motion.span>
           </div>
           <motion.p
-            initial={{ opacity: 0, y: 30, scale: 0.6 }}
-            animate={{ opacity: 1, y: 0, scale: 1 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5, delay: 1.2 }}
             className="w-full md:w-[55%] text-lg md:text-xl text-[#858694] text-center  leading-8 md:leading-10"
           >
             TechKareer is used by numerous businesses, institutions, and
@@ -64,7 +60,7 @@ export const Welcome = () => {
           <motion.button
             initial={{ opacity: 0, y: 30, scale: 0.6 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
-            transition={{ duration: 0.5, delay: 2.4 }}
+            transition={{ duration: 0.5, delay: 0.4 }}
             viewport={{ once: true }}
             className="bg-white text-black px-8 py-4  font-bold text-xs rounded-full  tracking-wider shadow-[0px_0px_10px_1px_#fed7e2] hover:bg-transparent hover:text-white hover:shadow-transparent border-solid border-[1px] border-transparent hover:border-gray-200 hover:duration-150"
           >
@@ -76,7 +72,7 @@ export const Welcome = () => {
                     initial={{ opacity: 0, y: 20, scale: 0.8 }}
                     animate={{ opacity: 1, y: 0, scale: 1 }}
                     viewport={{ once: true }}
-                    transition={{ duration: 0.5  ,delay: 1.2}}
+                    // transition={{ duration: 0.5  ,delay: 1.2}}
                     autoPlay loop muted className="rounded-2xl mt-12 md:mt-10 w-[80%]" >
                     <source src="./video.mp4" />
                 </motion.video> */}
@@ -95,7 +91,7 @@ const UserPfp: React.FC<UserPfpProps> = ({ pfp }) => {
         <motion.div
           whileHover={{
             translateY: -10,
-            transition: { duration: 0.3, ease: "easeInOut" },
+            // transition: { duration: 0.3, ease: "easeInOut" },
           }}
           style={{ marginLeft: index > 0 ? "-10px" : "0" }}
           key={index}
