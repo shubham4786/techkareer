@@ -1,5 +1,5 @@
 "use client";
-import { Application, JobProfile, Opportunity } from "@/types/type";
+import { Application, Bounty, JobProfile, Opportunity } from "@/types/type";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import axios, { isAxiosError } from "axios";
 import { useSession } from "next-auth/react";
@@ -29,6 +29,30 @@ export const useFetchSingleOpportunity = (id: string) => {
   return useQuery({
     queryKey: [`opportunity-${id}`],
     queryFn: fetchSingleOpportunity,
+  });
+};
+export const useFetchSingleBounty = (id: string) => {
+  const fetchSingleBounty = async (): Promise<Bounty> => {
+    const response = await axios.get(`/api/bounties/bounty/${id}`);
+    return response.data.bounty;
+  };
+
+  return useQuery({
+    queryKey: [`bounty-${id}`],
+    queryFn: fetchSingleBounty,
+  });
+};
+
+export const useFetchAllBounties = (component?: string) => {
+  const { filters } = useFilterStore();
+  const fetchAllBounties = async (): Promise<Bounty[]> => {
+    const response = await axios.get(`/api/techkareer/gigs`);
+    return response.data.gigs;
+  };
+
+  return useQuery({
+    queryKey: [component ? component : "all-bounties"],
+    queryFn: fetchAllBounties,
   });
 };
 
