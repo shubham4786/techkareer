@@ -85,15 +85,15 @@ function JobListPage() {
           </div>
           <div
             ref={dropdownRef}
-            className="border-[2px] cursor-pointer px-2 py-1 rounded-full btn-container flex items-center gap-1 cursor-pointer"
+            className="border-[1px] border-gray-700 cursor-pointer px-5 py-1 rounded-full btn-container flex items-center gap-1 "
             onClick={() => setIsOpen(!isOpen)}
           >
             <div className="text text-[14px]">{status.name}</div>
-            <FaSort className="text-[16px]" />
+            <FaSort className="text-[16px] text-gray-400" />
           </div>
           {isOpen && (
             <div
-              className="absolute cursor-pointer text-[14px] right-[-1rem] z-[10rem] mt-3 w-60   origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none"
+              className="absolute cursor-pointer px-1 text-[14px] right-[-.2rem] z-[10rem] mt-10 w-[160px] border-[1px] border-gray-800  origin-top-right rounded-md bg-gray-900 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none"
               role="menu"
               aria-orientation="vertical"
               aria-labelledby="menu-button"
@@ -109,7 +109,7 @@ function JobListPage() {
                     onClick={() => {
                       setStatus(item);
                     }}
-                    className="text-gray-700 font-700   px-2 py-2 text-[14px]"
+                    className="text-gray-200 font-700   px-2 py-2 text-[14px]"
                     role="menuitem"
                     id="menu-item-0"
                   >

@@ -25,8 +25,8 @@ function JobDetails({ job }: { job: Opportunity }) {
   return (
     <>
       <div className=" h-full   flex flex-col gap-2 w-full overflow-x-none overflow-y-auto ">
-        <div className="job-desc-section border-b-[1px] p-7 flex flex-col w-full ">
-          <div className="intro-sec  flex justify-between w-full items-center ">
+        <div className="job-desc-section border-b-[1px] border-gray-600 p-7 flex flex-col w-full ">
+          <div className="intro-sec  flex justify-between w-full items-center mb-8 ">
             <div className="img-wrapper flex items-center justify-center h-[4.4rem] w-[4.4rem] border-[2px] rounded-full overflow-hidden relative">
               {!job.companyLogo ? (
                 <Image
@@ -36,9 +36,12 @@ function JobDetails({ job }: { job: Opportunity }) {
                   className=" object-contain"
                 />
               ) : (
-                <img
+                <Image
                   src={job.companyLogo}
                   className="absolute rounded-full h-full w-full object-fill"
+                  width={50}
+                  alt=""
+                  height={50}
                 />
               )}
             </div>
@@ -69,47 +72,64 @@ function JobDetails({ job }: { job: Opportunity }) {
                 )))}
             </div>
           </div>
-          <div className="role-name mt-5 text-[18px]">{job?.role}</div>
+          <div>
+            <div className="flex justify-start items-center gap-2">
+              <p className="text-xl ">{job?.companyName} -</p>
+              <p className="role-name text-base bg-gray-600 px-4 py-1 w-fit rounded-full">{job?.role} ({job?.commitment})</p>
+            </div>
+            </div>
+          {/* <div>{job?.companyName}</div>
+          <div className="role-name mt-5 text-[18px] bg-gray-600 px-5 py-1 w-fit rounded-full">{job?.role}</div>
           <div className="role-name mt-2 text-[14px] color-lgt-grey">
             At {job?.companyName},{job?.location} • {job?.commitment}
-          </div>
+          </div> */}
 
-          <div className="basic-desc flex mt-4 gap-3 ">
-            <div className="flex flex-col">
-              <div className="experience-sec">
-                <div className="primary-text color-lgt-grey ">Experience</div>
-                <div className="text-[14px]">
+          <div className="basic-desc flex mt-4 gap-3 flex-col ">
+            {
+              job?.yearsExp &&  <div className="flex flex-col">
+         <div className="flex justify-start items-center gap-3">
+                <div className="primary-text text-lg color-lgt-grey">Experience -</div>
+                <div className="text-lg px-3 py-1 bg-gray-600 rounded-full">
+     
                   {job?.yearsExp === "0"
                     ? "Fresher"
                     : `${job?.yearsExp} years`}
                 </div>
               </div>
             </div>
-            <div className="flex flex-col">
-              <div className="experience-sec">
-                <div className="primary-text text-[14px] color-lgt-grey">
-                  Salary
+            }
+            {
+              job?.payRange &&             <div className="flex flex-col">
+              <div className="flex justify-start items-center gap-3">
+                <div className="primary-text text-lg color-lgt-grey">
+                  Salary -
                 </div>
-                <div className="text-[14px]">{job?.payRange} lpa</div>
+                <div className="text-lg px-3 py-1 bg-gray-600 rounded-full">{job?.payRange} lpa</div>
               </div>
             </div>
-            <div className="flex flex-col">
-              <div className="experience-sec">
-                <div className="primary-text color-lgt-grey">Type</div>
-                <div className="text-[14px]">{job?.commitment}</div>
-              </div>
+            }
+           
+           {
+            job?.location        &&     <div className="flex flex-col">
+            <div className="flex justify-start items-center gap-3">
+                <div className="primary-text text-lg color-lgt-grey">Location -</div>
+              <div className="text-lg bg-gray-600 rounded-full px-3 py-1" >{job?.location}</div>
             </div>
           </div>
-          <div className="time-posted text-[14px] color-lgt-grey mt-4">
+           }
+
+
+          </div>
+          <div className="time-posted text-base text-gray-500 mt-4">
             Posted at
-            <span className="text-white ml-1">
+            <span className="text-gray-500  text-base ml-1">
               {formatTimestampToDDMonthYYYY(String(job.createdAt))}
             </span>
           </div>
         </div>
-        <div className="description-section  border-b-[1px] py-3 px-7  flex flex-col">
-          <div className="desc-header text-[14px]">About this Opportunity</div>
-          <div className="desc-text pt-4 text text-[13px] text-justify">
+        <div className="   py-3 px-7  flex flex-col">
+          <div className="text-2xl">About </div>
+          <div className="desc-text pt-4 text text-xl text-justify">
             {job.companyDesc}
           </div>
         </div>

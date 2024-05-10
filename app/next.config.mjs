@@ -33,6 +33,12 @@ const nextConfig = {
           hostname:"media.licdn.com",
           port:""
         },
+        {
+          protocol:"https",
+          hostname:"v5.airtableusercontent.com",
+          port:""
+        },
+
         
       ]
     },
