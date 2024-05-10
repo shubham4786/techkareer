@@ -10,6 +10,7 @@ import { HiOutlineBuildingOffice, HiOutlineUser } from "react-icons/hi2";
 import { IoIosLogOut } from "react-icons/io";
 import { IoPeopleOutline } from "react-icons/io5";
 import { PiHandshake, PiSuitcaseSimpleDuotone } from "react-icons/pi";
+import { CircleDollarSign } from "lucide-react";
 
 function Leftbar() {
   const router = useRouter();
@@ -40,6 +41,13 @@ function Leftbar() {
                 PostedJobs
               </div>
             )}
+            <div
+              onClick={() => router.push(`/bounties`)}
+              className="flex justify-start relative items-center gap-4 px-2 py-2 hover:bg-gray-700/20 rounded-lg hover:text-white cursor-pointer  border-solid border-[1px] border-transparent text-[16px]  font-medium	 m-1"
+            >
+              <CircleDollarSign className="cursor-pointer text-[19px]" />
+              Bounties
+            </div>
             <div
               onClick={() => router.push(`/jobseekers`)}
               className="flex justify-start relative items-center gap-4 px-2 py-2 hover:bg-gray-700/20 rounded-lg hover:text-white cursor-pointer  border-solid border-[1px] border-transparent text-[16px]  font-medium	 m-1"

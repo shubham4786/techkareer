@@ -5,7 +5,7 @@ import Providers from "./Providers";
 import { GoogleAnalytics } from "@next/third-parties/google";
 
 export const metadata: Metadata = {
-  openGraph:{
+  openGraph: {
     title: "Techkareer",
     description: "The only app you need for hiring",
     siteName: 'Techkareer',
@@ -22,10 +22,13 @@ export const metadata: Metadata = {
 
   },
   twitter: {
-    card: "summary_large_image"
+    card: "summary_large_image",
+    site: "@techkareer",
+    creator: "@itsharshag",
+    images: ["https://www.techkareer.com/og.png"],
   },
 
-  }
+}
 
 
 export default function RootLayout({
