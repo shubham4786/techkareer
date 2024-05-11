@@ -2,13 +2,13 @@
 import { organizationPlaceHolder } from "@/assets/assets";
 import { JobProfile, Opportunity, Status } from "@/types/type";
 import { formatTimestampToDDMonthYYYY } from "@/utils/utils";
-import Image from "next/image";
+
 import React from "react";
 import { DevIcon } from "../components";
 import { useRouter } from "next/navigation";
 import { useSession } from "next-auth/react";
 import { RiContactsLine } from "react-icons/ri";
-
+import Image from "next/image";
 function JobCard({ job, status }: { job: Opportunity; status?: Status }) {
   const router = useRouter();
   const { data: authData } = useSession()
@@ -26,17 +26,21 @@ function JobCard({ job, status }: { job: Opportunity; status?: Status }) {
         <div className="org-logo  h-full flex justify-center mt-2 ms-1 ">
           <div className="logo-container relative h-[4rem] w-[4rem] overflow-hidden ">
             {job.companyLogo ? (
-              <img
+              <Image
                 src={job.companyLogo}
                 className="h-full w-full rounded-full absolute"
                 alt=""
+                width={50}
+                height={50}
               />
             ) : (
               <Image
                 src={organizationPlaceHolder}
-                fill
+     
                 className="h-full w-full rounded-full "
                 alt=""
+                width={50}
+                height={50}
               />
             )}
           </div>
