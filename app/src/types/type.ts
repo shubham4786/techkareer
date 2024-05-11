@@ -75,6 +75,17 @@ export interface Opportunity {
   createdAt: Date;
   updatedAt: Date;
 }
+export interface Bounty {
+  id: number;
+  title: string;
+  desc: string;
+  amount: number;
+  twitterLink: string;
+  gigType: string;
+  role: string[];
+  deadline: Date;
+  winner?: string | null;
+}
 
 export interface JobProfile {
   id: number;
