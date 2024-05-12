@@ -26,8 +26,8 @@ export const Footer = () => {
                 </div>
                 <p className="text-sm text-gray-200/60 mb-5">© 2024 Techkareer. All rights reserved.</p>
                 <div className="flex gap-5">
-                    <Link href="/" className="text-sm underline">Privacy Policy</Link>
-                    <Link href="/" className="text-sm underline">Terms of service</Link>
+                    <Link href="/" className="text-sm">Privacy Policy</Link>
+                    <Link href="/" className="text-sm">Terms of service</Link>
                 </div>
             </footer>
         </SectionWrapper>
