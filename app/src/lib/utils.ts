@@ -4,6 +4,7 @@ import { twMerge } from "tailwind-merge"
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs))
 }
-export const getName = (email:string):string=>{
-  return  email.split('@')[0] 
+
+export function getName(email:string){
+  return email.split('@')[0]
 }

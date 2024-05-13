@@ -1,4 +1,5 @@
 import logo from '@/assets/logo.webp'
+import { BountySubmit } from '@/components/forms/bounty-submit'
 import { Linkedin, Mail, Phone, Twitter } from 'lucide-react'
 import Image from 'next/image'
 import Link from 'next/link'
@@ -10,20 +11,20 @@ const page = ({
     }
 })=>{
     return(
-        <div className="flex justify-center items-center flex-col pt-16 ">
+        <div className="flex justify-center items-center flex-col pt-16 px-3 ">
            <div className='mb-8'>
             <Image
                 src={logo}
                 alt="logo"
-                width={300}
-                height={300}
+                width={200}
+                height={200}
                 />
             </div>
-            <div className='text-center flex flex-col '>
-                <p className='text-xl mb-2'>Thank you for visiting TechKareer's Bounty Submission form!</p>
-                <p className='text-xl mb-5'>Please fill this form to make the submission for the bounty you are participating in.</p>
+            <div className='text-center flex flex-col  px-6 '>
+                <p className=' text-lg md:text-xl mb-2'>Thank you for visiting TechKareer's Bounty Submission form!</p>
+                <p className=' text-lg md:text-xl mb-5'>Please fill this form to make the submission for the bounty you are participating in.</p>
                 <span className='text-gray-500 text-sm underline mb-6'>Contact us if there is any issues</span>
-                 <div className='flex justify-center items-center gap-4'>
+                 <div className='flex justify-center items-center gap-4 flex-wrap'>
                    {
                           socials.map((social,index)=>(
                             <Link   key={index} href={social.url} target="_blank" rel="noreferrer">
@@ -39,6 +40,10 @@ const page = ({
                  </div>
                 
             </div>
+            <div className='md:min-w-[50%] py-16'>
+            <BountySubmit/>
+            </div>
+ 
         </div>
 
     )
