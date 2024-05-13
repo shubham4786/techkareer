@@ -77,7 +77,7 @@ function JobListPage() {
         <div className="relative flex gap-1 ">
           <div
             ref={dropdownRef}
-            className="border-[2px] max-md:flex hidden cursor-pointer px-2 py-1 rounded-full btn-container flex items-center gap-1 cursor-pointer"
+            className="border-[2px] max-md:flex hidden cursor-pointer px-2 py-1 rounded-full btn-container flex items-center gap-1 "
             onClick={() => setModalOpen(!modalOpen)}
           >
             <div className="text text-[14px]">Filter</div>
