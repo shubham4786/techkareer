@@ -19,18 +19,14 @@ function FilterForm() {
 
     setFilter({ ...filters, [name]: value });
   };
-  const handleExperienceChange = (e: ChangeEvent<HTMLInputElement>) => {
-    console.log("hello");
-    // const value = parseFloat(e.target.value);
-    // console.log(value)
-    // setFilter({
-    //   ...filters,
-    //   min_requiredExperience: value,
-    // });
+  const handleExperienceChange = (value: number) => {
+    setFilter({
+      ...filters,
+      min_requiredExperience: value,
+    });
   };
 
-  const handleSalaryChange = (e: ChangeEvent<HTMLInputElement>) => {
-    const value = parseFloat(e.target.value);
+  const handleSalaryChange = (value: number) => {
     setFilter({ ...filters, min_salary: value });
   };
   const handleSubmit = async (e: FormEvent) => {
@@ -74,19 +70,9 @@ function FilterForm() {
               defaultValue={[0]}
               max={100}
               step={1}
-              onValueChange={(e) => handleExperienceChange}
+              onValueChange={(e) => handleExperienceChange(e[0])}
               className={cn("w-[100%]")}
             />
-
-            {/* <input
-              type="range"
-              name="required_experience"
-              min={0}
-              max={40}
-              value={filters.min_requiredExperience}
-              onChange={handleExperienceChange}
-              className="w-full appearance-none h-1  rounded-full bg-gray-600 outline-none"
-            /> */}
           </div>
           <div className=" text-[15px] mt-2">
             {filters.min_requiredExperience} years
@@ -101,19 +87,11 @@ function FilterForm() {
               defaultValue={[0]}
               max={100}
               step={1}
-              onValueChange={(e) => handleExperienceChange}
+              onValueChange={(e) => {
+                handleSalaryChange(e[0])
+              }}
               className={cn("w-[100%]")}
             />
-
-            {/* <input
-              type="range"
-              name="salary"
-              min={0}
-              max={100}
-              value={filters.min_salary}
-              onChange={handleSalaryChange}
-              className="w-full appearance-none h-1 rounded-full bg-gray-600 outline-none "
-            /> */}
           </div>
           <div className="text-[15px] mt-2">${filters.min_salary}</div>
         </label>
