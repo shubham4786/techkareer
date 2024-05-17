@@ -16,7 +16,7 @@ export const Navbar = () => {
             <div className="w-full py-2" style={{ backgroundColor: '#6366f1' }}>
                 <div className="flex justify-center items-center">
                     <a href="https://t.co/4pMnOm8i0H" className="text-white font-bold no-underline">
-                        🎉 Announcing the GPT-4o Hackathon Tomorrow in Faridabad
+                        🎉 Announcing the GPT-4o Hackathon Today in Faridabad
                     </a>
                 </div>
             </div>
