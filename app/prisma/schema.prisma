@@ -14,7 +14,7 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model User {
+model Candidate {
   id           Int      @id @default(autoincrement())
   name         String?
   email        String
@@ -29,6 +29,17 @@ model User {
   minIncome    Int?
   referralID   String?
 }
+
+model User {
+  id         Int     @id @default(autoincrement())
+  email      String  @unique
+  profilePic String?
+  password   String?
+  onboarded  Boolean @default(false)
+  type       Int
+  provider   String 
+}
+
 
 model Opportunity {
   id                        Int       @id @default(autoincrement())
@@ -96,7 +107,8 @@ model JobSeeker {
   id                Int           @id @default(autoincrement())
   email             String        @unique
   password          String
-  username          String        @unique
+  type             Int       
+ username          String        @unique
   firstName         String
   lastName          String
   description       String
@@ -113,6 +125,8 @@ model JobSeeker {
   experiences       Experience[]
   projects          Project[]
 }
+
+
 
 
 model JobProfile {

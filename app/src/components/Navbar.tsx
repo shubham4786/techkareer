@@ -2,12 +2,12 @@
 import { NavLinks } from "@/constants/NavLinks"
 import React, { useState } from "react"
 import { usePathname } from "next/navigation"
-import Link from "next/link"
 import { motion } from "framer-motion"
 import { cn } from "@/lib/utils"
 import logo from '@/assets/logo.webp'
 import Image from "next/image"
 import { Link as ReactLink } from "react-scroll"
+import Link from "next/link"
 
 export const Navbar = () => {
     let pathname = usePathname() || "/";
@@ -41,6 +41,8 @@ export const Navbar = () => {
                         ))
                     }
                 </div>
+                <div className=" flex flex-row gap-5"
+>
                 <ReactLink
                     spy={true}
                     smooth={true}
@@ -53,7 +55,28 @@ export const Navbar = () => {
                         <p className="text-xs md:text-sm">OPPORTUNITIES</p>
                     </motion.button>
                 </ReactLink>
-
+                <ReactLink
+                    spy={true}
+                    smooth={true}
+                    duration={500}
+                    to={"opportunities"}>
+                    <motion.button className="bg-[#15151f] px-4 py-2 md:px-6 md:py-3 border-[.1px] border-solid border-gray-200/10  rounded-lg font-bold tracking-wider"
+                        whileHover={{ backgroundColor: "#F9F9F9", color: "#000" }}
+                        whileTap={{ scale: 0.95 }}
+                    >
+                        <p className="text-xs md:text-sm ">Login</p>
+                    </motion.button>
+                </ReactLink>
+                <Link href={'/signin'}>
+                    <motion.button className="bg-white/90 px-4 py-2 md:px-6 md:py-3 border-[.1px] border-solid border-gray-200/10 rounded-xl  font-bold tracking-wider"
+                        whileHover={{ backgroundColor: "#F9F9F9", color: "#000" }}
+                        whileTap={{ scale: 0.95 }}
+                    >
+                        <p className="text-xs md:text-sm text-black">SIgnup</p>
+                    </motion.button>
+                </Link>
+                </div>
+             
             </motion.div>
         </nav>
     )
