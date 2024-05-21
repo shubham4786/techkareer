@@ -79,7 +79,7 @@ const JobOpportunities = () => {
                 <div className="flex items-center gap-4">
                   <Image
                     alt="company-logo"
-                    src={require(`../utils/images/${job.logo}`)}
+                    src={require(`../public/images/${job.logo}`)}
                     height={50}
                     width={50}
                   />
