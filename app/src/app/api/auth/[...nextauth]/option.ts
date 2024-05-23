@@ -34,7 +34,6 @@ export const options: NextAuthOptions = {
       async authorize(credentials: Record<"email" | "password", string> | undefined): Promise<NextAuthUser | null> {
 
         try {
-          console.log("credentials" , credentials);
 
           if (credentials?.email && credentials?.password) {
             const isUserExists = await db.user.findUnique({ where: { email: credentials?.email } });
@@ -109,13 +108,11 @@ export const options: NextAuthOptions = {
           }
         }
         else if (account?.provider === 'credentials' && user) {
-          //@ts-ignore
+
           token.onboarded = user.onboarded
           token.email = user.email
           token.id = user.id
-          //@ts-ignore
           token.picture = user.profilePic ? user.profilePic : null
-          //@ts-ignore
           token.role = user.type.toString()
           console.log("user", user)
 
