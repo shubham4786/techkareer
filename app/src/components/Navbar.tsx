@@ -8,8 +8,12 @@ import logo from '@/assets/logo.webp'
 import Image from "next/image"
 import { Link as ReactLink } from "react-scroll"
 import Link from "next/link"
-
+import { useUser } from "@/hooks/useUser"
+import { signOut } from 'next-auth/react'
+import { useRouter } from "next/navigation"
 export const Navbar = () => {
+    const {  status } = useUser();
+    const router = useRouter()
     let pathname = usePathname() || "/";
     return (
         <nav className="w-full h-fit py-4 md:py-9 flex justify-center items-center">
@@ -55,26 +59,29 @@ export const Navbar = () => {
                         <p className="text-xs md:text-sm">OPPORTUNITIES</p>
                     </motion.button>
                 </ReactLink>
-                <ReactLink
-                    spy={true}
-                    smooth={true}
-                    duration={500}
-                    to={"opportunities"}>
-                    <motion.button className="bg-[#15151f] px-4 py-2 md:px-6 md:py-3 border-[.1px] border-solid border-gray-200/10  rounded-lg font-bold tracking-wider"
-                        whileHover={{ backgroundColor: "#F9F9F9", color: "#000" }}
-                        whileTap={{ scale: 0.95 }}
-                    >
-                        <p className="text-xs md:text-sm ">Login</p>
-                    </motion.button>
-                </ReactLink>
-                <Link href={'/signin'}>
-                    <motion.button className="bg-white/90 px-4 py-2 md:px-6 md:py-3 border-[.1px] border-solid border-gray-200/10 rounded-xl  font-bold tracking-wider"
-                        whileHover={{ backgroundColor: "#F9F9F9", color: "#000" }}
-                        whileTap={{ scale: 0.95 }}
-                    >
-                        <p className="text-xs md:text-sm text-black">SIgnup</p>
-                    </motion.button>
-                </Link>
+               {
+                status ? 
+                <motion.button 
+                onClick={() => {signOut({ redirect: false }).then(() => {
+                    router.push("/"); // Redirect to the home page after signing out
+                  });}}
+                className="bg-white/90 px-4 py-2 md:px-6 md:py-3 border-[.1px] border-solid border-gray-200/10 rounded-xl  font-bold tracking-wider"
+                    whileHover={{ backgroundColor: "#F9F9F9", color: "#000" }}
+                    whileTap={{ scale: 0.95 }}
+                >
+                    <p className="text-xs md:text-sm text-black">Logout</p>
+                </motion.button>
+            : 
+            <Link href={'/signin'}>
+            <motion.button className="bg-white/90 px-4 py-2 md:px-6 md:py-3 border-[.1px] border-solid border-gray-200/10 rounded-xl  font-bold tracking-wider"
+                whileHover={{ backgroundColor: "#F9F9F9", color: "#000" }}
+                whileTap={{ scale: 0.95 }}
+            >
+                <p className="text-xs md:text-sm text-black">Signin</p>
+            </motion.button>
+        </Link>
+               }
+
                 </div>
              
             </motion.div>

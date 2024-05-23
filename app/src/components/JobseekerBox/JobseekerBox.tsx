@@ -61,7 +61,7 @@ function JobseekerBox({
           </div>
           <div>
             <div className="job-skills mt-2 flex gap-1 flex-wrap items-center w-full  text-black mb-3">
-              {(jobseeker.roles.length < 3
+              {(jobseeker?.roles?.length < 3
                 ? jobseeker.roles
                 : jobseeker.roles.slice(0, 3)
               ).map((role, i) => {

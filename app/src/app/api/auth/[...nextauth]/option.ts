@@ -34,7 +34,7 @@ export const options: NextAuthOptions = {
       async authorize(credentials: Record<"email" | "password", string> | undefined): Promise<NextAuthUser | null> {
 
         try {
-          console.log(credentials);
+          console.log("credentials" , credentials);
 
           if (credentials?.email && credentials?.password) {
             const isUserExists = await db.user.findUnique({ where: { email: credentials?.email } });
@@ -124,6 +124,7 @@ export const options: NextAuthOptions = {
       return token
     },
     async session({ session, token }) {
+      
       session.user.onboarded = token.onboarded as boolean;
       session.user.id = token.id;
       session.user.role = token.role;
