@@ -1,7 +1,7 @@
 
-# Techkareer
+# TechKareer
 
-Welcome to Techkareer, the ultimate tech opportunities aggregator! Find your next gig, internship, or job right here on our platform.
+Welcome to TechKareer, the ultimate tech opportunities aggregator! Find your next gig, internship, or job right here on our platform.
 
 ## Important Note
 Please ignore the `server` and `ui` folders now. Please use the `app` folder instead.
@@ -60,4 +60,4 @@ We welcome contributions from the community! However, to ensure a smooth review 
 2. When opening issues or pull requests, Attach images or videos to provide additional context or illustrate the problem you're encountering
 
 
-Thank you for your interest in contributing to Techkareer!
+Thank you for your interest in contributing to TechKareer!
