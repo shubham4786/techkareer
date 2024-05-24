@@ -11,8 +11,10 @@ import Link from "next/link"
 import { useUser } from "@/hooks/useUser"
 import { signOut } from 'next-auth/react'
 import { useRouter } from "next/navigation"
+import { Loader } from "lucide-react"
 export const Navbar = () => {
     const {  status } = useUser();
+    const [loggingOut , setLoggingOut] = useState(false)    
     const router = useRouter()
     let pathname = usePathname() || "/";
     return (
@@ -62,14 +64,22 @@ export const Navbar = () => {
                {
                 status ? 
                 <motion.button 
-                onClick={() => {signOut({ redirect: false }).then(() => {
-                    router.push("/"); // Redirect to the home page after signing out
+                onClick={() => {
+                    setLoggingOut(true)
+                    signOut({ redirect: false }).then(() => {
+                    router.push("/"); 
+               
                   });}}
-                className="bg-white/90 px-4 py-2 md:px-6 md:py-3 border-[.1px] border-solid border-gray-200/10 rounded-xl  font-bold tracking-wider"
+                className="bg-white/90 px-4 py-2 md:px-6 md:py-3 border-[.1px] border-solid border-gray-200/10 rounded-xl  font-bold tracking-wider min-w-[200px]"
                     whileHover={{ backgroundColor: "#F9F9F9", color: "#000" }}
                     whileTap={{ scale: 0.95 }}
                 >
-                    <p className="text-xs md:text-sm text-black">Logout</p>
+                    <p className="text-xs md:text-sm text-black">
+
+                        {
+                            loggingOut ? <Loader className="animate-spin"/> : "Logout"
+                        }
+                    </p>
                 </motion.button>
             : 
             <Link href={'/signin'}>

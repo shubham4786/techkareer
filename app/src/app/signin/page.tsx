@@ -11,7 +11,7 @@ function LoginPage() {
       <div className="flex min-h-fit justify-center items-center mt-24">
         <LoginBox/>
       </div>
-      <BottomBar></BottomBar>
+      <BottomBar/>
 
     </>
   );

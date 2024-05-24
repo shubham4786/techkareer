@@ -37,10 +37,10 @@ export const options: NextAuthOptions = {
 
           if (credentials?.email && credentials?.password) {
             const isUserExists = await db.user.findUnique({ where: { email: credentials?.email } });
-            console.log(isUserExists);
+
 
             if (!isUserExists) {
-              console.log("User does not exist, creating new user", credentials.email, credentials.password);
+
               const hashedPassword = await hash(credentials.password, 10);
 
               const newUser = await db.user.create({
@@ -52,7 +52,7 @@ export const options: NextAuthOptions = {
                 },
               });
 
-              console.log('New user created', newUser);
+
               return { ...newUser } as NextAuthUser;
             } else {
               if (isUserExists.password && isUserExists.provider === 'credentials') {
@@ -79,7 +79,7 @@ export const options: NextAuthOptions = {
   ],
 
   callbacks: {
-    async jwt({ token, user, trigger, session, account }) {
+    async jwt({ token, user, account }) {
       const email = user?.email
       if (typeof email === 'string') {
         if (account?.provider === 'google' && user) {
@@ -93,10 +93,8 @@ export const options: NextAuthOptions = {
                 provider: 'google'
               }
             })
-
             token.email = newUser.email
             token.id = newUser.id
-            token.onboarded = newUser.onboarded
             token.picture = newUser.profilePic
             token.role = newUser.type.toString()
           }
@@ -108,25 +106,21 @@ export const options: NextAuthOptions = {
           }
         }
         else if (account?.provider === 'credentials' && user) {
-
-          token.onboarded = user.onboarded
           token.email = user.email
           token.id = user.id
           token.picture = user.profilePic ? user.profilePic : null
           token.role = user.type.toString()
-          console.log("user", user)
+
 
         }
       }
       return token
     },
     async session({ session, token }) {
-      
-      session.user.onboarded = token.onboarded as boolean;
       session.user.id = token.id;
       session.user.role = token.role;
       session.user.image = token.picture ? token.picture : null;
-      console.log('session', session)
+
       return session;
     },
   },
