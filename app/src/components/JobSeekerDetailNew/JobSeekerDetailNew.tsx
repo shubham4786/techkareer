@@ -11,9 +11,10 @@ import { MoveUpRight, Github, Linkedin } from "lucide-react";
 import Link from "next/link";
 import { User } from "@/types/type";
 import { Loader } from "lucide-react";
+import { Candidate } from "@/types/type";
 
 type jobseekerProp = {
-  jobseeker: User
+  jobseeker: Candidate
   isLoading: boolean
 }
 function JobseekerDetails({ jobseeker , isLoading }: jobseekerProp) {
@@ -23,7 +24,6 @@ function JobseekerDetails({ jobseeker , isLoading }: jobseekerProp) {
     if (
       status != "loading" &&
       auth?.user.role == "Jobseeker"
-      // auth?.user.username == username
     ) {
       redirect("/profile/organization");
     }

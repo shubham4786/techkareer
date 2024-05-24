@@ -28,6 +28,7 @@ export interface Organization {
   }
   export interface User {
     id: number;
+    name?: string;
     email:string;
     password?: string;
     onboarded: boolean;
@@ -36,6 +37,25 @@ export interface Organization {
     type: number;
   }
   
+  export interface Candidate {
+     
+    id: number;
+    name: string;
+    email: string;
+    github?: string;
+    resume?: string;
+    linkedin?: string;
+    roles: string[];
+    commitment: string[];
+    opportunity?: string;
+profilePic: string;
+    introduction?: string;
+    twitter?: string;
+    minIncome?: number;
+    referralID?: string;
+    createdAt: Date;
+
+  }
   export interface Opportunity {
     id: number;
     title: string;

@@ -1,7 +1,7 @@
 "use client";
 
 import jobseekerholder from "@/assets/placholder-jobseeker.webp";
-import { JobSeeker, Status, User } from "@/types/type";
+import { Candidate, JobSeeker, Status, User } from "@/types/type";
 import Image from "next/image";
 import React from "react";
 import { DevIcon } from "../components";
@@ -16,7 +16,7 @@ function JobseekerBox({
   status,
   connectionStatus,
 }: {
-  jobseeker: User;
+  jobseeker: Candidate;
   status?: Status;
   connectionStatus?: string;
 }) {

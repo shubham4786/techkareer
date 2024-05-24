@@ -9,7 +9,7 @@ function JobseekerDetailsPage({ params }: { params: { id: string }}) {
   return (
     <>
     {
-      jobseeker?.id && <Navbar>{jobseeker?.name ? <div className="flex justify-start items-center gap-4"><p>{jobseeker.name} </p><MoveRight size={15}/> </div> : `Talent Id: ${jobseeker?.id}`}</Navbar>
+      jobseeker?.id && <Navbar>{jobseeker?.name ? <div className="flex justify-start items-center gap-4"><p>{jobseeker?.name} </p><MoveRight size={15}/> </div> : `Talent Id: ${jobseeker?.id}`}</Navbar>
     }
       
       <div className="scrollable-content-wrapper max-sm:h-[80vh] h-[90vh] w-full flex justify-center">

@@ -15,6 +15,7 @@ datasource db {
 }
 model User {
   id             Int           @id @default(autoincrement())
+  name           String?
   email          String        @unique
   profilePic     String?
   password       String?
@@ -30,6 +31,7 @@ model Candidate {
   name         String?
   email        String
   github       String?
+    profilePic     String
   resume       String?
   linkedin     String?
   roles        String[]

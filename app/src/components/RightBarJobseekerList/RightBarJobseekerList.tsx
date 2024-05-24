@@ -5,7 +5,7 @@ import { useFetchAllJobseekers } from "@/hooks/useJobseekerData";
 import Image from "next/image";
 import { FaArrowRightLong } from "react-icons/fa6";
 import { useRouter } from "next/navigation";
-import { JobSeeker, User } from "@/types/type";
+import { Candidate, JobSeeker, User } from "@/types/type";
 import { useSession } from "next-auth/react";
 import { shuffle } from "@/utils/utils";
 import { getName } from "@/lib/utils";
@@ -13,7 +13,7 @@ import { getName } from "@/lib/utils";
 function RightBarJobseekerList() {
   const router = useRouter();
   const { data: authData } = useSession();
-  const [seekers, setSeekers] = useState<User[]>([]);
+  const [seekers, setSeekers] = useState<Candidate[]>([]);
 
   const { data: jobseekers, isSuccess } = useFetchAllJobseekers(
     "seekers-for-section"
@@ -38,7 +38,7 @@ function RightBarJobseekerList() {
             seekers
               .slice(0, 3)
 
-              .map((jobseeker: User) => {
+              .map((jobseeker: Candidate) => {
                 return (
                   <div
                     onClick={() => router.push(`/jobseekers/${jobseeker.id}`)}
