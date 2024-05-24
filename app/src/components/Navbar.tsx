@@ -87,7 +87,7 @@ export const Navbar = () => {
                 whileHover={{ backgroundColor: "#F9F9F9", color: "#000" }}
                 whileTap={{ scale: 0.95 }}
             >
-                <p className="text-xs md:text-sm text-black">Signin</p>
+                <p className="text-xs md:text-sm text-black">Login</p>
             </motion.button>
         </Link>
                }
