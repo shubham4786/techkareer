@@ -70,7 +70,7 @@ export const Navbar = () => {
                     router.push("/"); 
                
                   });}}
-                className="bg-white/90 px-4 py-2 md:px-6 md:py-3 border-[.1px] border-solid border-gray-200/10 rounded-xl  font-bold tracking-wider min-w-[200px]"
+                className="bg-white/90 px-4 py-2 md:px-6 md:py-3 border-[.1px] border-solid border-gray-200/10 rounded-xl  font-bold tracking-wider "
                     whileHover={{ backgroundColor: "#F9F9F9", color: "#000" }}
                     whileTap={{ scale: 0.95 }}
                 >

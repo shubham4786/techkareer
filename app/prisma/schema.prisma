@@ -31,7 +31,7 @@ model Candidate {
   name         String?
   email        String
   github       String?
-    profilePic     String
+  profilePic     String
   resume       String?
   linkedin     String?
   roles        String[]
