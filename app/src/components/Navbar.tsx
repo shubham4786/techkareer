@@ -2,14 +2,20 @@
 import { NavLinks } from "@/constants/NavLinks"
 import React, { useState } from "react"
 import { usePathname } from "next/navigation"
-import Link from "next/link"
 import { motion } from "framer-motion"
 import { cn } from "@/lib/utils"
 import logo from '@/assets/logo.webp'
 import Image from "next/image"
 import { Link as ReactLink } from "react-scroll"
-
+import Link from "next/link"
+import { useUser } from "@/hooks/useUser"
+import { signOut } from 'next-auth/react'
+import { useRouter } from "next/navigation"
+import { Loader } from "lucide-react"
 export const Navbar = () => {
+    const {  status } = useUser();
+    const [loggingOut , setLoggingOut] = useState(false)    
+    const router = useRouter()
     let pathname = usePathname() || "/";
     return (
         <nav className="w-full h-fit py-4 md:py-9 flex justify-center items-center">
@@ -41,6 +47,8 @@ export const Navbar = () => {
                         ))
                     }
                 </div>
+                <div className=" flex flex-row gap-5"
+>
                 <ReactLink
                     spy={true}
                     smooth={true}
@@ -53,7 +61,39 @@ export const Navbar = () => {
                         <p className="text-xs md:text-sm">OPPORTUNITIES</p>
                     </motion.button>
                 </ReactLink>
+               {
+                status ? 
+                <motion.button 
+                onClick={() => {
+                    setLoggingOut(true)
+                    signOut({ redirect: false }).then(() => {
+                    router.push("/"); 
+               
+                  });}}
+                className="bg-white/90 px-4 py-2 md:px-6 md:py-3 border-[.1px] border-solid border-gray-200/10 rounded-xl  font-bold tracking-wider "
+                    whileHover={{ backgroundColor: "#F9F9F9", color: "#000" }}
+                    whileTap={{ scale: 0.95 }}
+                >
+                    <p className="text-xs md:text-sm text-black">
 
+                        {
+                            loggingOut ? <Loader className="animate-spin"/> : "Logout"
+                        }
+                    </p>
+                </motion.button>
+            : 
+            <Link href={'/signin'}>
+            <motion.button className="bg-white/90 px-4 py-2 md:px-6 md:py-3 border-[.1px] border-solid border-gray-200/10 rounded-xl  font-bold tracking-wider"
+                whileHover={{ backgroundColor: "#F9F9F9", color: "#000" }}
+                whileTap={{ scale: 0.95 }}
+            >
+                <p className="text-xs md:text-sm text-black">LOGIN</p>
+            </motion.button>
+        </Link>
+               }
+
+                </div>
+             
             </motion.div>
         </nav>
     )

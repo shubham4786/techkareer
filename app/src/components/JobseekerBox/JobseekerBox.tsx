@@ -1,7 +1,7 @@
 "use client";
 
 import jobseekerholder from "@/assets/placholder-jobseeker.webp";
-import { JobSeeker, Status, User } from "@/types/type";
+import { Candidate, JobSeeker, Status, User } from "@/types/type";
 import Image from "next/image";
 import React from "react";
 import { DevIcon } from "../components";
@@ -16,7 +16,7 @@ function JobseekerBox({
   status,
   connectionStatus,
 }: {
-  jobseeker: User;
+  jobseeker: Candidate;
   status?: Status;
   connectionStatus?: string;
 }) {
@@ -61,7 +61,7 @@ function JobseekerBox({
           </div>
           <div>
             <div className="job-skills mt-2 flex gap-1 flex-wrap items-center w-full  text-black mb-3">
-              {(jobseeker.roles.length < 3
+              {(jobseeker?.roles?.length < 3
                 ? jobseeker.roles
                 : jobseeker.roles.slice(0, 3)
               ).map((role, i) => {

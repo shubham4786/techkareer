@@ -1,4 +1,4 @@
-import { JobSeeker, User } from "@/types/type";
+import { Candidate, JobSeeker, User } from "@/types/type";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import { useSession } from "next-auth/react";
@@ -21,7 +21,7 @@ export const useFetchAllJobseekers = (component?:string) => {
 };
 
 export const useFetchSingleJobseekers = (id: string) => {
-  const fetchSingleJobseekers = async (): Promise<User> => {
+  const fetchSingleJobseekers = async (): Promise<Candidate> => {
     const response = await axios.get(`/api/user/jobseeker/${id}`);
     return response.data.jobseeker;
   };

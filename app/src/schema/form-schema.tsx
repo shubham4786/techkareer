@@ -9,3 +9,17 @@ export const BountySchema = z.object({
     upiId: z.string().regex(/^[\w.-]+@[\w.-]+$/, { message: "Invalid UPI ID format" }).optional(),
     addToTalentPool: z.boolean().optional(),
 });
+
+
+export const onboardingOrgSchema = z.object({
+    name: z.string().min(2, { message: "Name is required" }),
+    location: z.string().min(2, { message: "Location is required" }),
+    website: z.string().url({ message: "Invalid website URL" }),
+    foundedAt: z.date({ message: "Founded date is required" }),
+    overview: z.string().min(2, { message: "Overview is required" }),
+});
+
+export const loginSignupSchema = z.object({
+    email: z.string().email(),
+    password: z.string().min(1, "Password is required"),
+  });
