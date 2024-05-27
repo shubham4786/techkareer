@@ -4,8 +4,11 @@ import GoogleProvider from 'next-auth/providers/google'
 import { db } from "@/lib/db";
 import { compare, hash } from "bcrypt";
 
+
+
 interface NextAuthUser extends User {
   id: number;
+  namme: string;
   email: string;
   profilePic: string | null;
   password: string | null;
@@ -13,6 +16,7 @@ interface NextAuthUser extends User {
   type: number;
   provider: string;
 }
+
 
 export const options: NextAuthOptions = {
   secret: process.env.NEXT_PUBLIC_AUTH_SECRET,
@@ -107,8 +111,11 @@ export const options: NextAuthOptions = {
         }
         else if (account?.provider === 'credentials' && user) {
           token.email = user.email
+          token.name = user.name
           token.id = user.id
+          //@ts-ignore
           token.picture = user.profilePic ? user.profilePic : null
+                    //@ts-ignore
           token.role = user.type.toString()
 
 
@@ -120,6 +127,8 @@ export const options: NextAuthOptions = {
       session.user.id = token.id;
       session.user.role = token.role;
       session.user.image = token.picture ? token.picture : null;
+      //@ts-ignore
+      session.user.name = token.name;
 
       return session;
     },

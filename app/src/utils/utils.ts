@@ -24,3 +24,8 @@ export function shuffle(array: any) {
   }
   return array;
 }
+
+
+export function getNameFromEmail(email:string){
+  return email.split('@')[0]
+}
