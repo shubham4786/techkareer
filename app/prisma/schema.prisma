@@ -23,8 +23,39 @@ model User {
   provider       String
   candidate      Candidate?   
   organization    Organization?
+  twitter       String?
+  linkedIn     String?
+  submissions    Submission[]
 }
 
+model Gigs {
+  id          Int      @id @default(autoincrement())
+  title       String
+  desc        String
+  amount      Int
+  twitterLink String
+  gigType     String
+  role        String[]
+  deadline    DateTime
+  winner      String?
+   submissions Submission[]
+}
+
+model Submission {
+id              Int       @id @default(autoincrement())
+  user            User      @relation(fields: [userId], references: [id])
+  userId          Int
+  gig             Gigs      @relation(fields: [gigId], references: [id])
+  gigId           Int
+  name            String
+  twitterProfile  String
+  linkedInProfile String
+  submissionLink  String
+  upiId           String
+  feedbacks       String?
+
+  @@unique([userId, gigId])
+}
 
 model Candidate {
   id           Int      @id @default(autoincrement())
@@ -44,6 +75,7 @@ model Candidate {
   UserId      Int? @unique
   user         User?    @relation(fields: [UserId], references: [id])
 }
+
 
 model Opportunity {
   id                        Int       @id @default(autoincrement())
@@ -79,17 +111,6 @@ model Opportunity {
   updatedAt                 DateTime  @updatedAt
 }
 
-model Gigs {
-  id          Int      @id @default(autoincrement())
-  title       String
-  desc        String
-  amount      Int
-  twitterLink String
-  gigType     String
-  role        String[]
-  deadline    DateTime
-  winner      String?
-}
 
 model Organization {
   id          Int          @id @default(autoincrement())

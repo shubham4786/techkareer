@@ -11,8 +11,7 @@ import { Footer } from "./footer";
 import {useSession} from "next-auth/react";
 const LandingPage = () => {
   const {data: session, status} = useSession();
-  console.log("status", status);
-  console.log("session", session);
+
   return (
     <main className="min-h-screen relative scroll-smooth ">
       <Navbar />

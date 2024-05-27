@@ -88,7 +88,7 @@ export async function DELETE(req: NextRequest, context: { params: Params }) {
         { status: 401 }
       );
     }
-    console.log(projectId);
+
     const deletedProject = await db.project.delete({
       where: { id: projectId },
     });
