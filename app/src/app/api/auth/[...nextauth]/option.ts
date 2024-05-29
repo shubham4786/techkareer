@@ -1,3 +1,4 @@
+//@ts-nocheck
 import type { NextAuthOptions, User } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import GoogleProvider from 'next-auth/providers/google'
@@ -113,9 +114,7 @@ export const options: NextAuthOptions = {
           token.email = user.email
           token.name = user.name
           token.id = user.id
-          //@ts-ignore
           token.picture = user.profilePic ? user.profilePic : null
-                    //@ts-ignore
           token.role = user.type.toString()
 
 
@@ -127,7 +126,6 @@ export const options: NextAuthOptions = {
       session.user.id = token.id;
       session.user.role = token.role;
       session.user.image = token.picture ? token.picture : null;
-      //@ts-ignore
       session.user.name = token.name;
 
       return session;

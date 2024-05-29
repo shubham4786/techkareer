@@ -7,7 +7,6 @@ import { Checkbox } from "@/components/ui/checkbox";
 import {
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -16,7 +15,17 @@ import {
 import { Input } from "@/components/ui/input";
 import { BountySchema } from "@/schema/form-schema";
 import { Loader } from "lucide-react";
-export function BountySubmit() {
+import { toast } from "react-toastify";
+import React from "react";
+import axios from "axios";
+import { useRouter } from "next/navigation";
+
+export function BountySubmit({id , userId}:{
+  id:string,
+  userId:string
+}) {
+  const [loading, setIsLoading] = React.useState(false);  
+  console.log(userId)
   const form = useForm<z.infer<typeof BountySchema>>({
     resolver: zodResolver(BountySchema),
     defaultValues: {
@@ -29,10 +38,27 @@ export function BountySubmit() {
       addToTalentPool: false,
     },
   });
+  const router = useRouter()
 
   async function onSubmit(values: z.infer<typeof BountySchema>) {
-    
-    console.log(values);
+    setIsLoading(true)
+
+    const data ={...values,userId:userId}
+    console.log(data);
+    try{
+      const res = await axios.post(`/api/bounties/bounty/${id}`, data)
+      console.log(res)
+
+      if(res.status === 200){
+        toast.success('Submission Successful') 
+        router.push('/bounties')
+      }
+    }catch(err:any){
+      toast.error(err.response.data.message)
+      router.push('/bounties')
+    }finally{
+      setIsLoading(false)
+    }
 
   }
 
@@ -139,10 +165,13 @@ export function BountySubmit() {
             </FormItem>
           )}
         />
-        <Button type="submit" className="w-full text-base md:text-lg">{
+        <Button type="submit" className="w-full text-base md:text-lg">
 
-            form.formState.isLoading? "hello" : "Submit"
-        }</Button>
+            {
+              loading ? <Loader size={24} className="animate-spin" /> : "Submit"
+            }
+
+        </Button>
       </form>
     </Form>
   );
