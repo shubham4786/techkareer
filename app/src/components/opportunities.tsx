@@ -6,7 +6,28 @@ import { ChevronRight, CircleCheck } from "lucide-react";
 import { motion } from "framer-motion";
 import { opportunitiesArray } from "@/constants/opportunities";
 import Link from "next/link";
-export const Opportunities = () => {
+
+type Job = {
+  id: string;
+  fields: {
+    Name: string;
+    Company_Name: string;
+    Description: string;
+    Role: string;
+    Type: string;
+    Location: string;
+    "Pay Range": string;
+    "One-liner": string;
+    "Created at": string;
+    "Company Logo": [
+      {
+        url: string;
+      }
+    ];
+  };
+};
+
+export const Opportunities: React.FC<{ jobs: Job[] }> = ({ jobs }) => {
   return (
     <SectionWrapper>
       <div
@@ -40,14 +61,17 @@ export const Opportunities = () => {
           </button>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 place-items-center ">
-          {opportunitiesArray.map((item, index) => (
+          {jobs.map((item, index) => (
             <OppurtunitiesCard
               key={index}
-              company={item.company}
-              logo={item.logo}
-              position={item.position}
-              payRange={item.payRange}
-              features={item.features}
+              company={item.fields.Company_Name}
+              logo={item.fields["Company Logo"] && item.fields["Company Logo"].length > 0 ? item.fields["Company Logo"][0].url : ''}
+              position={item.fields.Role}
+              payRange={item.fields["Pay Range"]}
+              location={item.fields.Location}
+              date={item.fields["Created at"]}
+              id={item.id}
+              jobType={item.fields.Type}
             />
           ))}
         </div>
@@ -58,22 +82,20 @@ export const Opportunities = () => {
 
 type oppurtunitiesCardProps = {
   company: string;
-  logo: StaticImageData;
+  logo: string;
   position: string;
   payRange: string;
-  features: {
-    location: string;
-    date: string;
-
-    jobType: string;
-  }[];
-};
+  location: string;
+  date: string;
+  id: string;
+  jobType: string;
+}
 const OppurtunitiesCard: React.FC<oppurtunitiesCardProps> = ({
   company,
   logo,
   position,
   payRange,
-  features,
+  location, date, id, jobType
 }) => {
   return (
     <div
@@ -109,30 +131,29 @@ const OppurtunitiesCard: React.FC<oppurtunitiesCardProps> = ({
         </motion.p>
       </div>
       <div>
-        {features.map((item, index) => (
-          <motion.div
-            initial={{ opacity: 0, y: 10 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.2, ease: "easeInOut" }}
-            viewport={{ once: true }}
-            key={index}
-            className="flex justify-center items-start gap-4 flex-col px-4 py-6"
-          >
-            <p className="text-lg font-semibold text-black/70 flex justify-start items-center gap-2 w-full">
-              <CircleCheck className="inline-block w-[10%]" />{" "}
-              <span className="w-[90%]">{item.location}</span>
-            </p>
-            <p className="text-lg font-semibold text-black/70 flex justify-start items-center gap-2 w-full">
-              <CircleCheck className="inline-block w-[10%]" />{" "}
-              <span className="w-[90%]">{item.date}</span>
-            </p>
 
-            <p className="text-lg font-semibold text-black/70 flex justify-start items-center gap-2 w-full">
-              <CircleCheck className="inline-block w-[10%]" />{" "}
-              <span className="w-[90%]">{item.jobType}</span>
-            </p>
-          </motion.div>
-        ))}
+        <motion.div
+          initial={{ opacity: 0, y: 10 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.2, ease: "easeInOut" }}
+          viewport={{ once: true }}
+          className="flex justify-center items-start gap-4 flex-col px-4 py-6"
+        >
+          <p className="text-lg font-semibold text-black/70 flex justify-start items-center gap-2 w-full">
+            <CircleCheck className="inline-block w-[10%]" />{" "}
+            <span className="w-[90%]">{location}</span>
+          </p>
+          <p className="text-lg font-semibold text-black/70 flex justify-start items-center gap-2 w-full">
+            <CircleCheck className="inline-block w-[10%]" />{" "}
+            <span className="w-[90%]">{date}</span>
+          </p>
+
+          <p className="text-lg font-semibold text-black/70 flex justify-start items-center gap-2 w-full">
+            <CircleCheck className="inline-block w-[10%]" />{" "}
+            <span className="w-[90%]">{jobType}</span>
+          </p>
+        </motion.div>
+
       </div>
       <Link
         href="https://airtable.com/appX3kHVPitSufv76/shrqqOAXP51PPGcli"
