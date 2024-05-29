@@ -41,11 +41,13 @@ export async function POST(request:NextRequest, context:{params:Params}){
       }
     })
    
+
    await db.user.update({
       where:{
         id:parseInt(body.userId)
       },
       data:{
+        name:body.name,
         twitter:body.twitterProfile,
         linkedIn:body.linkedInProfile
       }

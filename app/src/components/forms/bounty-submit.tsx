@@ -16,16 +16,17 @@ import { Input } from "@/components/ui/input";
 import { BountySchema } from "@/schema/form-schema";
 import { Loader } from "lucide-react";
 import { toast } from "react-toastify";
-import React from "react";
+import React, { useEffect } from "react";
 import axios from "axios";
 import { useRouter } from "next/navigation";
+import { useUserInfo } from "@/hooks/useUser";
+import { useElementScroll } from "framer-motion";
 
-export function BountySubmit({id , userId}:{
-  id:string,
-  userId:string
-}) {
-  const [loading, setIsLoading] = React.useState(false);  
-  console.log(userId)
+export function BountySubmit({ id, userId }: { id: string; userId: string }) {
+  const [loading, setIsLoading] = React.useState(false);
+  const [isNoInfoAvail, setIsNoInfoAvail] = React.useState(false);
+  const { user } = useUserInfo(userId);
+
   const form = useForm<z.infer<typeof BountySchema>>({
     resolver: zodResolver(BountySchema),
     defaultValues: {
@@ -38,28 +39,50 @@ export function BountySubmit({id , userId}:{
       addToTalentPool: false,
     },
   });
-  const router = useRouter()
+  useEffect(() => {
+    if (user) {
+      if (user.name) {
+        form.setValue("name", user.name);
+      }
+      if (user.twitter) {
+        form.setValue("twitterProfile", user.twitter);
+      }
+      if (user.linkedIn) {
+        form.setValue("linkedInProfile", user.linkedIn);
+      }
+
+      if(!user.name || !user.twitter || !user.linkedIn){
+        setIsNoInfoAvail(true)
+      }
+    }
+  }, [user]);
+
+  useEffect(()=>{
+     if(isNoInfoAvail){
+      toast.warn("We will use this form to update your information in our database. Please fill the form with the correct information.")
+     }
+  },[isNoInfoAvail])
+  const router = useRouter();
 
   async function onSubmit(values: z.infer<typeof BountySchema>) {
-    setIsLoading(true)
+    setIsLoading(true);
 
-    const data ={...values,userId:userId}
+    const data = { ...values, userId: userId };
     console.log(data);
-    try{
-      const res = await axios.post(`/api/bounties/bounty/${id}`, data)
-      console.log(res)
+    try {
+      const res = await axios.post(`/api/bounties/bounty/${id}`, data);
+      console.log(res);
 
-      if(res.status === 200){
-        toast.success('Submission Successful') 
-        router.push('/bounties')
+      if (res.status === 200) {
+        toast.success("Submission Successful");
+        router.push("/bounties");
       }
-    }catch(err:any){
-      toast.error(err.response.data.message)
-      router.push('/bounties')
-    }finally{
-      setIsLoading(false)
+    } catch (err: any) {
+      toast.error(err.response.data.message);
+      router.push("/bounties");
+    } finally {
+      setIsLoading(false);
     }
-
   }
 
   return (
@@ -72,7 +95,7 @@ export function BountySubmit({id , userId}:{
             <FormItem>
               <FormLabel className="text-base md:text-lg ">Your Name</FormLabel>
               <FormControl>
-                <Input   {...field} className="border-gray-700 text-lg"/>
+                <Input {...field} className="border-gray-700 text-lg" />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -83,9 +106,11 @@ export function BountySubmit({id , userId}:{
           name="twitterProfile"
           render={({ field }) => (
             <FormItem>
-              <FormLabel className="text-base md:text-lg ">Your Twitter Profile</FormLabel>
+              <FormLabel className="text-base md:text-lg ">
+                Your Twitter Profile
+              </FormLabel>
               <FormControl>
-                <Input   {...field} className="border-gray-700 text-lg"/>
+                <Input {...field} className="border-gray-700 text-lg" />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -96,9 +121,11 @@ export function BountySubmit({id , userId}:{
           name="linkedInProfile"
           render={({ field }) => (
             <FormItem>
-              <FormLabel className="text-base md:text-lg ">Your LinkedIn Profile</FormLabel>
+              <FormLabel className="text-base md:text-lg ">
+                Your LinkedIn Profile
+              </FormLabel>
               <FormControl>
-                <Input   {...field} className="border-gray-700 text-lg"/>
+                <Input {...field} className="border-gray-700 text-lg" />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -109,36 +136,42 @@ export function BountySubmit({id , userId}:{
           name="submissionLink"
           render={({ field }) => (
             <FormItem>
-              <FormLabel className="text-base md:text-lg ">Your Submission Link</FormLabel>
+              <FormLabel className="text-base md:text-lg ">
+                Your Submission Link
+              </FormLabel>
               <FormControl>
-                <Input   {...field} className="border-gray-700 text-lg"/>
+                <Input {...field} className="border-gray-700 text-lg" />
               </FormControl>
               <FormMessage />
             </FormItem>
           )}
         />
- 
+
         <FormField
           control={form.control}
           name="upiId"
           render={({ field }) => (
             <FormItem>
-              <FormLabel className="text-base md:text-lg ">Your UPI ID</FormLabel>
+              <FormLabel className="text-base md:text-lg ">
+                Your UPI ID
+              </FormLabel>
               <FormControl>
-                <Input   {...field} className="border-gray-700 text-lg"/>
+                <Input {...field} className="border-gray-700 text-lg" />
               </FormControl>
               <FormMessage />
             </FormItem>
           )}
         />
-       <FormField
+        <FormField
           control={form.control}
           name="notes"
           render={({ field }) => (
             <FormItem>
-              <FormLabel className="text-base md:text-lg ">Any feedbacks</FormLabel>
+              <FormLabel className="text-base md:text-lg ">
+                Any feedbacks
+              </FormLabel>
               <FormControl>
-                <Input   {...field} className="border-gray-700 text-lg"/>
+                <Input {...field} className="border-gray-700 text-lg" />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -166,11 +199,7 @@ export function BountySubmit({id , userId}:{
           )}
         />
         <Button type="submit" className="w-full text-base md:text-lg">
-
-            {
-              loading ? <Loader size={24} className="animate-spin" /> : "Submit"
-            }
-
+          {loading ? <Loader size={24} className="animate-spin" /> : "Submit"}
         </Button>
       </form>
     </Form>
