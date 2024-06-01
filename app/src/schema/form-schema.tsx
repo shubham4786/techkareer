@@ -23,3 +23,15 @@ export const loginSignupSchema = z.object({
     email: z.string().email(),
     password: z.string().min(1, "Password is required"),
   });
+
+export const profileSchema = z.object({
+    name: z.string().min(1, { message: "Name is required" }),
+    twitterProfile: z.string().url({ message: "Invalid Twitter profile URL" }).refine(value => value.includes('twitter.com'), { message: "Not a Twitter profile URL" }),
+    linkedInProfile: z.string().url({ message: "Invalid LinkedIn profile URL" }).refine(value => value.includes('linkedin.com'), { message: "Not a LinkedIn profile URL" }),
+    email: z.string().email(),
+    description: z.string().min(1, { message: "Description is required" }).optional(),
+   // roles: z.array(z.string()).optional(),
+    resume: z.string().url({ message: "Invalid resume URL" }).optional(),
+    github: z.string().url({ message: "Invalid GitHub URL" }).optional(),
+    portfolio: z.string().url({ message: "Invalid portfolio URL" }).optional()
+})

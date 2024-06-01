@@ -43,7 +43,7 @@ function BountyDetails({ bounty }: { bounty: Bounty }) {
                             <h2 className='bg-blue-500 py-2 px-4 rounded-full text-white'>
                                 ${bounty?.gigType}
                             </h2>
-                            <Link target="_blank" href={bounty.twitterLink} className='flex gap-1 items-center bg-blue-500 py-2 px-4 rounded-full text-white'>
+                            <Link target="_blank" href={`/bounties/${bounty.id}/submit`} className='flex gap-1 items-center bg-blue-500 py-2 px-4 rounded-full text-white'>
                                 <span>Apply Now</span> <ArrowRight size={18} />
                             </Link>
                         </div>
