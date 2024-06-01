@@ -13,29 +13,32 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { BountySchema } from "@/schema/form-schema";
+import { profileSchema } from "@/schema/form-schema";
 import { Loader } from "lucide-react";
 import { toast } from "react-toastify";
 import React, { useEffect } from "react";
 import axios from "axios";
 import { useRouter } from "next/navigation";
 import { useUserInfo } from "@/hooks/useUser";
+import { Textarea } from "@/components/ui/textarea"
 
-export function BountySubmit({ id, userId }: { id: string; userId: string }) {
+export function EditProfileForm({ userId }: {  userId: string }) {
   const [loading, setIsLoading] = React.useState(false);
   const [isNoInfoAvail, setIsNoInfoAvail] = React.useState(false);
   const { user } = useUserInfo(userId);
 
-  const form = useForm<z.infer<typeof BountySchema>>({
-    resolver: zodResolver(BountySchema),
+  const form = useForm<z.infer<typeof profileSchema>>({
+    resolver: zodResolver(profileSchema),
     defaultValues: {
       name: "",
       twitterProfile: "",
       linkedInProfile: "",
-      submissionLink: "",
-      notes: "",
-      upiId: "",
-      addToTalentPool: false,
+      email:"",
+        description:"",
+        // roles:[],
+        resume:"",
+        github:"",
+        portfolio:""
     },
   });
   useEffect(() => {
@@ -49,6 +52,22 @@ export function BountySubmit({ id, userId }: { id: string; userId: string }) {
       if (user.linkedIn) {
         form.setValue("linkedInProfile", user.linkedIn);
       }
+      if(user.email){
+        form.setValue("email", user.email);
+      }
+      if(user.github){
+        form.setValue("github", user.github);
+      }
+      if(user.description){
+        form.setValue("description", user.description);
+      }
+      if(user.portfolio){
+        form.setValue("portfolio", user.portfolio);
+      }
+      if(user.resume){
+        form.setValue("resume", user.resume);
+      }
+
 
       if(!user.name || !user.twitter || !user.linkedIn){
         setIsNoInfoAvail(true)
@@ -63,27 +82,31 @@ export function BountySubmit({ id, userId }: { id: string; userId: string }) {
   },[isNoInfoAvail])
   const router = useRouter();
 
-  async function onSubmit(values: z.infer<typeof BountySchema>) {
+  async function onSubmit(values: z.infer<typeof profileSchema>) {
+
     setIsLoading(true);
 
-    const data = { ...values, userId: userId };
-    console.log(data);
+    const data = { ...values, id: userId};
+ 
     try {
-      const res = await axios.post(`/api/bounties/bounty/${id}`, data);
-      console.log(res);
+      const res = await axios.post(`/api/user/edit`, data);
+      
 
       if (res.status === 200) {
-        toast.success("Submission Successful");
-        router.push("/bounties");
+        toast.success("Profile Updated");
+        router.push(`/profile/${userId}`);
       }
     } catch (err: any) {
       toast.error(err.response.data.message);
-      router.push("/bounties");
+    
     } finally {
       setIsLoading(false);
     }
   }
 
+  if(!user){
+    return <div className="flex justify-center items-center"><Loader size={24} className="animate-spin" /></div>
+  }
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
@@ -94,7 +117,9 @@ export function BountySubmit({ id, userId }: { id: string; userId: string }) {
             <FormItem>
               <FormLabel className="text-base md:text-lg ">Your Name</FormLabel>
               <FormControl>
-                <Input {...field} className="border-gray-700 text-lg" />
+                <Input {...field}
+                placeholder="Enter your name"
+                className="border-gray-700 text-lg" />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -102,15 +127,35 @@ export function BountySubmit({ id, userId }: { id: string; userId: string }) {
         />
         <FormField
           control={form.control}
-          name="twitterProfile"
+          name="email"
           render={({ field }) => (
             <FormItem>
               <FormLabel className="text-base md:text-lg ">
-                Your Twitter Profile
+                Email
               </FormLabel>
               <FormControl>
-                <Input {...field} className="border-gray-700 text-lg" />
+                <Input {...field} 
+                           placeholder="Enter your email"
+                className="border-gray-700 text-lg" />
               </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <FormField
+          control={form.control}
+          name="description"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Bio</FormLabel>
+              <FormControl>
+                <Textarea
+                  placeholder="Tell us a little bit about yourself"
+                  className=" border-gray-700 text-lg"
+                  {...field}
+                />
+              </FormControl>
+
               <FormMessage />
             </FormItem>
           )}
@@ -124,7 +169,9 @@ export function BountySubmit({ id, userId }: { id: string; userId: string }) {
                 Your LinkedIn Profile
               </FormLabel>
               <FormControl>
-                <Input {...field} className="border-gray-700 text-lg" />
+                <Input {...field}
+                           placeholder="Enter your linkedin profile link"
+                className="border-gray-700 text-lg" />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -132,11 +179,65 @@ export function BountySubmit({ id, userId }: { id: string; userId: string }) {
         />
         <FormField
           control={form.control}
-          name="submissionLink"
+          name="twitterProfile"
           render={({ field }) => (
             <FormItem>
               <FormLabel className="text-base md:text-lg ">
-                Your Submission Link
+                Twitter
+              </FormLabel>
+              <FormControl>
+                <Input {...field}
+                
+                placeholder="Enter your twitter profile link"
+                
+                className="border-gray-700 text-lg" />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+         <FormField
+          control={form.control}
+          name="github"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel className="text-base md:text-lg ">
+                Github
+              </FormLabel>
+              <FormControl>
+                <Input {...field} 
+                placeholder="Enter your github profile link"
+                className="border-gray-700 text-lg" />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+      <FormField
+          control={form.control}
+          name="portfolio"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel className="text-base md:text-lg ">
+                Portfolio
+              </FormLabel>
+              <FormControl>
+                <Input {...field}
+                placeholder="Enter your portfolio profile link"
+                className="border-gray-700 text-lg" />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        
+        {/* <FormField
+          control={form.control}
+          name="roles"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel className="text-base md:text-lg ">
+                Roles
               </FormLabel>
               <FormControl>
                 <Input {...field} className="border-gray-700 text-lg" />
@@ -144,59 +245,25 @@ export function BountySubmit({ id, userId }: { id: string; userId: string }) {
               <FormMessage />
             </FormItem>
           )}
-        />
-
+        /> */}
         <FormField
           control={form.control}
-          name="upiId"
+          name="resume"
           render={({ field }) => (
             <FormItem>
               <FormLabel className="text-base md:text-lg ">
-                Your UPI ID
+                Resume
               </FormLabel>
               <FormControl>
-                <Input {...field} className="border-gray-700 text-lg" />
+                <Input 
+                placeholder="Enter your resume link"
+                {...field} className="border-gray-700 text-lg" />
               </FormControl>
               <FormMessage />
             </FormItem>
           )}
         />
-        <FormField
-          control={form.control}
-          name="notes"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel className="text-base md:text-lg ">
-                Any feedbacks
-              </FormLabel>
-              <FormControl>
-                <Input {...field} className="border-gray-700 text-lg" />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-        <FormField
-          control={form.control}
-          name="addToTalentPool"
-          render={({ field }) => (
-            <FormItem className="flex flex-row items-start justify-center space-x-3 space-y-0 rounded-md  p-4">
-              <FormControl>
-                <Checkbox
-                  checked={field.value}
-                  className="border-gray-400 text-lg mt-1"
-                  onCheckedChange={field.onChange}
-                />
-              </FormControl>
-              <div className="space-y-1 leading-none">
-                <FormLabel className="text-lg">
-                  Are you interested in being added to the Techkareer Talent
-                  Pool?
-                </FormLabel>
-              </div>
-            </FormItem>
-          )}
-        />
+               
         <Button type="submit" className="w-full text-base md:text-lg">
           {loading ? <Loader size={24} className="animate-spin" /> : "Submit"}
         </Button>

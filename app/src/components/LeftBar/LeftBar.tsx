@@ -11,10 +11,12 @@ import { IoIosLogOut } from "react-icons/io";
 import { IoPeopleOutline } from "react-icons/io5";
 import { PiHandshake, PiSuitcaseSimpleDuotone } from "react-icons/pi";
 import { CircleDollarSign } from "lucide-react";
+import { getNameFromEmail } from "@/utils/utils";
 
 function Leftbar() {
   const router = useRouter();
   const { data: authUser, status } = useSession();
+  console.log(authUser);
 
   return (
     <>
@@ -97,7 +99,7 @@ function Leftbar() {
                   onClick={() =>
                     router.push(`/profile/${authUser.user.role.toLowerCase()}`)
                   }
-                  className="hover:bg-green-500 hover:text-white cursor-pointer  overflow-hidden border-solid border-[1px] border-green-500   flex items-center gap-[3px] text-[16px] font-medium px-[3px] py-2 m-1 	truncate"
+                  className=" hover:text-white cursor-pointer  rounded-lg  overflow-hidden hover:bg-gray-700/20   flex justify-start relative items-center gap-4 text-[16px] font-medium px-2 py-2 m-1 	truncate"
                 >
                   <div className="profile-pic-container flex items-center justify-center  h-[20px] min-w-[20px] relative">
                     {authUser.user?.image ? (
@@ -111,11 +113,17 @@ function Leftbar() {
                       <HiOutlineUser className=" cursor-pointer text-[19px] " />
                     )}
                   </div>
-                  @{authUser.user.username}
+                  {authUser.user.name
+                    ? authUser.user.name
+                    : getNameFromEmail(authUser.user.email)}
                 </div>
                 <div
-                  onClick={() => signOut()}
-                  className="hover:bg-green-500 hover:text-white cursor-pointer  overflow-hidden border-solid border-[1px] border-green-500   flex items-center gap-[3px] text-[16px] font-medium px-[3px] py-2 m-1"
+                  onClick={() =>
+                    signOut({ redirect: false }).then(() => {
+                      router.push("/");
+                    })
+                  }
+                  className=" hover:text-white cursor-pointer  overflow-hidden   rounded-lg hover:bg-gray-700/20 flex justify-start relative items-center gap-4 px-2 text-[16px] font-medium  py-2 m-1"
                 >
                   <IoIosLogOut className=" cursor-pointer text-[19px] " />
                   Logout

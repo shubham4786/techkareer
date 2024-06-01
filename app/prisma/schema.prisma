@@ -13,25 +13,62 @@ datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
+
 model User {
-  id             Int           @id @default(autoincrement())
-  name           String?
-  email          String        @unique
-  profilePic     String?
-  password       String?
-  type           Int
-  provider       String
-  candidate      Candidate?   
-  organization    Organization?
+  id          Int      @id @default(autoincrement())
+  name        String?
+  email       String   @unique
+  profilePic  String?
+  password    String?
+  type        Int
+  provider    String
+  description String?
+  roles       String[]
+  resume      String?
+  github       String?
+  twitter      String?
+  linkedIn     String?
+  portfolio    String?
+  candidate    Candidate?
+  submission   Submission[]
+  Organization Organization?
 }
 
+model Gigs {
+  id          Int          @id @default(autoincrement())
+  title       String
+  desc        String
+  amount      Int
+  twitterLink String
+  gigType     String
+  role        String[]
+  deadline    DateTime
+  winner      String?
+  submissions Submission[]
+}
+
+model Submission {
+  id              Int     @id @default(autoincrement())
+  user            User    @relation(fields: [userId], references: [id])
+  userId          Int
+  gig             Gigs    @relation(fields: [gigId], references: [id])
+  gigId           Int
+  name            String
+  twitterProfile  String
+  linkedInProfile String
+  submissionLink  String
+  upiId           String
+  feedbacks       String?
+
+  @@unique([userId, gigId])
+}
 
 model Candidate {
   id           Int      @id @default(autoincrement())
   name         String?
   email        String
   github       String?
-  profilePic     String
+  profilePic   String
   resume       String?
   linkedin     String?
   roles        String[]
@@ -41,7 +78,7 @@ model Candidate {
   twitter      String?
   minIncome    Int?
   referralID   String?
-  UserId      Int? @unique
+  UserId       Int?     @unique
   user         User?    @relation(fields: [UserId], references: [id])
 }
 
@@ -79,18 +116,6 @@ model Opportunity {
   updatedAt                 DateTime  @updatedAt
 }
 
-model Gigs {
-  id          Int      @id @default(autoincrement())
-  title       String
-  desc        String
-  amount      Int
-  twitterLink String
-  gigType     String
-  role        String[]
-  deadline    DateTime
-  winner      String?
-}
-
 model Organization {
   id          Int          @id @default(autoincrement())
   email       String       @unique
@@ -105,8 +130,8 @@ model Organization {
   jobProfiles JobProfile[]
   createdAt   DateTime     @default(now())
   updatedAt   DateTime     @updatedAt
-   user        User?        @relation(fields: [userId], references: [id])
-  userId      Int? @unique
+  user        User?        @relation(fields: [userId], references: [id])
+  userId      Int?         @unique
 }
 
 model JobSeeker {
@@ -130,7 +155,6 @@ model JobSeeker {
   experiences       Experience[]
   projects          Project[]
 }
-
 
 model JobProfile {
   id                 Int           @id @default(autoincrement())

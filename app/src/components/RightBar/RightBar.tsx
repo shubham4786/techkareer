@@ -1,4 +1,5 @@
 "use client";
+import { getNameFromEmail } from "@/utils/utils";
 import { useSession } from "next-auth/react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
@@ -29,7 +30,7 @@ function Rightbar({ children }: { children: ReactNode }) {
                       <HiOutlineUser className=" cursor-pointer text-[19px] " />
                     )}
                   </div>
-                  {`@${auth.user.username}`}
+                  { auth.user.name ? auth.user.name: getNameFromEmail(auth.user.email)}
                 </div>
   
 
