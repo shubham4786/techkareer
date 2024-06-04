@@ -92,13 +92,13 @@ const ProfileCard = ({ user }: { user: any }) => {
       </div>
       <div>
         {userInfo?.profilePic ? (
-          <Image src={userInfo.profilePic} width={200} height={200} alt="" />
+          <Image src={userInfo.profilePic} width={200} height={200} alt="" className="rounded-full" />
         ) : (
           <Image src={placeholder} width={200} height={200} alt="" />
         )}
       </div>
       <div className="flex justify-center items-center flex-col gap-6 ">
-        <h1 className="text-lg md:text-5xl ">{userInfo?.name}</h1>
+        <h1 className="text-lg md:text-4xl mt-3 ">{userInfo?.name ? userInfo.name : userInfo?.email}</h1>
         <div className="flex justify-center items-center gap-3 max-w-[400px] flex-wrap">
           {socials.map(
             (social, index) =>
@@ -122,8 +122,11 @@ const ProfileCard = ({ user }: { user: any }) => {
         
       </div>
       <div className="w-full flex justify-center items-start flex-col mt-16">
-          <h2 className="text-lg md:text-2xl mb-8">Description</h2>
-          <p className="text-sm md:text-lg">{userInfo?.description}</p>
+          <h2 className="text-lg md:text-2xl mb-8">Introduction</h2>
+          {
+            userInfo?.description ?  <p className="text-sm md:text-lg">{userInfo?.description}</p> : "No Introduction provided"
+          }
+         
         </div>
     </div>
   );
