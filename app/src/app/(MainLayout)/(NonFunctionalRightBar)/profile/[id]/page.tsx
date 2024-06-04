@@ -92,9 +92,9 @@ const ProfileCard = ({ user }: { user: any }) => {
       </div>
       <div>
         {userInfo?.profilePic ? (
-          <Image src={userInfo.profilePic} width={200} height={200} alt="" className="rounded-full" />
+          <Image src={userInfo.profilePic} width={100} height={100} alt="" className="rounded-full" />
         ) : (
-          <Image src={placeholder} width={200} height={200} alt="" />
+          <Image src={placeholder} width={100} height={100} alt="" />
         )}
       </div>
       <div className="flex justify-center items-center flex-col gap-6 ">

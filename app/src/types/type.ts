@@ -32,6 +32,7 @@ export interface Organization {
     email:string;
     password?: string;
     onboarded: boolean;
+    description?:string;
     profilePic: string;
     provider: string;
     type: number;

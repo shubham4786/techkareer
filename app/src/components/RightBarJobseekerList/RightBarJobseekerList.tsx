@@ -13,7 +13,7 @@ import { getName } from "@/lib/utils";
 function RightBarJobseekerList() {
   const router = useRouter();
   const { data: authData } = useSession();
-  const [seekers, setSeekers] = useState<Candidate[]>([]);
+  const [seekers, setSeekers] = useState<User[]>([]);
 
   const { data: jobseekers, isSuccess } = useFetchAllJobseekers(
     "seekers-for-section"
@@ -38,13 +38,13 @@ function RightBarJobseekerList() {
             seekers
               .slice(0, 3)
 
-              .map((jobseeker: Candidate) => {
+              .map((jobseeker: User) => {
                 return (
                   <div
                     onClick={() => router.push(`/jobseekers/${jobseeker.id}`)}
                     key={jobseeker.id}
                   >
-                    <div className="profile-pic-follow  mt-1 flex  py-3 items-center w-full gap-2 hover:bg-gray-200/20 rounded-xl transition-all px-1 cursor-pointer">
+                    <div className="profile-pic-follow  mt-1 flex  py-3 items-center w-full gap-4 hover:bg-gray-200/20 rounded-xl transition-all px-1 cursor-pointer">
                       <div className="profile-pic w-[18%] flex flex-between justify-center items-center  mt-2 overflow-hidden rounded-full">
                         {jobseeker.profilePic ? (
                           <Image
@@ -65,16 +65,16 @@ function RightBarJobseekerList() {
                         )}
                       </div>
                       <div className="flex-col w-[90%]">
-                        <div className="people-username text-[13px]">
+                        <div className="people-username text-lg">
                           {jobseeker?.name
                             ? jobseeker.name
                             : getName(jobseeker.email)}
                         </div>
-                        {jobseeker.introduction && (
-                          <div className="people-desc truncate color-lgt-grey w-full text-[13px] text-wrap mt-1">
-                            {jobseeker.introduction.length > 50
-                              ? jobseeker.introduction.slice(0, 50) + "..."
-                              : jobseeker.introduction}
+                        {jobseeker.description && (
+                          <div className="people-desc truncate color-lgt-grey w-full text-sm text-wrap mt-1">
+                            {jobseeker.description.length > 50
+                              ? jobseeker.description.slice(0, 50) + "..."
+                              : jobseeker.description}
                           </div>
                         )}
                       </div>
