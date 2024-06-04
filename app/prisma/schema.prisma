@@ -21,6 +21,7 @@ model User {
   profilePic  String?
   password    String?
   type        Int
+  roleType    String 
   provider    String
   description String?
   roles       String[]
