@@ -39,6 +39,11 @@ const nextConfig = {
           hostname:"v5.airtableusercontent.com",
           port:""
         },
+        {
+          protocol:"https",
+          hostname:"lh3.googleusercontent.com",
+          port:""
+        },
 
         
       ]
