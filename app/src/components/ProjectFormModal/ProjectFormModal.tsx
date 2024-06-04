@@ -59,7 +59,6 @@ function ProjectFormModal({
       [name]: value,
     }));
   };
-  console.log(updateData)
   const handleListInputChange = (e: ChangeEvent<HTMLInputElement>) => {
     setListValue(e.target.value);
   };

@@ -25,7 +25,6 @@ export async function GET(req:NextRequest , context :{params:Params}){
         id:parseInt(id)
       }
     })
-    console.log("user",user)
       return NextResponse.json({ user: user }, { status: 200 });
   }catch (err) {
     if (err instanceof Error && err.name == "ZodError") {

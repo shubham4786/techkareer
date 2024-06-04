@@ -30,9 +30,6 @@ function JobseekerDetails({ jobseeker , isLoading }: jobseekerProp) {
   }, [status]);
   const { data: authData } = useSession();
 
-
-  console.log(jobseeker);
-
   return (
     <>
       {isLoading ? (

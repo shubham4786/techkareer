@@ -24,6 +24,7 @@ import {
 } from "lucide-react";
 import Link from "next/link";
 import { TbWorldWww } from "react-icons/tb";
+import { Skeleton } from "@/components/ui/skeleton";
 function JobseekerProfilePage() {
   const { data: auth, status } = useSession();
   if (!auth) {
@@ -78,10 +79,20 @@ const ProfileCard = ({ user }: { user: any }) => {
       link: userInfo?.portfolio,
       icon: <TbWorldWww />,
       color: "bg-gray-700",
-    }
+    },
   ];
   if (loading) {
-    return <Loader className="animate-spin" />;
+    return (
+      <div className="flex justify-center items-center gap-5 flex-col h-fit">
+        <Skeleton className="rounded-full h-[80px] w-[80px]" />
+        <Skeleton className="w-[200px] h-[30px]" />
+        <div className="w-full justify-start flex gap-5">
+          <Skeleton className="w-[100px] h-[30px]" />
+          <Skeleton className="w-[100px] h-[30px]" />
+          <Skeleton className="w-[100px] h-[30px]" />
+        </div>
+      </div>
+    );
   }
   return (
     <div className=" w-full h-fit flex flex-col justify-center items-center relative">
@@ -92,13 +103,21 @@ const ProfileCard = ({ user }: { user: any }) => {
       </div>
       <div>
         {userInfo?.profilePic ? (
-          <Image src={userInfo.profilePic} width={100} height={100} alt="" className="rounded-full" />
+          <Image
+            src={userInfo.profilePic}
+            width={100}
+            height={100}
+            alt=""
+            className="rounded-full"
+          />
         ) : (
           <Image src={placeholder} width={100} height={100} alt="" />
         )}
       </div>
       <div className="flex justify-center items-center flex-col gap-6 ">
-        <h1 className="text-lg md:text-4xl mt-3 ">{userInfo?.name ? userInfo.name : userInfo?.email}</h1>
+        <h1 className="text-lg md:text-4xl mt-3 ">
+          {userInfo?.name ? userInfo.name : userInfo?.email}
+        </h1>
         <div className="flex justify-center items-center gap-3 max-w-[400px] flex-wrap">
           {socials.map(
             (social, index) =>
@@ -119,15 +138,15 @@ const ProfileCard = ({ user }: { user: any }) => {
               )
           )}
         </div>
-        
       </div>
       <div className="w-full flex justify-center items-start flex-col mt-16">
-          <h2 className="text-lg md:text-2xl mb-8">Introduction</h2>
-          {
-            userInfo?.description ?  <p className="text-sm md:text-lg">{userInfo?.description}</p> : "No Introduction provided"
-          }
-         
-        </div>
+        <h2 className="text-lg md:text-2xl mb-8">Introduction</h2>
+        {userInfo?.description ? (
+          <p className="text-sm md:text-lg">{userInfo?.description}</p>
+        ) : (
+          "No Introduction provided"
+        )}
+      </div>
     </div>
   );
 };

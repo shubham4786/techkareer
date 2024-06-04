@@ -5,11 +5,7 @@ import { useSession } from "next-auth/react";
 import { NextRequest, NextResponse } from "next/server";
 export  async function POST(req:NextRequest ){
   try{
-
-    
     const data= await req.json();
-    console.log(data)
-
     const userUpdate = await db.user.update({
         where:{
             id: parseInt(data.id)

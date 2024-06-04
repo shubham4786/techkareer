@@ -28,15 +28,12 @@ function JobseekerList() {
       ) : (
         jobseekers && (
           <div className="max-xl:block max-sm:h-[73vh] max-h-[83vh] flex gap-[18px] flex-wrap justify-center  w-full overflow-x-hidden overflow-y-auto px-3 py-5 max-xl:py-[0px]">
-            <>
-              {" "}
-              {jobseekers.map((jobseeker:any) => (
+            {jobseekers.map((jobseeker:User) => (
                 <JobseekerBox
                   key={jobseeker.id}
                   jobseeker={jobseeker}
                 ></JobseekerBox>
               ))}
-            </>
           </div>
         )
       )}
