@@ -18,7 +18,8 @@ export  async function POST(req:NextRequest ){
             description:data.description,
             resume:data.resume,
             github:data.github,
-            portfolio:data.portfolio
+            portfolio:data.portfolio,
+            userType: data.jobseeker ? "jobseeker" : null
         }
     })
     

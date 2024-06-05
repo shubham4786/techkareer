@@ -9,7 +9,7 @@ export const useFetchAllJobseekers = (component?:string) => {
   const { filters } = useFilterStore();
   const fetchAllJobseekers = async (): Promise<User[]> => {
     const response = await axios.get(
-      `/api/techkareer/users`
+      `/api/techkareer/jobseekers`
     );
     return response.data.users 
   };

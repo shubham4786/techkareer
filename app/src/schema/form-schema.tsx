@@ -33,5 +33,6 @@ export const profileSchema = z.object({
    // roles: z.array(z.string()).optional(),
    github : z.string().url({ message: "Invalid github url" }).refine(value => value.includes('github.com') , { message: "Invalid Github profile url" }).optional(),
    resume: z.string().url({ message: "Invalid url" }).optional(),
-    portfolio: z.string().url({ message: "Invalid portfolio url" }).optional()
+    portfolio: z.string().url({ message: "Invalid portfolio url" }).optional(),
+    jobseeker: z.boolean().optional(),
 })

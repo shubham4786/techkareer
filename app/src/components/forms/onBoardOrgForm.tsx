@@ -36,8 +36,7 @@ const OrganizationOnboardForm = () => {
     });
   
     async function onSubmit(values: z.infer<typeof onboardingOrgSchema>) {
-  
-      console.log(values);
+
     //   const response = await db.organization.create({
     //     data: {
     //       name: values.name,

@@ -118,7 +118,7 @@ function LoginBox() {
                   </FormControl>
                   <FormMessage />
                 </FormItem>
-              )}
+            )}
             />
             <FormField
               control={form.control}
@@ -147,7 +147,7 @@ function LoginBox() {
                 className="text-2xl bg-blue-600 text-white px-5 py-3 min-w-[200px]"
               >
                 {
-                 loading ? <Loader className="animate-spin"/> : "Submit"
+                 loading ? <Loader className="animate-spin"/> : "Login"
                 }
 
               </Button>

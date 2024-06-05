@@ -39,10 +39,14 @@ export function EditProfileForm({ userId }: { userId: string }) {
       resume: "",
       github: "",
       portfolio: "",
+      jobseeker: false
     },
   });
   useEffect(() => {
     if (user) {
+      if(user?.userType == "Jobseeker"){
+        form.setValue("jobseeker", true);
+      }
       if (user.name) {
         form.setValue("name", user.name);
       }
@@ -105,7 +109,7 @@ export function EditProfileForm({ userId }: { userId: string }) {
   if (!user) {
     return (
       <div className=" w-full flex flex-col">
-        <div className="flex justify-start items-center w-[100%] gap-16 mb-12">
+        <div className="flex justify-start items-center w-[100%] gap-16 mb-12 px-4">
           <Skeleton className="w-[300px] " />
           <Skeleton className="w-[300px] " />
         </div>
@@ -113,7 +117,7 @@ export function EditProfileForm({ userId }: { userId: string }) {
           <Skeleton className="w-[600px] h-[80px]" />
         </div>
         <div className="flex justify-start items-center w-[100%] gap-16 mb-12">
-          <Skeleton className="w-[300px] " />
+          <Skeleton className="w-[100px] lg:w-[300px] " />
           <Skeleton className="w-[300px] " />
         </div>
         <div className="flex justify-start items-center w-[100%] gap-16 mb-12">
@@ -129,7 +133,7 @@ export function EditProfileForm({ userId }: { userId: string }) {
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)}>
-        <div className="flex justify-center items-center gap-8 mb-6">
+        <div className="flex justify-center items-center gap-2 lg:gap-8 mb-6">
           <FormField
             control={form.control}
             name="name"
@@ -142,7 +146,7 @@ export function EditProfileForm({ userId }: { userId: string }) {
                   <Input
                     {...field}
                     placeholder="Enter your name"
-                    className="border-gray-700 text-lg rounded-xl min-w-[200px]"
+                    className="border-gray-700 text-lg rounded-xl lg:min-w-[200px]"
                     type="username"
                   />
                 </FormControl>
@@ -162,7 +166,7 @@ export function EditProfileForm({ userId }: { userId: string }) {
                   <Input
                     {...field}
                     placeholder="Enter your email"
-                    className="border-gray-700 text-lg rounded-xl  min-w-[200px]"
+                    className="border-gray-700 text-lg rounded-xl  lg:min-w-[200px]"
                     type="email"
                     disabled={true}
                   />
@@ -205,7 +209,7 @@ export function EditProfileForm({ userId }: { userId: string }) {
                     <Input
                       {...field}
                       placeholder="Linkedin Link"
-                      className="border-gray-700 text-lg  min-w-[200px] rounded-xl"
+                      className="border-gray-700 text-lg   rounded-xl"
                       type="link"
                     />
                   </FormControl>
@@ -225,7 +229,7 @@ export function EditProfileForm({ userId }: { userId: string }) {
                     <Input
                       {...field}
                       placeholder="Twitter Link"
-                      className="border-gray-700 text-lg  min-w-[200px] rounded-xl"
+                      className="border-gray-700 text-lg   rounded-xl"
                       type="link"
                     />
                   </FormControl>
@@ -247,7 +251,7 @@ export function EditProfileForm({ userId }: { userId: string }) {
                     <Input
                       {...field}
                       placeholder="Github Link"
-                      className="border-gray-700 text-lg  min-w-[200px] rounded-xl"
+                      className="border-gray-700 text-lg   rounded-xl"
                       type="link"
                     />
                   </FormControl>
@@ -267,7 +271,7 @@ export function EditProfileForm({ userId }: { userId: string }) {
                     <Input
                       {...field}
                       placeholder="Portfolio Link"
-                      className="border-gray-700 text-lg  min-w-[200px] rounded-xl"
+                      className="border-gray-700 text-lg   rounded-xl"
                       type="link"
                     />
                   </FormControl>
@@ -310,6 +314,28 @@ export function EditProfileForm({ userId }: { userId: string }) {
             </FormItem>
           )}
         />
+        <div className="w-full rounded-xl py-2 border-[1px] border-gray-700 h-fit border-solid px-2 mt-8">
+          <h1 className="mb-4">Optional</h1>
+          <FormField
+          control={form.control}
+          name="jobseeker"
+          render={({ field }) => (
+            <FormItem className="flex flex-row items-center space-x-3 space-y-0 rounded-md  justify-start  ">
+              <FormControl>
+                <Checkbox
+                  checked={field.value}
+                  onCheckedChange={field.onChange}
+                />
+              </FormControl>
+              <div className="space-y-1 leading-none">
+                <FormLabel className="text-lg">
+                  Want to register as a jobseeker ?
+                </FormLabel>
+              </div>
+            </FormItem>
+          )}
+        />
+        </div>
 
         <Button
           type="submit"
