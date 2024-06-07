@@ -85,3 +85,23 @@ export const profileSchema = z.object({
   portfolio: z.string().url({ message: "Invalid portfolio url" }).optional(),
   jobseeker: z.boolean().optional(),
 });
+
+
+export const bountyCreateSchema = z.object({
+  title: z.string().min(1, { message: "Title is required" }),
+  description: z.string().min(1, { message: "Description is required" }),
+  twitterLink:   z.string()
+  .url({ message: "Invalid Twitter profile url" })
+  .refine(
+    (value) => value.includes("twitter.com") || value.includes("x.com"),
+    { message: "Invalid Twitter profile url" }
+  ),
+  amount: z.number().min(1, { message: "Amount is required" }),
+  gigType: z.string().min(1, { message: "Gig type is required" }),
+
+ deadlineTime: z.object({
+  $H: z.number().int().min(0).max(23),
+  $m: z.number().int().min(0).max(59),
+}),
+  deadlineDate: z.date({ message: "Deadline is required" }),
+})

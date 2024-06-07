@@ -15,38 +15,41 @@ datasource db {
 }
 
 model User {
-  id          Int      @id @default(autoincrement())
-  name        String?
-  email       String   @unique
-  profilePic  String?
-  password    String?
-  type        Int
-  userType    String?
-  provider    String
-  description String? 
-  roles       String[]
-  resume      String?
+  id           Int           @id @default(autoincrement())
+  name         String?
+  email        String        @unique
+  profilePic   String?
+  password     String?
+  type         Int
+  userType     String?
+  provider     String
+  description  String?
+  roles        String[]
+  resume       String?
   github       String?
   twitter      String?
   linkedIn     String?
   portfolio    String?
+  gig          Gigs?         @relation("UserGig") // Correct relation name
   candidate    Candidate?
   submission   Submission[]
   Organization Organization?
 }
 
 model Gigs {
-  id          Int          @id @default(autoincrement())
-  title       String
-  desc        String
-  amount      Int
-  twitterLink String
-  gigType     String
-  role        String[]
-  deadline    DateTime
-  winner      String?
-  submissions Submission[]
+  id           Int        @id @default(autoincrement())
+  user         User       @relation("UserGig", fields: [userId], references: [id])
+  userId       Int        @unique // Ensure only one gig per user
+  title        String
+  desc         String
+  amount       Int
+  twitterLink  String
+  gigType      String
+  deadline     DateTime
+  winner       String?
+  submissions  Submission[]
 }
+
 
 model Submission {
   id              Int     @id @default(autoincrement())
