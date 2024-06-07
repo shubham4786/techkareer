@@ -1,3 +1,4 @@
+
 import { BottomBar, Navbar } from "@/components/components";
 import { EditProfileForm } from "@/components/forms/profile-edit";
 import { ChevronRight } from "lucide-react";
@@ -8,8 +9,11 @@ const EditProfile = ({
     id: string;
   };
 }) => {
+
+
   return (
     <>
+
       <Navbar className="pt-8 flex justify-start gap-3 items-center ">Edit Profile
       <ChevronRight className="text-gray-600 "/>
       </Navbar>
@@ -21,7 +25,7 @@ const EditProfile = ({
           <p className="lg:text-xl text-md text-gray-400">The changes will be displayed for other users as you update it.</p>
           </div>
         </div>
-        <div className="w-fit lg:w-[600px] px-3 lg:px-0">
+        <div className="w-fit lg:w-[600px] px-3 lg:px-0 mb-9">
           <EditProfileForm userId={params.id} />
         </div>
       </div>

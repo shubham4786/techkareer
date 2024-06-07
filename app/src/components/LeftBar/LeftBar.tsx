@@ -16,7 +16,6 @@ import { getNameFromEmail } from "@/utils/utils";
 function Leftbar() {
   const router = useRouter();
   const { data: authUser, status } = useSession();
-  console.log(authUser);
 
   return (
     <>
