@@ -96,11 +96,10 @@ export function EditProfileForm({ userId }: { userId: string }) {
   const router = useRouter();
 
   async function onSubmit(values: z.infer<typeof profileSchema>) {
-    setIsLoading(true);
-   console.log(values)
+  setIsLoading(true);
    const {profilePic, resume, ...rest} = values
    const formData = new FormData();
-
+   formData.append("id", userId);
     if(profilePic){
       formData.append("profilePic", profilePic[0]);
     }
@@ -164,10 +163,10 @@ export function EditProfileForm({ userId }: { userId: string }) {
           <div className="mb-8 flex justify-start items-center mr-6 gap-4">
             {user.profilePic ? (
               <Image
-                src={user.profilePic}
+                src={previewImage ? previewImage : user.profilePic}
                 alt=""
-                width={200}
-                height={200}
+                width={100}
+                height={100}
                 className="rounded-full"
               />
             ) : (
@@ -185,6 +184,9 @@ export function EditProfileForm({ userId }: { userId: string }) {
               render={({ field }) => {
                 return (
                   <FormItem>
+                    <FormLabel className="text-base md:text-lg ">
+                      Update Picture
+                    </FormLabel>
                     <FormControl>
                     <Input
                         type="file"

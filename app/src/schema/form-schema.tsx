@@ -40,15 +40,15 @@ const MAX_UPLOAD_SIZE = 5 * 1024 * 1024;
 export const profileSchema = z.object({
   name: z.string().min(1, { message: "Name is required" }),
   profilePic: z
-    .instanceof(FileList)
-    .optional()
+    .any()
     .refine(
       (file) => {
-        return !file || file[0].size <= MAX_UPLOAD_SIZE;
+        console.log(file?.size);
+        return !(file?.size <= MAX_UPLOAD_SIZE)
       },
       { message: "File size should be less than 5MB" }
     )
-   ,
+    .optional(),
   twitterProfile: z
     .string()
     .url({ message: "Invalid Twitter profile url" })
@@ -75,14 +75,13 @@ export const profileSchema = z.object({
       message: "Invalid Github profile url",
     })
     .optional(),
-  resume:  z.instanceof(File)
-  .optional()
+  resume:  z.any()
   .refine(
     (file) => {
-      return !file || file.size <= MAX_UPLOAD_SIZE;
+      return file?.size <= MAX_UPLOAD_SIZE;
     },
     { message: "File size should be less than 5MB" }
-  ),
+  ).optional(),
   portfolio: z.string().url({ message: "Invalid portfolio url" }).optional(),
   jobseeker: z.boolean().optional(),
 });
