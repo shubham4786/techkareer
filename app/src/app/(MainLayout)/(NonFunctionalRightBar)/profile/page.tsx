@@ -1,7 +1,6 @@
 "use client";
 
 import { WithAuthSeeker } from "@/components/HOC/withAuthSeeker";
-import JobseekerProfile from "@/components/JobseekerProfile/JobseekerProfile";
 import { BottomBar, Navbar } from "@/components/components";
 import { getNameFromEmail } from "@/utils/utils";
 import { useSession } from "next-auth/react";

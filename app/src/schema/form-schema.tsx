@@ -43,12 +43,13 @@ export const profileSchema = z.object({
     .any()
     .refine(
       (file) => {
-        console.log(file?.size);
-        return !(file?.size <= MAX_UPLOAD_SIZE)
+        if(file.length === 0) return true
+        return file?.[0]?.size <= MAX_UPLOAD_SIZE
       },
       { message: "File size should be less than 5MB" }
-    )
+    )    
     .optional(),
+   
   twitterProfile: z
     .string()
     .url({ message: "Invalid Twitter profile url" })
@@ -75,13 +76,15 @@ export const profileSchema = z.object({
       message: "Invalid Github profile url",
     })
     .optional(),
-  resume:  z.any()
+  resume:   z
+  .any()
   .refine(
     (file) => {
-      return file?.size <= MAX_UPLOAD_SIZE;
+      return !(file[0]?.size <= MAX_UPLOAD_SIZE)
     },
     { message: "File size should be less than 5MB" }
-  ).optional(),
+  )
+  .optional(),
   portfolio: z.string().url({ message: "Invalid portfolio url" }).optional(),
   jobseeker: z.boolean().optional(),
 });

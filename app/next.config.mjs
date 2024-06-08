@@ -10,10 +10,9 @@ const nextConfig = {
         },
         {
           protocol:"https",
-          hostname:"www.techkareer.com",
+          hostname:"pub-cb911cae9c3e4c4c887c2f8360e681c7.r2.dev",
           port:""
         },
-      
         {
           protocol:"https",
           hostname:"static.wixstatic.com",

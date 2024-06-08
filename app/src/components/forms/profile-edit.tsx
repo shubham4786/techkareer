@@ -120,7 +120,7 @@ export function EditProfileForm({ userId }: { userId: string }) {
 
       if (res.status === 200) {
         toast.success("Profile Updated");
-        router.push(`/profile/${userId}`);
+        router.push(`/profile/`);
       }
     } catch (err: any) {
       toast.error(err.response.data.message);
@@ -171,15 +171,13 @@ export function EditProfileForm({ userId }: { userId: string }) {
                     <FormControl>
                     <Input
                         type="file"
-              
-                           {...fileRef}
+                        {...fileRef}
                         className="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-200 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
                         onChange={(event) => {
-                         console.log(event.target.files?.[0])
-                          field.onChange(event.target?.files?.[0] ?? undefined);
+                          field.onChange(event?.target?.files?.[0] ?? undefined);
                           handleFileChange(event);
                         }}
-                        accept=".png, .jpg, .jpeg"
+                        accept="image/*"
                         name="profilePic"
                       />
                     </FormControl>
