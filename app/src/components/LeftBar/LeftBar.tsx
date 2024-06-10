@@ -16,7 +16,6 @@ import { getNameFromEmail } from "@/utils/utils";
 function Leftbar() {
   const router = useRouter();
   const { data: authUser, status } = useSession();
-  console.log(authUser);
 
   return (
     <>
@@ -106,7 +105,7 @@ function Leftbar() {
                       <Image
                         alt=""
                         fill
-                        className=" object-fill"
+                        className=" object-fill rounded-full"
                         src={authUser.user?.image}
                       ></Image>
                     ) : (

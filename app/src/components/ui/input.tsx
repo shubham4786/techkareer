@@ -1,4 +1,4 @@
-import { AtSign, Eye, EyeOff, User } from 'lucide-react';
+import { AtSign, Eye, EyeOff, Link, User } from 'lucide-react';
 import * as React from 'react';
 
 import { cn } from '@/lib/utils';
@@ -53,6 +53,27 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
             ) : (
               <User size={20} color='#373737' strokeWidth={1.75} />
             )}
+          </div>
+        </div>
+      );
+    }
+    if(type == "link"){
+      return (
+        <div className='relative'>
+          <input
+            type='text'
+            className={cn(
+              'flex h-9 w-full rounded-md border border-input bg-transparent px-3 pr-8 py-1 text-sm shadow-sm transition-colors file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50',
+              className
+            )}
+            ref={ref}
+            {...props}
+          />
+          <div className='absolute right-2 top-2'>
+     
+
+              <Link size={20} color='#373737' strokeWidth={1.75} />
+           
           </div>
         </div>
       );

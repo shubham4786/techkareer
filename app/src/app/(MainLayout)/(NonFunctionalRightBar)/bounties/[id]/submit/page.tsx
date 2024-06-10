@@ -1,6 +1,7 @@
 "use client"
 import logo from '@/assets/logo.webp'
 import { BountySubmit } from '@/components/forms/bounty-submit'
+import { FormSkeleton } from '@/components/forms/form-sekleton'
 import { useFetchSingleBounty } from '@/hooks/useJobData'
 import { useUser, useUserInfo } from '@/hooks/useUser'
 import { Linkedin, Loader, Mail, Phone, Twitter } from 'lucide-react'
@@ -45,7 +46,7 @@ const {user:session} = useUser()
                 
             </div>
             <div className='md:min-w-[50%] py-16 flex justify-center items-center'>
-                {session ? <BountySubmit id={params.id} userId={session.id.toString()} /> : <Loader className='animate-spin' />}
+                {session ? <BountySubmit id={params.id} userId={session.id.toString()} /> : <FormSkeleton />}
             </div>
  
         </div>

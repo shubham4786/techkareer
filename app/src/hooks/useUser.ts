@@ -2,8 +2,9 @@
 
 import { useSession } from "next-auth/react";
 import axios from "axios";
-import { useEffect, useState } from "react";
-import { User } from "@prisma/client";
+
+import useSWR from 'swr';
+
 export const useUser = () => {
     const { data: session, status } = useSession();
 
@@ -24,23 +25,14 @@ export const useUser = () => {
 
 
 export const useUserInfo = (id: string) => {
-    const [user, setUser] = useState<User | null>(null);
-    const [loading, setLoading] = useState<boolean>(true);
-    const [error, setError] = useState<string | null>(null);
+    const { data: user, error } = useSWR(`/api/user/profile/${id}`, async (url: string) => {
+        const res = await axios.get(url);
+        return res.data.user;
+    });
 
-    useEffect(() => {
-        async function fetchUser() {
-            try {
-                const res = await axios.get(`/api/user/profile/${id}`);
-                setUser(res.data.user);
-                setLoading(false);
-            } catch (err:any) {
-                setError(err.message);
-                setLoading(false);
-            }
-        }
-        fetchUser();
-    }, [id]);
-
-    return { user, loading, error };
+    return {
+        user,
+        loading: !user && !error,
+        error: error,
+    };
 };

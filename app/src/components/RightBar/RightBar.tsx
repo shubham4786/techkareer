@@ -17,7 +17,7 @@ function Rightbar({ children }: { children: ReactNode }) {
           <div className=" cursor-pointer flex items-center text-[14px]">
 
 
-                <div onClick={()=>router.push(`/profile/${auth.user.role.toLowerCase()}`)} className="flex items-center gap-[5px] relative">
+                <div onClick={()=>router.push(`/profile/${auth.user.role.toLowerCase()}`)} className="flex items-center justify-center gap-3 relative">
                   <div className="profile-pic-container h-[30px] min-w-[30px] relative flex items-center justify-center">
                     {auth.user?.image ? (
                       <Image
@@ -30,7 +30,7 @@ function Rightbar({ children }: { children: ReactNode }) {
                       <HiOutlineUser className=" cursor-pointer text-[19px] " />
                     )}
                   </div>
-                  { auth.user.name ? auth.user.name: getNameFromEmail(auth.user.email)}
+             <span className="text-xl"> { auth.user.name ? auth.user.name: getNameFromEmail(auth.user.email)}</span>    
                 </div>
   
 

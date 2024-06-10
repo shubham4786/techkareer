@@ -10,6 +10,11 @@ const nextConfig = {
         },
         {
           protocol:"https",
+          hostname:"pub-cb911cae9c3e4c4c887c2f8360e681c7.r2.dev",
+          port:""
+        },
+        {
+          protocol:"https",
           hostname:"static.wixstatic.com",
           port:""
         },
@@ -37,6 +42,11 @@ const nextConfig = {
         {
           protocol:"https",
           hostname:"v5.airtableusercontent.com",
+          port:""
+        },
+        {
+          protocol:"https",
+          hostname:"lh3.googleusercontent.com",
           port:""
         },
 
