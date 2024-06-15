@@ -69,18 +69,33 @@ export const Navbar = () => {
           {status ? (
             <motion.button
               onClick={() => {
+<<<<<<< HEAD
                 router.push("/opportunities");
+=======
+                setLoggingOut(true);
+                signOut({ redirect: false }).then(() => {
+                  router.push("/");
+                });
+>>>>>>> ee4a21e91cd212856df35dcb159b78b9f12c8d52
               }}
               className="bg-white/90 min-w-[100px] flex justify-center items-center px-4 py-2 md:px-6 md:py-3 border-[.1px] border-solid border-gray-200/10 rounded-full   font-bold tracking-wider "
               whileHover={{ backgroundColor: "#F9F9F9", color: "#000" }}
               whileTap={{ scale: 0.95 }}
             >
               <p className="text-xs md:text-sm text-black">
+<<<<<<< HEAD
                 {loggingOut ? <Loader className="animate-spin" /> : "Dashboard"}
               </p>
             </motion.button>
           ) : (
             <Link href={"/login"}>
+=======
+                {loggingOut ? <Loader className="animate-spin" /> : "Logout"}
+              </p>
+            </motion.button>
+          ) : (
+            <Link href={"/signin"}>
+>>>>>>> ee4a21e91cd212856df35dcb159b78b9f12c8d52
               <motion.button
                 className="bg-white/90 px-4 py-2 md:px-6 md:py-3 border-[.1px] border-solid border-gray-200/10 rounded-full   font-bold tracking-wider"
                 whileHover={{ backgroundColor: "#F9F9F9", color: "#000" }}
