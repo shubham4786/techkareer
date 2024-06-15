@@ -17,10 +17,10 @@ function NonFunctionRightBarLayout({
       <div className="content-wrapper max-sm:w-[100%] max-md:w-[80%] w-[60%] h-[100vh] flex flex-col ">
         {children}
       </div>
-      <Rightbar>
+      {/* <Rightbar>
         <RightBarJobseekerList />
         <RightBarOrganizationList />
-      </Rightbar>
+      </Rightbar> */}
     </>
   );
 }

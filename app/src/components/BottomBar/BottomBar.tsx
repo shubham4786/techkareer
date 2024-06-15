@@ -10,7 +10,7 @@ import { LuUser2 } from "react-icons/lu";
 import { PiHandshakeDuotone, PiSuitcaseDuotone } from "react-icons/pi";
 
 function BottomBar() {
-  const { data: authData, status } = useSession();
+  const { data: authData, status }: any = useSession();
   const router = useRouter();
 
   const [showProfileDropdown, setShowProfileDropdown] = useState(false);
@@ -20,33 +20,29 @@ function BottomBar() {
   return (
     <>
       <div className="relative bottom-[0px] bottom-section max-sm:block hidden w-full flex justify-between  items-center border-t-[1px] border-t-[solid] border-t-[#E1E4E8] h-[10vh] max-h-[10vh]">
-        <div className=" flex  justify-center items-center h-full   gap-[1px]">
+        <div className=" flex  justify-center items-center h-full gap-4">
           <div
-            onClick={() =>
-              authData?.user.role == "Organization"
-                ? router.push("/companies/postedjobs")
-                : router.push("/jobslist")
-            }
+            onClick={() => router.push("/opportunities")}
             className="nav-item cursor-pointer btn-joblist flex flex-col items-center gap-1 text-[13px]  font-medium	my-"
           >
             <PiSuitcaseDuotone className="nav-items-logo text-[19px]"></PiSuitcaseDuotone>
-            {authData?.user.role == "Organization" ? "JobPosted" : "JobList"}
+            Opportunities
           </div>
-          <div
+          {/* <div
             onClick={() => router.push("/jobseekers")}
             className="nav-item cursor-pointer btn-joblist flex flex-col items-center gap-1 text-[13px] font-medium my-3 mx-[5px] "
           >
             <IoPeopleOutline className="nav-items-logo text-[19px]"></IoPeopleOutline>
             People
-          </div>
-          <div
+          </div> */}
+          {/* <div
             onClick={() => router.push("/companies")}
             className="nav-item cursor-pointer btn-joblist flex flex-col items-center gap-1 text-[13px] font-medium my-3 mx-[5px]"
           >
             <HiOutlineBuildingOffice className="nav-items-logo text-[19px]"></HiOutlineBuildingOffice>
             Company
-          </div>
-          {authData?.user.role === "Jobseeker" && (
+          </div> */}
+          {/* {authData?.user.role === "Jobseeker" && (
             <div
               onClick={() => router.push("/connections")}
               className="nav-item cursor-pointer btn-joblist flex flex-col items-center gap-1 text-[13px] font-medium my-3 mx-[5px]"
@@ -73,9 +69,9 @@ function BottomBar() {
               <AiOutlineAppstoreAdd className="nav-items-logo text-[19px]"></AiOutlineAppstoreAdd>
               PostJob
             </div>
-          )}
+          )} */}
           <div
-            // onClick={() => router.push("/signin")}
+            // onClick={() => router.push("/login")}
             onClick={toggleProfileDropdown}
             className="nav-item cursor-pointer btn-joblist flex flex-col items-center gap-1 text-[13px] font-medium my-3 mx-[5px]"
           >
@@ -85,7 +81,7 @@ function BottomBar() {
               <div className="dropdown-menu cursor-pointer  absolute mt-[-3rem]  bg-white text-[14px] border rounded-md p-2 w-15  flex flex-col justify-center text-[13px]">
                 {!authData?.user.email ? (
                   <>
-                    <p onClick={() => router.push("/signin")}>Login</p>
+                    <p onClick={() => router.push("/login")}>Login</p>
                     <p onClick={() => router.push("/signup/jobseeker")}>
                       {" "}
                       Signup

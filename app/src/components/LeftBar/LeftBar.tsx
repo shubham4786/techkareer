@@ -12,10 +12,13 @@ import { IoPeopleOutline } from "react-icons/io5";
 import { PiHandshake, PiSuitcaseSimpleDuotone } from "react-icons/pi";
 import { CircleDollarSign } from "lucide-react";
 import { getNameFromEmail } from "@/utils/utils";
+import Link from "next/link";
 
 function Leftbar() {
   const router = useRouter();
-  const { data: authUser, status } = useSession();
+  const { data: authUser, status }: any = useSession();
+
+  console.log(authUser);
 
   return (
     <>
@@ -25,45 +28,35 @@ function Leftbar() {
             <Image src={logo} alt="logo" width={150} height={150} />
           </div>
           <div className=" cursor-pointer flex flex-col w-full">
-            {!authUser || authUser.user.role == "Jobseeker" ? (
-              <div
-                onClick={() => router.push(`/jobslist`)}
-                className="flex justify-start relative items-center gap-4 px-2 py-2 hover:bg-gray-700/20 rounded-lg hover:text-white cursor-pointer  border-solid border-[1px] border-transparent text-[16px]  font-medium	 m-1"
-              >
-                <PiSuitcaseSimpleDuotone className=" cursor-pointer text-[19px] " />
-                <p>Jobs</p>
-              </div>
-            ) : (
-              <div
-                onClick={() => router.push(`/companies/postedjobs`)}
-                className="flex justify-start relative items-center gap-4 px-2 py-2 hover:bg-gray-700/20 rounded-lg hover:text-white cursor-pointer  border-solid border-[1px] border-transparent text-[16px]  font-medium	 m-1"
-              >
-                <PiSuitcaseSimpleDuotone className=" cursor-pointer text-[19px]"></PiSuitcaseSimpleDuotone>
-                PostedJobs
-              </div>
-            )}
-            <div
+            <Link
+              href={`/opportunities`}
+              className="flex justify-start relative items-center gap-4 px-2 py-2 hover:bg-gray-700/20 rounded-lg hover:text-white cursor-pointer  border-solid border-[1px] border-transparent text-[16px]  font-medium	 m-1"
+            >
+              <PiSuitcaseSimpleDuotone className=" cursor-pointer text-[19px] " />
+              <p>Opportunities</p>
+            </Link>
+            {/* <div
               onClick={() => router.push(`/bounties`)}
               className="flex justify-start relative items-center gap-4 px-2 py-2 hover:bg-gray-700/20 rounded-lg hover:text-white cursor-pointer  border-solid border-[1px] border-transparent text-[16px]  font-medium	 m-1"
             >
               <CircleDollarSign className="cursor-pointer text-[19px]" />
               Bounties
-            </div>
-            <div
+            </div> */}
+            {/* <div
               onClick={() => router.push(`/jobseekers`)}
               className="flex justify-start relative items-center gap-4 px-2 py-2 hover:bg-gray-700/20 rounded-lg hover:text-white cursor-pointer  border-solid border-[1px] border-transparent text-[16px]  font-medium	 m-1"
             >
               <IoPeopleOutline className=" cursor-pointer text-[19px]"></IoPeopleOutline>
               People
-            </div>
-            <div
+            </div> */}
+            {/* <div
               onClick={() => router.push(`/companies`)}
               className="flex justify-start relative items-center gap-4 px-2 py-2 hover:bg-gray-700/20 rounded-lg hover:text-white cursor-pointer  border-solid border-[1px] border-transparent text-[16px]  font-medium	 m-1"
             >
               <HiOutlineBuildingOffice className=" cursor-pointer text-[19px]"></HiOutlineBuildingOffice>
               Companies
-            </div>
-            {authUser && authUser.user.role == "Jobseeker" && (
+            </div> */}
+            {/* {authUser && authUser.user.role == "Jobseeker" && (
               <div
                 onClick={() => router.push(`/connections`)}
                 className="flex justify-start relative items-center gap-4 px-2 py-2 hover:bg-gray-700/20 rounded-lg hover:text-white cursor-pointer  border-solid border-[1px] border-transparent text-[16px]  font-medium	 m-1"
@@ -71,8 +64,8 @@ function Leftbar() {
                 <PiHandshake className=" cursor-pointer text-[19px] "></PiHandshake>
                 Connects
               </div>
-            )}
-            {authUser && authUser?.user.role == "Organization" && (
+            )} */}
+            {/* {authUser && authUser?.user.role == "Organization" && (
               <div
                 onClick={() => router.push(`/jobs/postingform`)}
                 className="flex justify-start relative items-center gap-4 px-2 py-2 hover:bg-gray-700/20 rounded-lg hover:text-white cursor-pointer  border-solid border-[1px] border-transparent text-[16px]  font-medium	 m-1"
@@ -89,15 +82,13 @@ function Leftbar() {
                 <FaEnvelopeCircleCheck className="nav-items-logo" />
                 AppliedJobs
               </div>
-            )}
+            )} */}
             {status == "loading" ? (
               <></>
             ) : authUser ? (
               <>
-                <div
-                  onClick={() =>
-                    router.push(`/profile/${authUser.user.role.toLowerCase()}`)
-                  }
+                <Link
+                  href={`/profile/${authUser.user.id}`}
                   className=" hover:text-white cursor-pointer  rounded-lg  overflow-hidden hover:bg-gray-700/20   flex justify-start relative items-center gap-4 text-[16px] font-medium px-2 py-2 m-1 	truncate"
                 >
                   <div className="profile-pic-container flex items-center justify-center  h-[20px] min-w-[20px] relative">
@@ -115,7 +106,7 @@ function Leftbar() {
                   {authUser.user.name
                     ? authUser.user.name
                     : getNameFromEmail(authUser.user.email)}
-                </div>
+                </Link>
                 <div
                   onClick={() =>
                     signOut({ redirect: false }).then(() => {
@@ -130,7 +121,7 @@ function Leftbar() {
               </>
             ) : (
               <div
-                onClick={() => router.push(`/signin`)}
+                onClick={() => router.push(`/login`)}
                 className="flex justify-start relative items-center gap-4 px-2 py-2 hover:bg-gray-700/20 rounded-lg hover:text-white cursor-pointer  border-solid border-[1px] border-transparent text-[16px]  font-medium	 m-1"
               >
                 <HiOutlineUser className=" cursor-pointer text-[19px] " />

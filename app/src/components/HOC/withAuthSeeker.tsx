@@ -7,9 +7,8 @@ export const WithAuthSeeker = (Component: any) => {
   return function WithAuthSeeker(props: any) {
     const { data: authData, status } = useSession();
     useEffect(() => {
-      
       if (status != "loading" && !authData) {
-        redirect("/signin");
+        redirect("/login");
       } else if (
         status != "loading" &&
         authData &&
@@ -19,10 +18,11 @@ export const WithAuthSeeker = (Component: any) => {
         redirect("/profile/organization");
       }
     }, [status]);
-    if (status == "loading" || status == 'unauthenticated') {
-       return <></> ;
-      }
-      if(status=='authenticated'){
-    return <Component {...props} />};
+    if (status == "loading" || status == "unauthenticated") {
+      return <></>;
+    }
+    if (status == "authenticated") {
+      return <Component {...props} />;
+    }
   };
 };

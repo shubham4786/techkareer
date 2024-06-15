@@ -1,6 +1,6 @@
 "use client";
 import { signIn } from "next-auth/react";
-import {useRouter } from "next/navigation";
+import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 import { toast } from "react-toastify";
 
@@ -17,15 +17,12 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import {loginSignupSchema} from "@/schema/form-schema";
+import { loginSignupSchema } from "@/schema/form-schema";
 import { Loader } from "lucide-react";
 
 function LoginBox() {
-
   const router = useRouter();
   const [loading, setLoading] = useState(false);
-
-
 
   const form = useForm<z.infer<typeof loginSignupSchema>>({
     resolver: zodResolver(loginSignupSchema),
@@ -36,40 +33,40 @@ function LoginBox() {
   });
 
   async function onSubmit(values: z.infer<typeof loginSignupSchema>) {
-   try{
-    setLoading(true)
-   
-    const signInData = await signIn("credentials", {
-      email: values.email,
-      password: values.password,
-      redirect: false,
-    });
+    try {
+      setLoading(true);
 
-    if(signInData?.error){
-      throw new Error("Incorrect Details")
+      const signInData = await signIn("credentials", {
+        email: values.email,
+        password: values.password,
+        redirect: false,
+      });
+
+      if (signInData?.error) {
+        throw new Error("Incorrect Details");
+      }
+      toast.success("Onboarding Successful");
+      router.push("/");
+    } catch (err: any) {
+      toast.error(err.message);
+    } finally {
+      setLoading(false);
     }
-    toast.success('Onboarding Successful')
-    router.push('/')
-   }catch(err:any){
-    toast.error(err.message)
-   }finally{
-      setLoading(false)
-   }
   }
 
   return (
     <>
       <div className="gap-[1rem] px-5 py-8 rounded-3xl bg-gray-900/30 flex flex-col items-center  max-w-[450px] h-[max-content] mt-4 ">
         <div className="mb-8">
-          <h1 className="text-6xl mb-8 text-blue-500">Hello !</h1>
-          <p className="text-xl text-gray-300">
-            Welcome to techkareer, Please fill the details below to login / Signup !
-          </p>
+          <p className="text-3xl">Welcome to TechKareer</p>
         </div>
         <div>
-          <button className="flex justify-center items-center gap-3 mb-2 bg-gray-200 px-6 py-3 rounded-xl" onClick={()=>{
-              signIn("google")
-          }}>
+          <button
+            className="flex justify-center items-center gap-3 mb-2 bg-gray-200 px-6 py-3 rounded-xl"
+            onClick={() => {
+              signIn("google");
+            }}
+          >
             <svg
               xmlns="http://www.w3.org/2000/svg"
               x="0px"
@@ -96,13 +93,11 @@ function LoginBox() {
               ></path>
             </svg>
 
-            <span className="text-xl text-black/80 ">
-              Login / Signup with Google{" "}
-            </span>
+            <span className="text-xl text-black/80 ">Login with Google</span>
           </button>
         </div>
-        <hr className="bg-white w-full h-[1px]" />
-        <Form {...form}>
+        {/* <hr className="bg-white w-full h-[1px]" /> */}
+        {/* <Form {...form}>
           <form
             onSubmit={form.handleSubmit(onSubmit)}
             className="space-y-8 w-full"
@@ -118,7 +113,7 @@ function LoginBox() {
                   </FormControl>
                   <FormMessage />
                 </FormItem>
-            )}
+              )}
             />
             <FormField
               control={form.control}
@@ -146,14 +141,11 @@ function LoginBox() {
                 type="submit"
                 className="text-2xl bg-blue-600 text-white px-5 py-3 min-w-[200px]"
               >
-                {
-                 loading ? <Loader className="animate-spin"/> : "Login"
-                }
-
+                {loading ? <Loader className="animate-spin" /> : "Login"}
               </Button>
             </div>
           </form>
-        </Form>
+        </Form> */}
       </div>
     </>
   );

@@ -21,40 +21,45 @@ import {
 import Link from "next/link";
 import { TbWorldWww } from "react-icons/tb";
 import { Skeleton } from "@/components/ui/skeleton";
-function ProfilePage({params}:{
-    params:{
-        id:string
-    }
+function ProfilePage({
+  params,
+}: {
+  params: {
+    id: string;
+  };
 }) {
-//   const { data: auth, status } = useSession();
-  const {user, loading, error} = useUserInfo(params.id);
-  console.log(user)
+  const { data: sessionData, status } = useSession();
+  const user = sessionData?.user;
+  // const { user, loading, error } = useUserInfo(params.id);
+  // console.log("i am here", user);
   if (!user) {
     return <></>;
   }
   return (
     <>
       <Navbar className="justify-start gap-5">
-        
-        {user.name
-          ?user.name
-          : getNameFromEmail(user.email || "")}
+        {user.name ? user.name : getNameFromEmail(user.email || "")}
 
         <ChevronRight className="text-gray-500" />
       </Navbar>
       <div className="scrollable-content-wrapper max-sm:h-[80vh] h-[90vh] w-full flex justify-center">
-        <ProfileCard userInfo={user} loading={loading}/>
+        <ProfileCard userInfo={user} loading={false} />
       </div>
       <BottomBar></BottomBar>
     </>
   );
 }
 
-const ProfileCard = ({ userInfo, loading }: { userInfo: any, loading: boolean }) => {
+const ProfileCard = ({
+  userInfo,
+  loading,
+}: {
+  userInfo: any;
+  loading: boolean;
+}) => {
   useEffect(() => {
     console.log(loading);
-  }
-    , [loading]);
+  }, [loading]);
   const socials = [
     {
       name: "Twitter",
@@ -91,7 +96,7 @@ const ProfileCard = ({ userInfo, loading }: { userInfo: any, loading: boolean })
       link: userInfo?.resume,
       icon: <SquareArrowOutUpRight />,
       color: "bg-gray-700",
-    }
+    },
   ];
   if (loading) {
     return (
@@ -109,27 +114,22 @@ const ProfileCard = ({ userInfo, loading }: { userInfo: any, loading: boolean })
   return (
     <div className=" w-full h-fit flex flex-col justify-center items-center  ">
       <div className="flex justify-center items-center flex-col bg-gray-800/20 px-6 py-8 rounded-xl relative ">
-        <div className="absolute right-3 top-3 text-gray-400 cursor-pointer">
+        {/* <div className="absolute right-3 top-3 text-gray-400 cursor-pointer">
           <Link href={`/profile/edit/${userInfo.id}`}>
             <Edit />
           </Link>
-        </div>
+        </div> */}
         <div>
-          {userInfo?.profilePic ? (
-            <Image
-              src={userInfo.profilePic}
+          {userInfo?.image ? (
+            <img
+              src={userInfo.image}
               width={100}
               height={100}
               alt=""
               className="rounded-full"
             />
           ) : (
-            <Image
-              src={placeholder}
-              width={100}
-              height={100}
-              alt=""
-            />
+            <Image src={placeholder} width={100} height={100} alt="" />
           )}
         </div>
         <div className="flex justify-center items-center flex-col gap-6 ">
@@ -137,7 +137,7 @@ const ProfileCard = ({ userInfo, loading }: { userInfo: any, loading: boolean })
             {userInfo?.name ? userInfo.name : userInfo?.email}
           </h1>
           <div className="flex justify-center items-center gap-3 max-w-[375px] flex-wrap">
-            {socials.map(
+            {/* {socials.map(
               (social, index) =>
                 social.link && (
                   <Link
@@ -154,7 +154,7 @@ const ProfileCard = ({ userInfo, loading }: { userInfo: any, loading: boolean })
                     </div>
                   </Link>
                 )
-            )}
+            )} */}
           </div>
           <div className="flex justify-start items-start w-full mt-6">
             {userInfo?.description && (
