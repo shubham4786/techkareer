@@ -78,7 +78,7 @@ export default NextAuth({
   },
   callbacks: {
     redirect() {
-      return "/dashboard";
+      return "/opportunities";
     },
     async jwt({ token, account }) {
       const { email, name, picture }: any = token;
