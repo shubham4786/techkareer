@@ -72,7 +72,7 @@ function PostedJobsList() {
       maxMonthlyPay: 15000,
       location: "Remote (India)",
       jobId: "TECHKAREER_SDE_INTERN_JUN_24",
-      companyLogo: "https://techkareer.com/logo.png",
+      companyLogo: "https://techkareer.com/logo.webp",
     },
   ];
 
